@@ -1,0 +1,5997 @@
+{
+  "scenarioId": "merchant-women",
+  "version": "1.0.0",
+  "slug": "merchant-women",
+  "codePrefix": "MJ-WOMEN",
+  "title": "وثيقة اختبار تجربة تاجر - سيناريو متجر نسائي مطابق لنظام Kaleem Stores",
+  "description": "**اسم الوثيقة:** اختبار رحلة تاجر متجر نسائي على Kaleem Stores\n**نوع الاختبار:** اختبار رحلة كاملة End-to-End\n**السيناريو:** متجر أزياء نسائية، عبايات، فساتين، حقائب، وإكسسوارات\n**القالب المستهدف:** Beauty Luxe أو General Starter (القوالب الأساسية المعتمدة)\n**الإصدار:** 3.1 - نسخة معدّلة V2 جاهزة للتنفيذ\n**آخر تحديث:** 2026-05-17\n**الغرض:** تسليم هذه الوثيقة لمختبرة أو مختبر ينفذ تجربة واقعية كتاجرة ثم كعميلة نهائية، مع اختبار ما يدعمه النظام فعليًا حاليًا: تسجيل OTP، أونبوردنج التاجر، إعداد المتجر، دليل الجاهزية، صفحات الثقة، القوالب، المنتجات والمتغيرات، الفلاتر، الدفع اليدوي حسب إعدادات المنصة، التوصيل/الشحن/الاستلام، الفوترة والاشتراك، checkout، تتبع الطلب المختصر، إدارة الطلبات، الإشعارات، والأسئلة والمراجعات عند توفرها.\n---\n## متطلبات قبل بدء الاختبار\n- [ ] لدي بريد إلكتروني جديد أو قابل للاستخدام للاختبار.\n- [ ] لدي رقم/اسم مختبر لاستخدامه في slug.\n- [ ] لدي صور منتجات وشعار وبانر مناسبة لمتجر نسائي.\n- [ ] أعرف رابط لوحة التاجر.\n- [ ] أعرف رابط المتجر بعد إنشائه.\n- [ ] بيئة الاختبار واضحة: staging أو production أو local.\n- [ ] لا أستخدم بيانات تاجر حقيقي.\n- [ ] سأوثق كل مشكلة بصورة أو فيديو قصير إن أمكن.\n---\n> **تنبيه مهم جدًا حول البريد الإلكتروني:**\n>\n> يجب استخدام **بريد إلكتروني حقيقي وفعّال** أثناء التسجيل، لأن النظام سيرسل **كود تحقق OTP من 6 أرقام** إلى البريد المسجل ولا يمكن إكمال التسجيل بدونه.\n>\n> إذا لم يصل كود OTP إلى صندوق الوارد خلال دقائق، يجب:\n> - مراجعة مجلد **الرسائل غير المرغوب فيها (Spam / Junk)**.\n> - مراجعة جميع الرسائل والمجلدات الأخرى في البريد.\n> - استخدام زر **إعادة إرسال الكود** الذي يظهر في صفحة التحقق.\n>\n> عدم استخدام بريد حقيقي سيمنع إكمال الاختبار بالكامل.\n---\n## 1. معلومات المختبر\n| الحقل | الإجابة |\n|---|---|\n| اسم المختبر |  |\n| تاريخ الاختبار |  |\n| وقت البداية |  |\n| وقت النهاية |  |\n| الجهاز المستخدم | كمبيوتر / لابتوب / جوال / تابلت |\n| نظام التشغيل | Windows / macOS / Android / iOS |\n| المتصفح | Chrome / Edge / Safari / Firefox |\n| هل استخدمت Kaleem Stores من قبل؟ | نعم / لا |\n| هل لديك خبرة سابقة في إدارة متجر إلكتروني؟ | نعم / لا |\n| هل لديك معرفة ببيع الملابس أو العبايات أو الإكسسوارات؟ | نعم / لا |\n| مستوى الخبرة التقنية | ضعيف / متوسط / جيد / ممتاز |\n---\n## 2. وصف الشخصية التي يمثلها المختبر\nأنت تمثل تاجرة تمتلك متجرًا نسائيًا في اليمن وتبيع:\n- عبايات.\n- فساتين.\n- بلوزات وقمصان نسائية.\n- حقائب.\n- إكسسوارات.\n- منتجات عليها خصومات.\n- منتجات مميزة.\n- منتجات نفدت من المخزون.\n- منتجات بمتغيرات مثل المقاس، اللون، الطول، والخامة.\n- باقات أو أطقم اختيارية مثل عباية مع طرحة أو فستان مع حقيبة.\nاختبر النظام كما لو أنك تاجرة حقيقية غير تقنية ولا تعرف النظام مسبقًا. لا تفترض مكان أي زر أو إعداد. إذا توقفت أو لم تفهم خطوة، سجل ذلك فورًا.\n---\n## 3. هدف الاختبار\nنريد التأكد من أن Kaleem Stores مناسب لمتجر نسائي حقيقي ضمن قدرات النظام الحالية، وليس فقط مناسبًا لمنتجات عامة.\nالأهداف الأساسية:\n1. إنشاء حساب تاجر والتحقق من البريد عبر OTP.\n2. إكمال مرحلة أونبوردنج التاجر بعد OTP.\n3. فهم أن النظام ينشئ متجرًا تلقائيًا ثم يطلب إكمال بيانات أساسية.\n4. مراجعة دليل الجاهزية Store Readiness بعد الدخول للوحة.\n5. ضبط الهوية، الرابط، العنوان، الخريطة، ساعات العمل، وروابط التواصل.\n6. إنشاء أو مراجعة صفحات الثقة والسياسات.\n7. اختيار نوع النشاط المناسب فعليًا من المتاح في الواجهة، مع اختبار `عبايات` إن ظهر.\n8. اختيار قالب مناسب للأزياء النسائية ونشره (القوالب الأساسية: Beauty Luxe أو General Starter).\n9. إنشاء التصنيفات والعلامات التجارية والسمات المناسبة.\n10. إضافة منتجات نسائية واقعية تشمل عبايات، فساتين، حقائب، وإكسسوارات.\n11. اختبار متغيرات المقاس واللون والطول والخامة.\n12. إعداد طرق الدفع اليدوية الموجودة فعليًا حسب إعدادات المنصة.\n13. اختبار رفع إيصال الدفع، مع الانتباه أن الإيصال قد يكون اختياريًا أو إجباريًا حسب إعداد طريقة الدفع من المنصة.\n14. إعداد التوصيل/الشحن/الاستلام.\n15. إعداد الفلاتر من لوحة التاجر والتأكد من ظهورها في المتجر.\n16. تنفيذ رحلة عميلة كاملة: تصفح، بحث، فلترة، سلة، checkout، طلب، وتتبع.\n17. اختبار الفوترة والاشتراك والباقة الحالية.\n18. اختبار المفضلة والمراجعات والأسئلة فقط عند تسجيل عميلة، لأنها تحتاج تسجيل دخول.\n19. مراجعة الطلب والدفع والإشعارات من لوحة التاجر.\n20. تغيير حالة ا",
+  "language": "ar",
+  "direction": "rtl",
+  "status": "draft",
+  "estimatedDurationMinutes": 180,
+  "sourceFile": "womens_store_testing_scenario_kaleem_matched_v2_ready.md",
+  "tags": [
+    "merchant-journey",
+    "e2e",
+    "ux",
+    "manual-qa",
+    "women"
+  ],
+  "preconditions": [
+    {
+      "checkId": "MJ-WOMEN-PRE-CHK-001",
+      "order": 1,
+      "text": "[ ] لدي بريد إلكتروني جديد أو قابل للاستخدام للاختبار.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-WOMEN-PRE-CHK-002",
+      "order": 2,
+      "text": "[ ] لدي رقم/اسم مختبر لاستخدامه في slug.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-WOMEN-PRE-CHK-003",
+      "order": 3,
+      "text": "[ ] لدي صور منتجات وشعار وبانر مناسبة لمتجر نسائي.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-WOMEN-PRE-CHK-004",
+      "order": 4,
+      "text": "[ ] أعرف رابط لوحة التاجر.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-WOMEN-PRE-CHK-005",
+      "order": 5,
+      "text": "[ ] أعرف رابط المتجر بعد إنشائه.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-WOMEN-PRE-CHK-006",
+      "order": 6,
+      "text": "[ ] بيئة الاختبار واضحة: staging أو production أو local.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-WOMEN-PRE-CHK-007",
+      "order": 7,
+      "text": "[ ] لا أستخدم بيانات تاجر حقيقي.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-WOMEN-PRE-CHK-008",
+      "order": 8,
+      "text": "[ ] سأوثق كل مشكلة بصورة أو فيديو قصير إن أمكن.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    }
+  ],
+  "testData": [
+    "| الحقل | القيمة المقترحة |",
+    "|---|---|",
+    "| اسم المتجر بالعربي | لؤلؤة الأناقة |",
+    "| اسم المتجر بالإنجليزي | Pearl Elegance |",
+    "| رابط المتجر المقترح | pearl-elegance-[اسم المختبر]-0517 |",
+    "| نوع النشاط | fashion، وإذا ظهر abayas اختبره وسجل النتيجة |",
+    "| الدولة | اليمن |",
+    "| المحافظة | أمانة العاصمة أو صنعاء |",
+    "| العنوان التفصيلي | شارع حدة، بجانب بوتيك تجريبي |",
+    "| رقم التواصل | +9677xxxxxxx |",
+    "| البريد | **استخدم بريدك الحقيقي** (سيصل كود OTP) |",
+    "| العملة الافتراضية | YER |",
+    "| المنطقة الزمنية | Asia/Aden |",
+    "| القالب المفضل | Beauty Luxe أو General Starter |",
+    "> ملاحظة اختبار مهمة: لا تستخدم slug موجود مسبقًا. إذا ظهر أن الرابط مستخدم، أضف رقمًا أو اسمك في النهاية. استخدم `fashion` كخيار آمن إذا لم تظهر فئة `abayas` في البيئة الحالية. إذا ظهر خيار `abayas` في الواجهة فاختبره وسجل هل كان مفهومًا ومناسبًا. لا تعتبر غياب `abayas` فشلًا تقنيًا إذا كان `fashion` متاحًا، لكنه يسجل كملاحظة منتج للمتاجر النسائية المتخصصة بالعبايات.",
+    "روابط تواصل تجريبية:",
+    "| المنصة | القيمة |",
+    "|---|---|",
+    "| WhatsApp | https://wa.me/9677xxxxxxx |",
+    "| Instagram | https://instagram.com/pearleleganceyemen |",
+    "| Facebook | https://facebook.com/pearleleganceyemen |",
+    "| TikTok | https://tiktok.com/@pearleleganceyemen |",
+    "| Snapchat | https://snapchat.com/add/pearlelegance |",
+    "| Telegram | https://t.me/pearlelegance |",
+    "| YouTube | https://youtube.com/@pearleleganceyemen |",
+    "| Website | https://example.com |",
+    "---"
+  ],
+  "phases": [
+    {
+      "phaseId": "MJ-WOMEN-PH-001",
+      "order": 1,
+      "title": "إنشاء حساب التاجر والتحقق عبر OTP",
+      "sourceTitle": "المرحلة الأولى: إنشاء حساب التاجر والتحقق عبر OTP",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-001",
+          "order": 1,
+          "text": "افتح رابط لوحة تحكم التاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-002",
+          "order": 2,
+          "text": "اختر إنشاء حساب تاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-003",
+          "order": 3,
+          "text": "أدخل البيانات:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-004",
+          "order": 4,
+          "text": "| الحقل | القيمة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-005",
+          "order": 5,
+          "text": "| الاسم الكامل | ريم الأناقة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-006",
+          "order": 6,
+          "text": "| البريد الإلكتروني | **بريدك الحقيقي** (سيصل كود OTP) |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-007",
+          "order": 7,
+          "text": "| رقم هاتف المالك | +9677xxxxxxx |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-008",
+          "order": 8,
+          "text": "| كلمة المرور | 8 أحرف أو أكثر |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-009",
+          "order": 9,
+          "text": "اضغط إرسال رمز التحقق."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-010",
+          "order": 10,
+          "text": "تأكد من ظهور رسالة تفيد بإرسال كود للبريد."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-011",
+          "order": 11,
+          "text": "أدخل كود OTP المكون من 6 أرقام."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-012",
+          "order": 12,
+          "text": "اختبر إعادة إرسال الكود إذا لم يصل."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-013",
+          "order": 13,
+          "text": "أكمل التحقق."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-014",
+          "order": 14,
+          "text": "لاحظ الصفحة التي تظهر بعد OTP: هل دخلت إلى الأونبوردنج؟ أم إلى لوحة التاجر؟"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-001-INST-015",
+          "order": 15,
+          "text": "> ملاحظة مهمة: التسجيل المباشر بدون OTP غير مستخدم حاليًا. بعد التحقق ينشئ النظام متجرًا تلقائيًا باسم ورابط افتراضي، ثم يظهر للتاجر أونبوردنج إذا لم يكتمل سابقًا."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-001-CHK-001",
+          "order": 1,
+          "text": "[ ] صفحة التسجيل واضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-001-CHK-002",
+          "order": 2,
+          "text": "[ ] الحقول المطلوبة مفهومة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-001-CHK-003",
+          "order": 3,
+          "text": "[ ] النظام رفض كلمة مرور أقل من 8 أحرف.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-001-CHK-004",
+          "order": 4,
+          "text": "[ ] النظام رفض رقم هاتف غير صالح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-001-CHK-005",
+          "order": 5,
+          "text": "[ ] تم إرسال OTP.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-001-CHK-006",
+          "order": 6,
+          "text": "[ ] تم قبول كود من 6 أرقام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-001-CHK-007",
+          "order": 7,
+          "text": "[ ] زر إعادة الإرسال واضح ويعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-001-CHK-008",
+          "order": 8,
+          "text": "[ ] عرفت ماذا حدث بعد OTP.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-001-CHK-009",
+          "order": 9,
+          "text": "[ ] لم أحتج إلى شرح خارجي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-WOMEN-PH-001-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-001-Q-002",
+          "order": 2,
+          "text": "| هل كان واضحًا أن التسجيل يتطلب كود بريد؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-001-Q-003",
+          "order": 3,
+          "text": "| هل رسالة إرسال الكود واضحة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-001-Q-004",
+          "order": 4,
+          "text": "| هل مدة صلاحية الكود أو إعادة الإرسال واضحة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-001-Q-005",
+          "order": 5,
+          "text": "| هل دخلت إلى الأونبوردنج بعد OTP؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-001-Q-006",
+          "order": 6,
+          "text": "| هل واجهت خطأ؟ اذكره. |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-001-Q-007",
+          "order": 7,
+          "text": "| ما تقييم سهولة التسجيل من 1 إلى 10؟ |  |",
+          "type": "rating",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-002",
+      "order": 2,
+      "title": "أونبوردنج التاجر بعد OTP",
+      "sourceTitle": "المرحلة الثانية: أونبوردنج التاجر بعد OTP",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-001",
+          "order": 1,
+          "text": "بعد OTP، إذا كان حساب التاجر جديدًا ولم يكتمل `onboardingCompleted`، يجب أن تظهر شاشة أونبوردنج قبل الدخول الكامل للوحة التحكم."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-002",
+          "order": 2,
+          "text": "الأونبوردنج الحالي يركز على بيانات أساسية مثل:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-003",
+          "order": 3,
+          "text": "هوية المتجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-004",
+          "order": 4,
+          "text": "نشاط العمل."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-005",
+          "order": 5,
+          "text": "معلومات التواصل."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-006",
+          "order": 6,
+          "text": "أكمل خطوة هوية المتجر باسم المتجر:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-007",
+          "order": 7,
+          "text": "العربي: لؤلؤة الأناقة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-008",
+          "order": 8,
+          "text": "الإنجليزي: Pearl Elegance."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-009",
+          "order": 9,
+          "text": "اختر نشاط العمل الأنسب:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-010",
+          "order": 10,
+          "text": "استخدم `fashion` إذا لم يظهر خيار عبايات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-011",
+          "order": 11,
+          "text": "استخدم `abayas` فقط إذا كان موجودًا فعليًا في الواجهة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-012",
+          "order": 12,
+          "text": "**اختبار نشاط عبايات:** إذا ظهر خيار `عبايات` ضمن الأنشطة، اختبره وسجل النتيجة. إذا لم يظهر، سجل ملاحظة UX بأن النشاط غير ظاهر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-013",
+          "order": 13,
+          "text": "أدخل رقم التواصل وبيانات التواصل الأساسية إن طلبها الأونبوردنج."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-014",
+          "order": 14,
+          "text": "أكمل الأونبوردنج حتى النهاية."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-015",
+          "order": 15,
+          "text": "تأكد أن النظام أدخلك إلى لوحة التاجر بعد الإكمال."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-002-INST-016",
+          "order": 16,
+          "text": "أعد تحديث الصفحة وتأكد أن الأونبوردنج لا يظهر مرة ثانية."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-002-CHK-001",
+          "order": 1,
+          "text": "[ ] ظهرت شاشة الأونبوردنج بعد OTP للحساب الجديد.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-002-CHK-002",
+          "order": 2,
+          "text": "[ ] فهمت أن الأونبوردنج إلزامي قبل الدخول الكامل للوحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-002-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت إدخال هوية المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-002-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت اختيار نشاط مناسب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-002-CHK-005",
+          "order": 5,
+          "text": "[ ] إذا ظهر نشاط `عبايات`، تم اختباره وتسجيل النتيجة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-002-CHK-006",
+          "order": 6,
+          "text": "[ ] إذا لم يظهر نشاط `عبايات`، تم تسجيل ملاحظة UX.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-002-CHK-007",
+          "order": 7,
+          "text": "[ ] استطعت إدخال معلومات التواصل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-002-CHK-008",
+          "order": 8,
+          "text": "[ ] بعد الإكمال دخلت إلى لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-002-CHK-009",
+          "order": 9,
+          "text": "[ ] لم يظهر الأونبوردنج مرة أخرى بعد إكماله.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-WOMEN-PH-002-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-002-Q-002",
+          "order": 2,
+          "text": "| هل الأونبوردنج واضح لتاجرة غير تقنية؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-002-Q-003",
+          "order": 3,
+          "text": "| هل عدد الخطوات مناسب؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-002-Q-004",
+          "order": 4,
+          "text": "| هل نوع النشاط مناسب لمتجر نسائي؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-002-Q-005",
+          "order": 5,
+          "text": "| هل احتجت للذهاب إلى الإعدادات بعده لإكمال بيانات ناقصة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-002-Q-006",
+          "order": 6,
+          "text": "| ما تقييم الأونبوردنج من 1 إلى 10؟ |  |",
+          "type": "rating",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-003",
+      "order": 3,
+      "title": "دليل الجاهزية Store Readiness",
+      "sourceTitle": "المرحلة الثالثة: دليل الجاهزية Store Readiness",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-003-INST-001",
+          "order": 1,
+          "text": "بعد الدخول إلى لوحة التاجر، افحص هل يظهر دليل جاهزية أو خطوات إرشادية تساعد التاجرة على إكمال المتجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-003-INST-002",
+          "order": 2,
+          "text": "المطلوب ليس الحكم على اكتمال كل شيء، بل اختبار هل الدليل يساعد فعلًا في توجيه التاجرة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-003-INST-003",
+          "order": 3,
+          "text": "افتح الصفحة العامة أو الرئيسية في لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-003-INST-004",
+          "order": 4,
+          "text": "ابحث عن دليل الجاهزية أو قائمة خطوات إعداد المتجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-003-INST-005",
+          "order": 5,
+          "text": "راقب هل يعرض النظام خطوات مكتملة وناقصة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-003-INST-006",
+          "order": 6,
+          "text": "افتح أي خطوة تقود إلى إعدادات المتجر أو المنتجات أو الدفع أو التوصيل."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-003-INST-007",
+          "order": 7,
+          "text": "إذا ظهر خيار تخطي خطوة، اختبره فقط للخطوات التي تبدو اختيارية."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-003-INST-008",
+          "order": 8,
+          "text": "إذا ظهرت إجراءات سريعة مثل تفعيل COD أو إعداد توصيل سريع، اختبرها وسجل النتيجة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-003-INST-009",
+          "order": 9,
+          "text": "عد إلى الدليل وتأكد هل تغيرت حالة الخطوة."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-003-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت دليل الجاهزية أو خطوات الإعداد إن كانت مفعلة في البيئة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-003-CHK-002",
+          "order": 2,
+          "text": "[ ] فهمت ما المطلوب لإكمال المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-003-CHK-003",
+          "order": 3,
+          "text": "[ ] الدليل قادني إلى الصفحات الصحيحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-003-CHK-004",
+          "order": 4,
+          "text": "[ ] حالة الخطوات تتحدث بعد تنفيذها.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-003-CHK-005",
+          "order": 5,
+          "text": "[ ] إجراءات التخطي أو الإجراءات السريعة واضحة إن ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-003-CHK-006",
+          "order": 6,
+          "text": "[ ] الدليل مفيد لتاجرة غير تقنية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "إذا لم يظهر دليل الجاهزية في البيئة الحالية، لا توقف الاختبار. سجل ذلك كملاحظة، ثم أكمل الرحلة من القائمة الجانبية يدويًا."
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-004",
+      "order": 4,
+      "title": "إعداد المتجر المنشأ تلقائيًا",
+      "sourceTitle": "المرحلة الرابعة: إعداد المتجر المنشأ تلقائيًا",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-001",
+          "order": 1,
+          "text": "المتجر موجود تلقائيًا بعد التسجيل والأونبوردنج. المطلوب فتح إعدادات المتجر ومراجعة/تحديث بياناته لتناسب متجر نسائي."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-002",
+          "order": 2,
+          "text": "افتح لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-003",
+          "order": 3,
+          "text": "ادخل إلى إعدادات المتجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-004",
+          "order": 4,
+          "text": "راجع اسم المتجر الذي أدخلته في الأونبوردنج، وعدله إن لزم:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-005",
+          "order": 5,
+          "text": "العربي: لؤلؤة الأناقة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-006",
+          "order": 6,
+          "text": "الإنجليزي: Pearl Elegance."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-007",
+          "order": 7,
+          "text": "حدث رابط المتجر إلى `pearl-elegance-[اسم المختبر]-0517`."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-008",
+          "order": 8,
+          "text": "استخدم فحص توفر الرابط إن ظهر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-009",
+          "order": 9,
+          "text": "جرّب رابطًا غير صالح أو محجوزًا إن أمكن مثل `admin` أو رابطًا بحروف كبيرة، وسجل رسالة الخطأ."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-010",
+          "order": 10,
+          "text": "اختر نوع النشاط:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-011",
+          "order": 11,
+          "text": "`fashion` كخيار أساسي."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-012",
+          "order": 12,
+          "text": "`abayas` فقط إذا ظهر فعليًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-013",
+          "order": 13,
+          "text": "اختر العملة الافتراضية: YER."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-014",
+          "order": 14,
+          "text": "اختر المنطقة الزمنية: Asia/Aden."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-015",
+          "order": 15,
+          "text": "ارفع شعارًا للمتجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-016",
+          "order": 16,
+          "text": "إن ظهر حقل الفافيكون، ارفع فافيكون أيضًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-017",
+          "order": 17,
+          "text": "أدخل رقم الهاتف."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-018",
+          "order": 18,
+          "text": "أدخل الدولة والمحافظة والعنوان التفصيلي."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-019",
+          "order": 19,
+          "text": "افتح الخريطة وحدد موقعًا في صنعاء أو أمانة العاصمة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-020",
+          "order": 20,
+          "text": "اضبط ساعات العمل. مثال:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-021",
+          "order": 21,
+          "text": "السبت إلى الخميس: 10:00 - 22:00"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-022",
+          "order": 22,
+          "text": "الجمعة: 16:00 - 22:00"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-023",
+          "order": 23,
+          "text": "أدخل روابط التواصل."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-024",
+          "order": 24,
+          "text": "اكتب السياسات المتاحة داخل الإعدادات إن كانت موجودة:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-025",
+          "order": 25,
+          "text": "سياسة الشحن."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-026",
+          "order": 26,
+          "text": "سياسة الاستبدال والاسترجاع: المنتج غير مستخدم، بنفس التغليف، خلال مدة محددة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-027",
+          "order": 27,
+          "text": "سياسة الخصوصية."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-028",
+          "order": 28,
+          "text": "الشروط والأحكام."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-029",
+          "order": 29,
+          "text": "احفظ التغييرات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-004-INST-030",
+          "order": 30,
+          "text": "أعد فتح الإعدادات وتأكد أن البيانات بقيت محفوظة."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-001",
+          "order": 1,
+          "text": "[ ] عرفت أن المتجر منشأ تلقائيًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت تعديل اسم المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت تعديل رابط المتجر إلى الصيغة المطلوبة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-004",
+          "order": 4,
+          "text": "[ ] ظهر فحص توفر الرابط أو رسالة خطأ واضحة عند رابط غير صالح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-005",
+          "order": 5,
+          "text": "[ ] استطعت اختيار `fashion` أو `abayas` إذا كان متاحًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-006",
+          "order": 6,
+          "text": "[ ] استطعت رفع الشعار.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-007",
+          "order": 7,
+          "text": "[ ] استطعت إدخال العنوان والمحافظة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-008",
+          "order": 8,
+          "text": "[ ] استطعت تحديد الموقع من الخريطة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-009",
+          "order": 9,
+          "text": "[ ] استطعت ضبط ساعات العمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-010",
+          "order": 10,
+          "text": "[ ] استطعت إدخال روابط التواصل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-011",
+          "order": 11,
+          "text": "[ ] استطعت إدخال السياسات إن كانت ضمن الإعدادات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-004-CHK-012",
+          "order": 12,
+          "text": "[ ] ظهرت البيانات بعد الحفظ.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-WOMEN-PH-004-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-004-Q-002",
+          "order": 2,
+          "text": "| هل كان واضحًا أين تكمل إعدادات المتجر؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-004-Q-003",
+          "order": 3,
+          "text": "| هل رابط المتجر مفهوم؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-004-Q-004",
+          "order": 4,
+          "text": "| هل نوع النشاط مناسب لمتجر نسائي؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-004-Q-005",
+          "order": 5,
+          "text": "| هل الخريطة سهلة الاستخدام؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-004-Q-006",
+          "order": 6,
+          "text": "| هل سياسة الاستبدال كافية للملابس النسائية؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-004-Q-007",
+          "order": 7,
+          "text": "| ما أول حقل كان غير واضح؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-004-Q-008",
+          "order": 8,
+          "text": "| ما تقييم إعدادات المتجر من 1 إلى 10؟ |  |",
+          "type": "rating",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-005",
+      "order": 5,
+      "title": "صفحات الثقة والسياسات Store Pages",
+      "sourceTitle": "المرحلة الخامسة: صفحات الثقة والسياسات Store Pages",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-001",
+          "order": 1,
+          "text": "اختبر الصفحات التي تبني الثقة للعميلة، سواء كانت ضمن إعدادات المتجر أو ضمن صفحة مستقلة لإدارة صفحات المتجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-002",
+          "order": 2,
+          "text": "الصفحات المطلوبة عند توفرها:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-003",
+          "order": 3,
+          "text": "| الصفحة | الهدف |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-004",
+          "order": 4,
+          "text": "| من نحن | تعريف البوتيك أو المتجر |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-005",
+          "order": 5,
+          "text": "| تواصل معنا | بيانات التواصل والفروع |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-006",
+          "order": 6,
+          "text": "| سياسة الشحن | توضيح مدة ورسوم التوصيل |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-007",
+          "order": 7,
+          "text": "| سياسة الاستبدال والاسترجاع | شروط تبديل الملابس والعبايات والحقائب |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-008",
+          "order": 8,
+          "text": "| سياسة الخصوصية | بيانات العميلة وحمايتها |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-009",
+          "order": 9,
+          "text": "| الشروط والأحكام | قواعد الشراء والاستخدام |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-010",
+          "order": 10,
+          "text": "| FAQ | أسئلة شائعة حول المقاسات، الطول، التبديل، والتغليف |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-011",
+          "order": 11,
+          "text": "| دليل المقاسات | صفحة مهمة جدًا للملابس النسائية والعبايات |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-012",
+          "order": 12,
+          "text": "افتح صفحة الصفحات أو المحتوى إن كانت موجودة في لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-013",
+          "order": 13,
+          "text": "أنشئ أو عدل صفحة \"من نحن\"."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-014",
+          "order": 14,
+          "text": "أنشئ أو عدل صفحة \"سياسة الاستبدال والاسترجاع\"."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-015",
+          "order": 15,
+          "text": "أنشئ صفحة \"دليل المقاسات\" إن كان إنشاء الصفحات المخصصة متاحًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-016",
+          "order": 16,
+          "text": "احفظ الصفحات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-017",
+          "order": 17,
+          "text": "افتح المتجر العام وتأكد هل الصفحات تظهر في الفوتر أو القائمة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-005-INST-018",
+          "order": 18,
+          "text": "افتح صفحة من المتجر وتأكد من أن المحتوى ظاهر وليس نصًا افتراضيًا."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-005-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت طريقة لإدارة صفحات الثقة أو السياسات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-005-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت إنشاء أو تعديل صفحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-005-CHK-003",
+          "order": 3,
+          "text": "[ ] صفحة سياسة الاستبدال مناسبة للملابس النسائية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-005-CHK-004",
+          "order": 4,
+          "text": "[ ] صفحة دليل المقاسات ممكنة أو سجلت غيابها كملاحظة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-005-CHK-005",
+          "order": 5,
+          "text": "[ ] الصفحات تظهر في المتجر العام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-005-CHK-006",
+          "order": 6,
+          "text": "[ ] لا توجد صفحات افتراضية فارغة أو بدائية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-006",
+      "order": 6,
+      "title": "القالب وواجهة المتجر",
+      "sourceTitle": "المرحلة السادسة: القالب وواجهة المتجر",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-001",
+          "order": 1,
+          "text": "افتح صفحة القوالب أو واجهة المتجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-002",
+          "order": 2,
+          "text": "ابحث عن قالب مناسب للأزياء النسائية:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-003",
+          "order": 3,
+          "text": "**القالب الأساسي المعتمد:** Beauty Luxe."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-004",
+          "order": 4,
+          "text": "**القالب البديل:** General Starter."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-005",
+          "order": 5,
+          "text": "إذا ظهر Fashion Editorial في البيئة، يتم اختباره كتقييم إضافي فقط، ولا يعتبر القالب الأساسي المعتمد لهذه الوثيقة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-006",
+          "order": 6,
+          "text": "طبقه كمسودة أولًا إن توفر الخيار."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-007",
+          "order": 7,
+          "text": "عدل إعدادات القالب المتاحة مثل الألوان والصور والنصوص."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-008",
+          "order": 8,
+          "text": "افتح المعاينة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-009",
+          "order": 9,
+          "text": "انشر القالب."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-006-INST-010",
+          "order": 10,
+          "text": "افتح رابط المتجر العام وتأكد أن التصميم مناسب لمتجر نسائي."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-006-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت قالبًا مناسبًا (Beauty Luxe أو General Starter).",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-006-CHK-002",
+          "order": 2,
+          "text": "[ ] عرفت الفرق بين المسودة والنشر إن كان هذا الفرق ظاهرًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-006-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت معاينة القالب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-006-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت نشر القالب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-006-CHK-005",
+          "order": 5,
+          "text": "[ ] ظهر القالب في المتجر العام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-006-CHK-006",
+          "order": 6,
+          "text": "[ ] التصميم مناسب للأزياء النسائية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-006-CHK-007",
+          "order": 7,
+          "text": "[ ] الصور تظهر بحجم وجودة مناسبة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-006-CHK-008",
+          "order": 8,
+          "text": "[ ] العرض مناسب للجوال والكمبيوتر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-006-CHK-009",
+          "order": 9,
+          "text": "[ ] هل يعطي القالب ثقة لمتجر نسائي؟ نعم / لا / إلى حد ما. سجل الملاحظة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "> ملاحظة اختبار: إذا لم تظهر مسودة/نشر كخيارين منفصلين في البيئة، لا تعتبر ذلك فشلًا. سجل فقط ما هو السلوك الفعلي: تطبيق مباشر، معاينة فقط، أو نشر منفصل.",
+        "> ملاحظة هامة حول القالب: القوالب الأساسية المعتمدة لهذه الوثيقة هي Beauty Luxe أو General Starter. إذا ظهر Fashion Editorial في البيئة، يتم اختباره كتقييم إضافي فقط، ولا يعتبر القالب الأساسي المعتمد لهذه الوثيقة."
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-007",
+      "order": 7,
+      "title": "التصنيفات",
+      "sourceTitle": "المرحلة السابعة: التصنيفات",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-007-INST-001",
+          "order": 1,
+          "text": "| الاسم العربي | الاسم الإنجليزي | ملاحظات |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-007-INST-002",
+          "order": 2,
+          "text": "| عبايات | Abayas | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-007-INST-003",
+          "order": 3,
+          "text": "| فساتين | Dresses | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-007-INST-004",
+          "order": 4,
+          "text": "| بلوزات | Blouses | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-007-INST-005",
+          "order": 5,
+          "text": "| حقائب | Bags | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-007-INST-006",
+          "order": 6,
+          "text": "| إكسسوارات | Accessories | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-007-INST-007",
+          "order": 7,
+          "text": "| أطقم | Sets | تصنيف اختياري |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-007-INST-008",
+          "order": 8,
+          "text": "| عروض | Deals | تصنيف للعروض |"
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-007-CHK-001",
+          "order": 1,
+          "text": "[ ] استطعت إنشاء التصنيفات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-007-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت تعديل تصنيف بعد إنشائه.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-007-CHK-003",
+          "order": 3,
+          "text": "[ ] ظهرت التصنيفات في لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-007-CHK-004",
+          "order": 4,
+          "text": "[ ] ظهرت التصنيفات في المتجر العام أو صفحة المنتجات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-008",
+      "order": 8,
+      "title": "العلامات التجارية Brands",
+      "sourceTitle": "المرحلة الثامنة: العلامات التجارية Brands",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-008-INST-001",
+          "order": 1,
+          "text": "أنشئ علامات تجارية قبل إضافة المنتجات حتى يمكن ربط المنتجات بها."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-008-INST-002",
+          "order": 2,
+          "text": "| الاسم العربي | الاسم الإنجليزي | ملاحظات |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-008-INST-003",
+          "order": 3,
+          "text": "| لؤلؤة الأناقة | Pearl Elegance | براند المتجر |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-008-INST-004",
+          "order": 4,
+          "text": "| عبايات ريم | Reem Abayas | عبايات |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-008-INST-005",
+          "order": 5,
+          "text": "| ستايل مودرن | Modern Style | ملابس |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-008-INST-006",
+          "order": 6,
+          "text": "| لمسة فاخرة | Luxe Touch | حقائب وإكسسوارات |"
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-008-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت صفحة العلامات التجارية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-008-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت إنشاء Brand عربي/إنجليزي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-008-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت رفع صورة أو شعار للعلامة إن كان متاحًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-008-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت تفعيل العلامة وجعلها شائعة إن ظهر الخيار.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-008-CHK-005",
+          "order": 5,
+          "text": "[ ] ظهرت العلامات عند إضافة المنتج.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-009",
+      "order": 9,
+      "title": "السمات Attributes وقيمها",
+      "sourceTitle": "المرحلة التاسعة: السمات Attributes وقيمها",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-009-INST-001",
+          "order": 1,
+          "text": "أنشئ السمات المناسبة لطبيعة الملابس النسائية."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-009-INST-002",
+          "order": 2,
+          "text": "| السمة | النوع | القيم المطلوبة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-009-INST-003",
+          "order": 3,
+          "text": "| اللون | color | أسود #000000، أبيض #FFFFFF، بيج #D6B98C، وردي #E879A6، كحلي #1E3A8A |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-009-INST-004",
+          "order": 4,
+          "text": "| المقاس | dropdown | XS، S، M، L، XL، XXL |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-009-INST-005",
+          "order": 5,
+          "text": "| الطول | dropdown | 52، 54، 56، 58، 60 |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-009-INST-006",
+          "order": 6,
+          "text": "| الخامة | dropdown | كريب، حرير، قطن، شيفون، لينن |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-009-INST-007",
+          "order": 7,
+          "text": "| مقاس الحقيبة | dropdown | صغيرة، متوسطة، كبيرة |"
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-009-CHK-001",
+          "order": 1,
+          "text": "[ ] استطعت إنشاء سمة color.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-009-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت إدخال قيم ألوان مع HEX.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-009-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت إنشاء سمات dropdown.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-009-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت تفعيل/تعطيل السمة أو القيمة إن كان متاحًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-009-CHK-005",
+          "order": 5,
+          "text": "[ ] ظهرت السمات داخل منشئ المتغيرات في المنتج.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-010",
+      "order": 10,
+      "title": "مرحلة إعداد الفلاتر من لوحة التاجر",
+      "sourceTitle": "المرحلة التاسعة ونصف: مرحلة إعداد الفلاتر من لوحة التاجر",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-001",
+          "order": 1,
+          "text": "بعد إنشاء السمات، يجب إعداد الفلاتر من لوحة التاجر حتى تظهر للعميلة في المتجر العام وتساعد في تصفية المنتجات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-002",
+          "order": 2,
+          "text": "فتح صفحة الفلاتر من لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-003",
+          "order": 3,
+          "text": "تفعيل فلتر السعر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-004",
+          "order": 4,
+          "text": "تفعيل فلتر البراندات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-005",
+          "order": 5,
+          "text": "تفعيل فلتر التصنيفات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-006",
+          "order": 6,
+          "text": "تفعيل فلتر الخصائص:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-007",
+          "order": 7,
+          "text": "المقاس."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-008",
+          "order": 8,
+          "text": "اللون."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-009",
+          "order": 9,
+          "text": "نوع القماش."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-010",
+          "order": 10,
+          "text": "المناسبة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-011",
+          "order": 11,
+          "text": "التأكد أن الفلاتر تظهر في المتجر العام."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-012",
+          "order": 12,
+          "text": "التأكد أن قيم الفلاتر تأتي من بيانات المنتجات/الخصائص/البراندات الحقيقية."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-010-INST-013",
+          "order": 13,
+          "text": "إلغاء تفعيل فلتر والتأكد من اختفائه من المتجر."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-010-CHK-001",
+          "order": 1,
+          "text": "[ ] نجح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-010-CHK-002",
+          "order": 2,
+          "text": "[ ] فشل",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-010-CHK-003",
+          "order": 3,
+          "text": "[ ] غير واضح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "الملاحظات:",
+        "اللقطات/الأدلة:"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-011",
+      "order": 11,
+      "title": "إضافة المنتجات",
+      "sourceTitle": "المرحلة العاشرة: إضافة المنتجات",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-001",
+          "order": 1,
+          "text": "[ ] استطعت إنشاء حقيبة بسيطة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت إنشاء بلوزة بخصم ظاهر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-003",
+          "order": 3,
+          "text": "[ ] ظهر سعر المقارنة مشطوبًا في المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت إنشاء منتج مميز.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-005",
+          "order": 5,
+          "text": "[ ] استطعت إنشاء منتج نفد من المخزون.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-006",
+          "order": 6,
+          "text": "[ ] ظهر المنتج النافد بشكل واضح للعميلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-007",
+          "order": 7,
+          "text": "[ ] استطعت إنشاء عباية بمتغيرات اللون والطول.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-008",
+          "order": 8,
+          "text": "[ ] استطعت إنشاء فستان بمتغيرات المقاس واللون.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-009",
+          "order": 9,
+          "text": "[ ] استطعت إنشاء حقيبة بمتغيرات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-010",
+          "order": 10,
+          "text": "[ ] ظهرت المتغيرات في صفحة المنتج.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-011",
+          "order": 11,
+          "text": "[ ] الصور مهمة وواضحة للثقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-012",
+          "order": 12,
+          "text": "[ ] بيانات المقاس والطول والخامة واضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-011-CHK-013",
+          "order": 13,
+          "text": "[ ] لم أستطع طلب كمية أكبر من المخزون.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "لكل منتج أساسي، اختبر الحقول التالية عند توفرها:",
+        "اسم عربي وإنجليزي.",
+        "وصف عربي وإنجليزي.",
+        "تصنيف واحد أو أكثر.",
+        "Brand.",
+        "نوع المنتج: single أساسًا، و bundled/digital اختياريًا فقط إن كانت الواجهة واضحة.",
+        "الحالة والظهور.",
+        "السعر.",
+        "سعر المقارنة `compareAtPrice` إذا كان هناك خصم ظاهر.",
+        "خصم مدمج `inlineDiscount` إذا كان متاحًا، بنسبة أو مبلغ ثابت مع تاريخ بداية ونهاية.",
+        "تكلفة المنتج `costPrice` إن ظهرت.",
+        "المخزون أو مخزون غير محدود.",
+        "حد المخزون المنخفض.",
+        "SKU و barcode.",
+        "وزن وأبعاد.",
+        "حد أدنى وأقصى للطلب.",
+        "وسوم Tags مثل: عباية، فستان، سهرة، يومي، فخم.",
+        "تسمية منتج Product Label مثل: جديد، الأكثر طلبًا، محدود.",
+        "رابط YouTube لفيديو عرض أو تنسيق إن وجد.",
+        "SEO title و SEO description.",
+        "منتجات مرتبطة.",
+        "أسئلة المنتج مفعلة إن ظهر الخيار.",
+        "الضرائب `isTaxable` و `taxRate` إن ظهرت.",
+        "الصور وترتيبها واقتصاصها إن توفر.",
+        "> ملاحظة مهمة: ارفع صورة واحدة على الأقل لكل منتج أساسي. صور المتجر النسائي عنصر ثقة أساسي، وغيابها يؤثر على الجاهزية وتجربة العميلة.",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | حقيبة يد كلاسيكية |",
+        "| الاسم الإنجليزي | Classic Handbag |",
+        "| التصنيف | حقائب |",
+        "| العلامة | Luxe Touch |",
+        "| النوع | single |",
+        "| السعر | 18000 |",
+        "| المخزون | 20 |",
+        "| SKU | BAG-CLASSIC |",
+        "| الحالة | ظاهر/منشور |",
+        "| تسمية المنتج | جديد |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | بلوزة ناعمة يومية |",
+        "| الاسم الإنجليزي | Soft Daily Blouse |",
+        "| التصنيف | بلوزات |",
+        "| العلامة | Modern Style |",
+        "| السعر | 12000 |",
+        "| سعر المقارنة | 16000 |",
+        "| خصم مدمج | 25% أو مبلغ ثابت إذا كان متاحًا |",
+        "| تاريخ بداية ونهاية الخصم | أدخل تواريخ صالحة إذا ظهر الحقل |",
+        "| المخزون | 30 |",
+        "| الوسوم | يومي، ناعم، عملي |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | فستان سهرة فاخر |",
+        "| الاسم الإنجليزي | Elegant Evening Dress |",
+        "| التصنيف | فساتين |",
+        "| العلامة | Pearl Elegance |",
+        "| السعر | 65000 |",
+        "| مميز | نعم |",
+        "| المخزون | 7 |",
+        "| وزن وأبعاد | أدخل قيمًا تجريبية |",
+        "| تسمية المنتج | فخم |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | طرحة شيفون وردية |",
+        "| الاسم الإنجليزي | Pink Chiffon Scarf |",
+        "| التصنيف | إكسسوارات |",
+        "| العلامة | Pearl Elegance |",
+        "| السعر | 5000 |",
+        "| المخزون | 0 |",
+        "| حد المخزون المنخفض | 3 |",
+        "| تسمية المنتج | نفدت الكمية |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | عباية كريب عملية |",
+        "| الاسم الإنجليزي | Practical Crepe Abaya |",
+        "| التصنيف | عبايات |",
+        "| العلامة | Reem Abayas |",
+        "| السمات | اللون + الطول |",
+        "أنشئ المتغيرات التالية:",
+        "| اللون | الطول | SKU | Barcode | السعر | سعر المقارنة | المخزون | حد منخفض |",
+        "| أسود | 54 | ABY-BLK-54 | 400000001 | 28000 | 33000 | 10 | 2 |",
+        "| أسود | 56 | ABY-BLK-56 | 400000002 | 28000 | 33000 | 12 | 2 |",
+        "| بيج | 56 | ABY-BGE-56 | 400000003 | 30000 | 35000 | 7 | 2 |",
+        "| كحلي | 58 | ABY-NVY-58 | 400000004 | 31000 | 36000 | 5 | 1 |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | فستان يومي لينن |",
+        "| الاسم الإنجليزي | Linen Daily Dress |",
+        "| التصنيف | فساتين |",
+        "| العلامة | Modern Style |",
+        "| السمات | المقاس + اللون |",
+        "المتغيرات:",
+        "| المقاس | اللون | SKU | السعر | المخزون |",
+        "| S | وردي | DRS-PNK-S | 22000 | 8 |",
+        "| M | وردي | DRS-PNK-M | 22000 | 10 |",
+        "| L | بيج | DRS-BGE-L | 23000 | 7 |",
+        "| XL | كحلي | DRS-NVY-XL | 24000 | 5 |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | حقيبة كتف عصرية |",
+        "| الاسم الإنجليزي | Modern Shoulder Bag |",
+        "| التصنيف | حقائب |",
+        "| العلامة | Luxe Touch |",
+        "| السمات | مقاس الحقيبة + اللون |",
+        "المتغيرات:",
+        "| مقاس الحقيبة | اللون | SKU | السعر | المخزون |",
+        "| صغيرة | أسود | SBAG-BLK-S | 14000 | 10 |",
+        "| متوسطة | بيج | SBAG-BGE-M | 16000 | 8 |"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-012",
+      "order": 12,
+      "title": "طرق الدفع",
+      "sourceTitle": "المرحلة الحادية عشرة: طرق الدفع",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-012-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت صفحة طرق الدفع.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-012-CHK-002",
+          "order": 2,
+          "text": "[ ] فهمت أن الطرق المتاحة تأتي من إعدادات المنصة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-012-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت تفعيل/تعطيل طريقة دفع.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-012-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت إدخال بيانات الحساب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-012-CHK-005",
+          "order": 5,
+          "text": "[ ] استطعت إدخال تعليمات عربي/إنجليزي إن ظهر الحقل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-012-CHK-006",
+          "order": 6,
+          "text": "[ ] ظهرت الطريقة في صفحة الدفع للعميلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-012-CHK-007",
+          "order": 7,
+          "text": "[ ] ظهر حقل المرجع فقط عندما تتطلبه الطريقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-012-CHK-008",
+          "order": 8,
+          "text": "[ ] ظهر رفع الإيصال كاختياري أو إجباري حسب إعداد الطريقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-012-CHK-009",
+          "order": 9,
+          "text": "[ ] إذا كانت الطريقة تتطلب إيصالًا ولم يمنع النظام إرسال الطلب بدونه، سجل المشكلة كعالية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-WOMEN-PH-012-Q-001",
+          "order": 1,
+          "text": "هل المرجع ظهر؟",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-012-Q-002",
+          "order": 2,
+          "text": "هل الإيصال مطلوب؟",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-012-Q-003",
+          "order": 3,
+          "text": "هل قبل النظام الطلب بدون المرجع/الإيصال؟",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-012-Q-004",
+          "order": 4,
+          "text": "هل ظهرت بيانات الدفع للتاجر في تفاصيل الطلب؟",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "النظام يدعم أنواعًا تقنية عامة، لكن الطرق الفعلية التي تظهر للتاجر تعتمد على ما فعّلته المنصة من Platform Admin أو البذور الافتراضية.",
+        "| النوع التقني | المعنى | ملاحظات مطابقة للنظام |",
+        "| cod | الدفع عند الاستلام | يظهر كطريقة دفع محلية إذا كانت مفعلة |",
+        "| wallet | محفظة / طريقة دفع محلية | كريمي قد يظهر كطريقة محلية من نوع wallet حسب الإعدادات |",
+        "| bank_transfer | حوالة بنكية | بيانات الحساب وIBAN إن ظهرت |",
+        "| exchange_transfer | حوالة صرافة عامة | ليست بالضرورة كريمي تحديدًا |",
+        "| custom_manual | طريقة يدوية مخصصة | اختبرها فقط إذا كانت مضافة مسبقًا من المنصة |",
+        "> ملاحظة مهمة: التاجر لا يحدد عادة من لوحة التاجر هل الطريقة \"تتطلب إيصال\" أو \"تتطلب مرجع\". هذه خصائص تأتي من إعداد طريقة الدفع على مستوى المنصة. المطلوب من المختبر ملاحظة ما يظهر فعليًا في checkout.",
+        "فعّل طريقة COD إذا كانت موجودة.",
+        "تأكد أنها تظهر للعميلة.",
+        "نفذ طلبًا بها.",
+        "تأكد أن checkout لا يطلب مرجعًا أو إيصالًا لها.",
+        "إذا ظهرت طريقة كريمي أو أي محفظة محلية، اختبرها كطريقة من نوع `wallet` أو كطريقة دفع محلية، وليس بالضرورة كـ `exchange_transfer`.",
+        "| الحقل | القيمة |",
+        "| اسم الحساب | Pearl Elegance |",
+        "| رقم الحساب | 123456789 |",
+        "| رقم الهاتف | +9677xxxxxxx |",
+        "| التعليمات بالعربي | حولي المبلغ ثم اكتبي رقم العملية، وارفعي الإيصال إذا طلبته صفحة الدفع. |",
+        "| التعليمات بالإنجليزي | Transfer the amount, enter the reference number, and upload receipt if requested. |",
+        "اختبر `exchange_transfer` إذا كان ظاهرًا كطريقة صرافة عامة.",
+        "| الحقل | القيمة |",
+        "| اسم الحساب | Pearl Elegance |",
+        "| رقم الحساب | 123456789 |",
+        "| رقم الهاتف | +9677xxxxxxx |",
+        "| التعليمات | التحويل عبر أي شركة صرافة متاحة ثم كتابة رقم العملية. |",
+        "| الحقل | القيمة |",
+        "| اسم الحساب | Pearl Elegance |",
+        "| رقم الحساب | 000111222333 |",
+        "| IBAN | YE00TEST000111222333 |",
+        "| التعليمات | ارفعي إيصال التحويل بعد الدفع إذا طلبته صفحة الدفع. |",
+        "عند مواجهة أي مشكلة في الدفع، استخدم القالب التالي:",
+        "```",
+        "مشكلة دفع:",
+        "طريقة الدفع:",
+        "الملاحظة:",
+        "الدليل:",
+        "```"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-013",
+      "order": 13,
+      "title": "التوصيل/الشحن/الاستلام",
+      "sourceTitle": "المرحلة الثانية عشرة: التوصيل/الشحن/الاستلام",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-001",
+          "order": 1,
+          "text": "| الاسم | المدينة/المحافظة | المنطقة | الرسوم الافتراضية | الحالة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-002",
+          "order": 2,
+          "text": "| صنعاء داخل المدينة | أمانة العاصمة | داخل المدينة | 1500 | فعالة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-003",
+          "order": 3,
+          "text": "| صنعاء أطراف | صنعاء | أطراف المدينة | 2500 | فعالة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-004",
+          "order": 4,
+          "text": "| عدن | عدن | داخل المدينة | 3500 | فعالة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-005",
+          "order": 5,
+          "text": "| استلام من البوتيك | أمانة العاصمة | فرع المتجر | 0 | فعالة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-006",
+          "order": 6,
+          "text": "اختبر ما يظهر فعليًا في الواجهة من الأنواع التالية:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-007",
+          "order": 7,
+          "text": "| النوع | اسم العرض | الحقول المهمة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-008",
+          "order": 8,
+          "text": "| flat_rate | توصيل ثابت داخل صنعاء | cost، minDeliveryDays، maxDeliveryDays |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-009",
+          "order": 9,
+          "text": "| by_item | توصيل حسب عدد القطع | baseCost، costPerItem |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-010",
+          "order": 10,
+          "text": "| free_shipping | شحن مجاني للطلبات الكبيرة | freeShippingConditionType، freeShippingMinOrderAmount |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-011",
+          "order": 11,
+          "text": "| store_pickup | استلام من المتجر | pickupCost، أيام التوصيل |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-012",
+          "order": 12,
+          "text": "| order_value_tier | شرائح حسب قيمة الطلب | ranges |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-013-INST-013",
+          "order": 13,
+          "text": "| by_weight | توصيل حسب الوزن | baseCost، costPerKg، minCost، maxCost |"
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-013-CHK-001",
+          "order": 1,
+          "text": "[ ] اختبرت checkout قبل إعداد التوصيل وسجلت السلوك.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-013-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت إنشاء منطقة شحن.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-013-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت إنشاء أكثر من طريقة شحن/توصيل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-013-CHK-004",
+          "order": 4,
+          "text": "[ ] فهمت معنى نوع كل طريقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-013-CHK-005",
+          "order": 5,
+          "text": "[ ] ظهرت طرق الشحن في checkout.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-013-CHK-006",
+          "order": 6,
+          "text": "[ ] تغيرت الرسوم حسب المنطقة أو الطريقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-013-CHK-007",
+          "order": 7,
+          "text": "[ ] ظهر خيار الاستلام من المتجر إن تم تفعيله.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-013-CHK-008",
+          "order": 8,
+          "text": "[ ] ظهر الشحن المجاني فقط عند تحقق الشرط.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-013-CHK-009",
+          "order": 9,
+          "text": "[ ] تم التحقق بوضوح من الفرق بين الاستلام من المتجر والتوصيل: هل يظهر خيار الاستلام بشكل منفصل؟ هل الرسوم مختلفة؟ هل العنوان مطلوب في الحالتين؟",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "قبل إنشاء مناطق أو طرق توصيل، افتح checkout بمنتج في السلة.",
+        "**المطلوب:**",
+        "إذا لم توجد طرق توصيل، يجب أن تظهر رسالة واضحة للعميلة أو تمنع إكمال الطلب بشكل مفهوم.",
+        "إذا استمر checkout بدون توصيل رغم أنه مطلوب، سجل المشكلة."
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-014",
+      "order": 14,
+      "title": "مرحلة الفوترة والاشتراك",
+      "sourceTitle": "المرحلة الثانية عشرة ونصف: مرحلة الفوترة والاشتراك",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-014-INST-001",
+          "order": 1,
+          "text": "بعد إعداد التوصيل والشحن، اختبر صفحة الفوترة والاشتراك من لوحة التاجر للتأكد من وضوح معلومات الباقة والتجربة المجانية."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-014-INST-002",
+          "order": 2,
+          "text": "فتح صفحة الفوترة والاشتراك من لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-014-INST-003",
+          "order": 3,
+          "text": "التأكد من ظهور الباقة الحالية."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-014-INST-004",
+          "order": 4,
+          "text": "التأكد من ظهور حالة التجربة المجانية إن كانت مفعلة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-014-INST-005",
+          "order": 5,
+          "text": "التأكد من أن العملة المعروضة هي الريال اليمني YER."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-014-INST-006",
+          "order": 6,
+          "text": "التأكد من وضوح تاريخ انتهاء التجربة أو تاريخ التجديد."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-014-INST-007",
+          "order": 7,
+          "text": "التأكد من ظهور الفواتير/الإيصالات إن كانت موجودة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-014-INST-008",
+          "order": 8,
+          "text": "التأكد أن الصفحة لا تربك التاجر ولا تطلب منه إجراء غير متاح."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-014-CHK-001",
+          "order": 1,
+          "text": "[ ] نجح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-014-CHK-002",
+          "order": 2,
+          "text": "[ ] فشل",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-014-CHK-003",
+          "order": 3,
+          "text": "[ ] غير واضح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "الملاحظات:",
+        "اللقطات/الأدلة:",
+        "> ملاحظة: إذا لم تكن الفوترة مفعلة في بيئة الاختبار، يسجل المختبر ذلك كملاحظة ولا يوقف اختبار رحلة المتجر."
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-015",
+      "order": 15,
+      "title": "تجربة العميلة في المتجر",
+      "sourceTitle": "المرحلة الثالثة عشرة: تجربة العميلة في المتجر",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-001",
+          "order": 1,
+          "text": "[ ] الصفحة الرئيسية مناسبة لمتجر نسائي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-002",
+          "order": 2,
+          "text": "[ ] الصور بارزة وواضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-003",
+          "order": 3,
+          "text": "[ ] التصنيفات تعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-004",
+          "order": 4,
+          "text": "[ ] البحث يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-005",
+          "order": 5,
+          "text": "[ ] الفلاتر تعمل إن ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-006",
+          "order": 6,
+          "text": "[ ] صفحة المنتج تعرض المقاس واللون والطول والخامة بوضوح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-007",
+          "order": 7,
+          "text": "[ ] المتغيرات واضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-008",
+          "order": 8,
+          "text": "[ ] المنتج النافد لا يسمح بالشراء أو يظهر بوضوح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-009",
+          "order": 9,
+          "text": "[ ] المفضلة تعمل بعد تسجيل الدخول أو تظهر رسالة واضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-015-CHK-010",
+          "order": 10,
+          "text": "[ ] الأسئلة والمراجعات واضحة بعد تسجيل الدخول أو تظهر رسالة واضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-WOMEN-PH-015-Q-001",
+          "order": 1,
+          "text": "هذه الاختبارات تتطلب عميلة مسجلة الدخول غالبًا.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-015-Q-002",
+          "order": 2,
+          "text": "أنشئ حساب عميلة أو سجلي الدخول كعميلة إن كان متاحًا.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-015-Q-003",
+          "order": 3,
+          "text": "أضيفي منتجًا للمفضلة.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-015-Q-004",
+          "order": 4,
+          "text": "أضيفي سؤالًا على منتج مثل: \"هل الطول 56 مناسب لطول 165 سم؟\"",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-015-Q-005",
+          "order": 5,
+          "text": "أضيفي مراجعة إن كان متاحًا.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-015-Q-006",
+          "order": 6,
+          "text": "إذا طلب النظام تسجيل الدخول، تحقق أن الرسالة واضحة.",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "افتح رابط المتجر العام.",
+        "تأكد من ظهور الهوية والصور بشكل مناسب لمتجر نسائي.",
+        "افتح صفحة المنتجات.",
+        "اختبر البحث عن \"عباية\"، \"فستان\"، \"حقيبة\"، \"طرحة\".",
+        "اختبر التصنيفات.",
+        "اختبر الفلاتر حسب السمات إن ظهرت.",
+        "افتح صفحة عباية بمتغيرات.",
+        "اختبر تغيير اللون والطول.",
+        "افتح صفحة الفستان واختبر المقاس واللون.",
+        "افتح صفحة الحقيبة واختبر المقاس واللون.",
+        "افتح المنتج النافد.",
+        "اختبر إضافة منتج للسلة كضيفة.",
+        "سجل هل صفحة المنتج تعرض المقاس والطول والخامة بشكل مفهوم."
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-016",
+      "order": 16,
+      "title": "السلة وإكمال الطلب",
+      "sourceTitle": "المرحلة الرابعة عشرة: السلة وإكمال الطلب",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-001",
+          "order": 1,
+          "text": "أضف حقيبة إلى السلة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-002",
+          "order": 2,
+          "text": "أضف عباية بلون وطول محددين إلى السلة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-003",
+          "order": 3,
+          "text": "أضف فستان بمقاس ولون محددين إلى السلة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-004",
+          "order": 4,
+          "text": "عدل كمية منتج."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-005",
+          "order": 5,
+          "text": "احذف منتجًا من السلة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-006",
+          "order": 6,
+          "text": "انتقل إلى إتمام الطلب."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-007",
+          "order": 7,
+          "text": "نفذ مرة كضيفة إن كان متاحًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-008",
+          "order": 8,
+          "text": "نفذ مرة كعميلة مسجلة إن كان متاحًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-009",
+          "order": 9,
+          "text": "أدخل بيانات العميلة:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-010",
+          "order": 10,
+          "text": "| الحقل | القيمة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-011",
+          "order": 11,
+          "text": "| الاسم | نورة العميلة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-012",
+          "order": 12,
+          "text": "| الهاتف | +9677xxxxxxx |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-013",
+          "order": 13,
+          "text": "| البريد | womens.customer@example.com |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-014",
+          "order": 14,
+          "text": "| المحافظة/المدينة | أمانة العاصمة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-015",
+          "order": 15,
+          "text": "| المنطقة | داخل المدينة |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-016",
+          "order": 16,
+          "text": "| العنوان | شارع حدة، جوار مركز تجريبي |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-017",
+          "order": 17,
+          "text": "| ملاحظات | الرجاء التأكد من المقاس والتغليف كهدية |"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-018",
+          "order": 18,
+          "text": "اختر منطقة التوصيل وطريقة التوصيل أو الاستلام."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-019",
+          "order": 19,
+          "text": "**اختبار الكوبونات:**"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-020",
+          "order": 20,
+          "text": "**الحالة أ:** اترك حقل الكوبون فارغًا ولا تعتبر ذلك فشلًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-021",
+          "order": 21,
+          "text": "**الحالة ب (اختياري):** إذا أردت اختبار الكوبونات، أنشئ كوبون TEST10 بخصم 10% وجربه في checkout."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-022",
+          "order": 22,
+          "text": "اختر طريقة دفع يدوية."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-023",
+          "order": 23,
+          "text": "إذا ظهر حقل رقم المرجع، أدخل رقمًا تجريبيًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-024",
+          "order": 24,
+          "text": "إذا ظهر رفع الإيصال، ارفع إيصالًا تجريبيًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-025",
+          "order": 25,
+          "text": "جرّب إرسال الطلب بدون إيصال فقط إذا كانت الواجهة تقول إن الإيصال اختياري."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-026",
+          "order": 26,
+          "text": "أرسل الطلب."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-016-INST-027",
+          "order": 27,
+          "text": "احفظ رقم الطلب."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-001",
+          "order": 1,
+          "text": "[ ] السلة تحفظ المنتجات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-002",
+          "order": 2,
+          "text": "[ ] المتغيرات المختارة ظاهرة داخل السلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-003",
+          "order": 3,
+          "text": "[ ] تعديل الكمية يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-004",
+          "order": 4,
+          "text": "[ ] الحذف يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-005",
+          "order": 5,
+          "text": "[ ] checkout واضح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-006",
+          "order": 6,
+          "text": "[ ] ملاحظة التغليف أو المقاس محفوظة إن ظهر الحقل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-007",
+          "order": 7,
+          "text": "[ ] رسوم الشحن ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-008",
+          "order": 8,
+          "text": "[ ] ترك حقل الكوبون فارغًا لم يسبب خطأ.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-009",
+          "order": 9,
+          "text": "[ ] الكوبون TEST10 يعمل أو رسالة الخطأ واضحة (اختياري).",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-010",
+          "order": 10,
+          "text": "[ ] طريقة الدفع ظهرت بتعليماتها.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-011",
+          "order": 11,
+          "text": "[ ] رفع الإيصال يعمل إذا ظهر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-012",
+          "order": 12,
+          "text": "[ ] رقم المرجع محفوظ إذا ظهر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-016-CHK-013",
+          "order": 13,
+          "text": "[ ] تم إرسال الطلب وظهر رقم الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-017",
+      "order": 17,
+      "title": "العودة إلى لوحة التاجر بعد إنشاء الطلب",
+      "sourceTitle": "المرحلة الرابعة عشرة ونصف: العودة إلى لوحة التاجر بعد إنشاء الطلب",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-001",
+          "order": 1,
+          "text": "بعد إنشاء الطلب من جانب العميلة، عد إلى لوحة التاجر للتأكد من وصول الطلب وظهوره بشكل صحيح."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-002",
+          "order": 2,
+          "text": "افتح لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-003",
+          "order": 3,
+          "text": "انتقل إلى صفحة الطلبات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-004",
+          "order": 4,
+          "text": "ابحث عن الطلب الجديد برقمه أو باسم العميلة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-005",
+          "order": 5,
+          "text": "افتح تفاصيل الطلب."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-006",
+          "order": 6,
+          "text": "تحقق من ظهور جميع البيانات:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-007",
+          "order": 7,
+          "text": "المنتجات والكميات والمتغيرات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-008",
+          "order": 8,
+          "text": "بيانات العميلة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-009",
+          "order": 9,
+          "text": "طريقة الدفع."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-010",
+          "order": 10,
+          "text": "طريقة التوصيل أو الاستلام."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-011",
+          "order": 11,
+          "text": "الملاحظات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-012",
+          "order": 12,
+          "text": "حالة الطلب (يجب أن تكون \"جديد\")."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-017-INST-013",
+          "order": 13,
+          "text": "سجل أي بيانات ناقصة أو غير واضحة."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-017-CHK-001",
+          "order": 1,
+          "text": "[ ] الطلب ظهر في لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-017-CHK-002",
+          "order": 2,
+          "text": "[ ] جميع البيانات ظاهرة وصحيحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-017-CHK-003",
+          "order": 3,
+          "text": "[ ] حالة الطلب \"جديد\".",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-017-CHK-004",
+          "order": 4,
+          "text": "[ ] لا توجد بيانات مفقودة أو مربكة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "الملاحظات:",
+        "اللقطات/الأدلة:"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-018",
+      "order": 18,
+      "title": "تتبع الطلب من جانب العميلة",
+      "sourceTitle": "المرحلة الخامسة عشرة: تتبع الطلب من جانب العميلة",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-001",
+          "order": 1,
+          "text": "صفحة تتبع الطلب في النظام الحالي قد تعرض بيانات مختصرة فقط، مثل:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-002",
+          "order": 2,
+          "text": "رقم الطلب."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-003",
+          "order": 3,
+          "text": "حالة الطلب."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-004",
+          "order": 4,
+          "text": "الإجمالي."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-005",
+          "order": 5,
+          "text": "العملة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-006",
+          "order": 6,
+          "text": "آخر تحديث."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-007",
+          "order": 7,
+          "text": "المسار الزمني أو Timeline."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-008",
+          "order": 8,
+          "text": "لا تعتبر غياب المنتجات أو تفاصيل الدفع أو الشحن فشلًا في الاختبار الحالي إذا لم تكن مدعومة في صفحة التتبع. سجلها كتحسين مقترح."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-009",
+          "order": 9,
+          "text": "افتح صفحة تتبع الطلب."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-010",
+          "order": 10,
+          "text": "أدخل رقم الطلب أو البيانات المطلوبة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-011",
+          "order": 11,
+          "text": "تأكد من ظهور البيانات المتاحة فعليًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-012",
+          "order": 12,
+          "text": "بعد تغيير حالة الطلب من لوحة التاجر، أعد فتح صفحة التتبع وتأكد من تحديث الحالة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-013",
+          "order": 13,
+          "text": "تحقق هل التسميات المعروضة مطابقة للحالات الفعلية: جديد، مؤكد، قيد التجهيز، في الطريق، مكتمل، ملغي، مسترجع."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-018-INST-014",
+          "order": 14,
+          "text": "إذا ظهرت تسميات قديمة مثل pending / processing / shipped / delivered أو ما يقابلها بشكل غير مطابق، سجلها كمشكلة توافق في الواجهة."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-018-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت صفحة تتبع الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-018-CHK-002",
+          "order": 2,
+          "text": "[ ] عرفت ما البيانات المطلوبة للتتبع.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-018-CHK-003",
+          "order": 3,
+          "text": "[ ] ظهرت حالة الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-018-CHK-004",
+          "order": 4,
+          "text": "[ ] ظهر الإجمالي أو بيانات مختصرة مفهومة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-018-CHK-005",
+          "order": 5,
+          "text": "[ ] تغيرت الحالة بعد تحديث التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-018-CHK-006",
+          "order": 6,
+          "text": "[ ] تسميات الحالات مطابقة للنظام الحالي أو سجلت الاختلاف.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-018-CHK-007",
+          "order": 7,
+          "text": "[ ] سجلت الحاجة لعرض المنتجات والدفع والشحن كتحسين إذا لم تظهر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-019",
+      "order": 19,
+      "title": "مراجعة الطلب في لوحة التاجر",
+      "sourceTitle": "المرحلة السادسة عشرة: مراجعة الطلب في لوحة التاجر",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-001",
+          "order": 1,
+          "text": "ارجع إلى لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-002",
+          "order": 2,
+          "text": "افتح الطلبات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-003",
+          "order": 3,
+          "text": "ابحث عن الطلب الجديد."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-004",
+          "order": 4,
+          "text": "افتح تفاصيل الطلب."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-005",
+          "order": 5,
+          "text": "تحقق من:"
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-006",
+          "order": 6,
+          "text": "بيانات العميلة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-007",
+          "order": 7,
+          "text": "المنتجات والكميات والمتغيرات."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-008",
+          "order": 8,
+          "text": "subtotal."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-009",
+          "order": 9,
+          "text": "الخصم."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-010",
+          "order": 10,
+          "text": "رسوم الشحن."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-011",
+          "order": 11,
+          "text": "الإجمالي."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-012",
+          "order": 12,
+          "text": "طريقة الدفع."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-013",
+          "order": 13,
+          "text": "رقم المرجع إذا تم إدخاله."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-014",
+          "order": 14,
+          "text": "الإيصال المرفوع إذا تم رفعه."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-015",
+          "order": 15,
+          "text": "طريقة التوصيل/الاستلام والمنطقة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-016",
+          "order": 16,
+          "text": "ملاحظات العميلة، خصوصًا المقاس والتغليف."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-017",
+          "order": 17,
+          "text": "راجع حالة الدفع إن ظهرت صفحة أو قسم خاص بها."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-019-INST-018",
+          "order": 18,
+          "text": "جرّب قبول أو رفض الدفع إذا كانت حالة الدفع تحت المراجعة."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-019-CHK-001",
+          "order": 1,
+          "text": "[ ] الطلب ظهر في لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-019-CHK-002",
+          "order": 2,
+          "text": "[ ] بيانات العميلة صحيحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-019-CHK-003",
+          "order": 3,
+          "text": "[ ] المنتجات والمتغيرات صحيحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-019-CHK-004",
+          "order": 4,
+          "text": "[ ] الإجمالي صحيح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-019-CHK-005",
+          "order": 5,
+          "text": "[ ] بيانات الدفع والإيصال ظاهرة إذا كانت موجودة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-019-CHK-006",
+          "order": 6,
+          "text": "[ ] بيانات الشحن أو الاستلام ظاهرة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-019-CHK-007",
+          "order": 7,
+          "text": "[ ] ملاحظات العميلة ظاهرة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-019-CHK-008",
+          "order": 8,
+          "text": "[ ] يمكن مراجعة حالة الدفع إن كانت مدعومة في الواجهة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-020",
+      "order": 20,
+      "title": "تغيير حالة الطلب",
+      "sourceTitle": "المرحلة السابعة عشرة: تغيير حالة الطلب",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-020-INST-001",
+          "order": 1,
+          "text": "غيّر الطلب من `new` إلى `confirmed`."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-020-INST-002",
+          "order": 2,
+          "text": "أضف ملاحظة إن ظهر حقل الملاحظة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-020-INST-003",
+          "order": 3,
+          "text": "غيّره إلى `preparing`."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-020-INST-004",
+          "order": 4,
+          "text": "غيّره إلى `out_for_delivery`."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-020-INST-005",
+          "order": 5,
+          "text": "افتح صفحة تتبع الطلب وتأكد من ظهور الحالة."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-020-INST-006",
+          "order": 6,
+          "text": "غيّره إلى `completed`."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-020-INST-007",
+          "order": 7,
+          "text": "أنشئ طلبًا ثانيًا أو استخدم طلب اختبار آخر لتجربة الإلغاء."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-020-INST-008",
+          "order": 8,
+          "text": "جرّب انتقالًا غير مسموح مثل `new` إلى `completed` إن أمكن، وسجل هل تم منعه."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-020-CHK-001",
+          "order": 1,
+          "text": "[ ] الحالات المعروضة مطابقة للقائمة الفعلية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-020-CHK-002",
+          "order": 2,
+          "text": "[ ] لا توجد حالة \"قيد المراجعة\" كحالة طلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-020-CHK-003",
+          "order": 3,
+          "text": "[ ] الانتقالات غير المسموحة ممنوعة أو غير معروضة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-020-CHK-004",
+          "order": 4,
+          "text": "[ ] الملاحظات تحفظ إن وجدت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-020-CHK-005",
+          "order": 5,
+          "text": "[ ] حالة العميلة في صفحة التتبع تتحدث.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "| الحالة التقنية | التسمية العربية |",
+        "| new | جديد |",
+        "| confirmed | مؤكد |",
+        "| preparing | قيد التجهيز |",
+        "| out_for_delivery | في الطريق |",
+        "| completed | مكتمل |",
+        "| cancelled | ملغي |",
+        "| returned | مسترجع |",
+        "| من | إلى |",
+        "| new | confirmed أو cancelled |",
+        "| confirmed | preparing أو cancelled |",
+        "| preparing | out_for_delivery أو cancelled |",
+        "| out_for_delivery | completed أو returned |",
+        "| completed | لا يوجد انتقال |",
+        "| cancelled | لا يوجد انتقال |",
+        "| returned | لا يوجد انتقال |"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-021",
+      "order": 21,
+      "title": "الإشعارات",
+      "sourceTitle": "المرحلة الثامنة عشرة: الإشعارات",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-021-CHK-001",
+          "order": 1,
+          "text": "[ ] ظهر إشعار عند إنشاء الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-021-CHK-002",
+          "order": 2,
+          "text": "[ ] ظهر الطلب في مركز الإشعارات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-021-CHK-003",
+          "order": 3,
+          "text": "[ ] تظهر آخر الإشعارات في الشريط العلوي إن كانت هذه الميزة مفعلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-021-CHK-004",
+          "order": 4,
+          "text": "[ ] يعمل زر المزيد أو ينقل إلى مركز الإشعارات إن وجد.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-021-CHK-005",
+          "order": 5,
+          "text": "[ ] يمكن تمييز الإشعار كمقروء.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-021-CHK-006",
+          "order": 6,
+          "text": "[ ] تفضيلات الإشعارات واضحة إن ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-021-CHK-007",
+          "order": 7,
+          "text": "[ ] الإشعارات الفورية تعمل أو لا تعمل وسجلت النتيجة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-021-CHK-008",
+          "order": 8,
+          "text": "[ ] صوت الإشعار يعمل أو سجلت عدم عمله.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "إشعار إنشاء طلب جديد.",
+        "إشعار مخزون منخفض عند وصول منتج إلى حد المخزون المنخفض.",
+        "إشعار نفاد المخزون عند وصول المخزون إلى 0.",
+        "مركز الإشعارات في لوحة التاجر.",
+        "قائمة الإشعارات في الشريط العلوي.",
+        "صوت الإشعار إن كان مدعومًا في الواجهة.",
+        "تفضيلات الإشعارات إن كانت ظاهرة:",
+        "فورية.",
+        "ملخص يومي.",
+        "كتم.",
+        "التحديث الفوري إن وصل بدون تحديث الصفحة.",
+        "أحداث مهمة يجب تسجيلها إن ظهرت:",
+        "`order.created`",
+        "`inventory.low_stock`",
+        "`inventory.out_of_stock`"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-022",
+      "order": 22,
+      "title": "العملاء، المراجعات، والأسئلة",
+      "sourceTitle": "المرحلة التاسعة عشرة: العملاء، المراجعات، والأسئلة",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-022-INST-001",
+          "order": 1,
+          "text": "افتح صفحة العملاء في لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-022-INST-002",
+          "order": 2,
+          "text": "تأكد من ظهور العميلة التي نفذت الطلب إذا كان النظام يسجلها."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-022-INST-003",
+          "order": 3,
+          "text": "افتح مراجعات العملاء."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-022-INST-004",
+          "order": 4,
+          "text": "راجع المراجعة التي أضفتها من المتجر."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-022-INST-005",
+          "order": 5,
+          "text": "جرّب قبول/رفض المراجعة إن كان متاحًا."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-022-INST-006",
+          "order": 6,
+          "text": "افتح أسئلة العملاء."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-022-INST-007",
+          "order": 7,
+          "text": "أجب على سؤال المقاس أو الطول."
+        },
+        {
+          "instructionId": "MJ-WOMEN-PH-022-INST-008",
+          "order": 8,
+          "text": "افتح المتجر وتأكد من ظهور الإجابة أو المراجعة حسب حالة الاعتماد."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-022-CHK-001",
+          "order": 1,
+          "text": "[ ] صفحة العملاء مفهومة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-022-CHK-002",
+          "order": 2,
+          "text": "[ ] المراجعات تظهر في لوحة التاجر إذا كانت الميزة متاحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-022-CHK-003",
+          "order": 3,
+          "text": "[ ] يمكن إدارة حالة المراجعة إذا كان ذلك مدعومًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-022-CHK-004",
+          "order": 4,
+          "text": "[ ] أسئلة المنتجات تظهر إذا كانت الميزة متاحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-022-CHK-005",
+          "order": 5,
+          "text": "[ ] إجابة التاجر تظهر للعميلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-022-CHK-006",
+          "order": 6,
+          "text": "[ ] إذا كانت النصوص غير معربة بالكامل في الستورفرونت، سجلها كمشكلة تجربة مستخدم.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-023",
+      "order": 23,
+      "title": "اختبارات اختيارية حسب الوقت",
+      "sourceTitle": "المرحلة العشرون: اختبارات اختيارية حسب الوقت",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "نفذ هذه فقط إذا اكتملت الرحلة الأساسية:",
+        "| الميزة | المطلوب |",
+        "| الكوبونات | إنشاء كوبون وتجربته في checkout |",
+        "| صفحات مخصصة | إنشاء صفحة \"دليل المقاسات\" أو \"سياسة الاستبدال\" إن كانت متاحة |",
+        "| المخزون والمستودعات | تعديل مخزون منتج وملاحظة أثره في المتجر |",
+        "| العملات المتعددة | إضافة عملة وتبديل العملة في المتجر إن ظهر الخيار |",
+        "| التحليلات | مراجعة ظهور الطلب في التقارير |",
+        "| تذاكر الدعم | إنشاء تذكرة دعم من العميلة أو التاجر إن متاح |",
+        "| طقم Bundle | إنشاء طقم عباية وطرحة وشراءه |",
+        "| منتج رقمي | إنشاء دليل مقاسات PDF وشراءه |",
+        "| CSV | تجربة الاستيراد/التصدير إن كان ظاهرًا |"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-024",
+      "order": 24,
+      "title": "اختبار الأخطاء والتحقق",
+      "sourceTitle": "المرحلة الحادية والعشرون: اختبار الأخطاء والتحقق",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [
+        {
+          "questionId": "MJ-WOMEN-PH-024-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-024-Q-002",
+          "order": 2,
+          "text": "| هل رسائل الخطأ واضحة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-024-Q-003",
+          "order": 3,
+          "text": "| هل عرفت كيف تصلح الخطأ؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-024-Q-004",
+          "order": 4,
+          "text": "| هل ظهر خطأ تقني غير مفهوم؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-024-Q-005",
+          "order": 5,
+          "text": "| ما أكثر رسالة خطأ تحتاج تحسين؟ |  |",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "| الحالة | النتيجة المتوقعة | النتيجة الفعلية |",
+        "| بريد غير صالح في التسجيل | رسالة خطأ واضحة |  |",
+        "| كلمة مرور أقل من 8 أحرف | رفض واضح |  |",
+        "| OTP أقل أو أكثر من 6 أرقام | رفض واضح |  |",
+        "| رابط متجر بحروف كبيرة أو رموز | رفض أو تحويل لصيغة صحيحة |  |",
+        "| رابط متجر محجوز مثل admin أو api | رفض واضح |  |",
+        "| منتج بدون اسم | رفض واضح |  |",
+        "| سعر سالب | رفض واضح |  |",
+        "| مخزون سالب | رفض واضح |  |",
+        "| لون HEX غير صالح | رفض واضح |  |",
+        "| متغير بدون SKU | رفض واضح أو قبول مفسر حسب النظام |  |",
+        "| طريقة دفع بدون بيانات حساب وهي مطلوبة | رفض واضح أو رسالة مفهومة |  |",
+        "| شحن بدون اسم | رفض واضح |  |",
+        "| طلب بدون هاتف | رفض واضح |  |",
+        "| رفع إيصال أكبر من 5MB | رفض واضح |  |",
+        "| إرسال طلب بدون إيصال لطريقة تتطلب إيصالًا | رفض واضح |  |",
+        "| انتقال حالة طلب غير مسموح | رفض واضح |  |"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-025",
+      "order": 25,
+      "title": "سجل المشاكل",
+      "sourceTitle": "المرحلة الثانية والعشرون: سجل المشاكل",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "| رقم | المرحلة | وصف المشكلة | خطوات إعادة الإنتاج | الخطورة | هل منعت الإكمال؟ | صورة/رابط | ملاحظات |",
+        "| 1 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 2 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 3 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 4 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 5 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 6 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 7 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 8 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 9 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 10 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| المستوى | المعنى |",
+        "| منخفض | مشكلة بسيطة لا تمنع الاستخدام، مثل نص غير واضح أو ترتيب مربك. |",
+        "| متوسط | تسبب ارتباكًا أو تحتاج محاولة ثانية لكنها لا توقف الرحلة. |",
+        "| عالي | تمنع إكمال مرحلة مهمة مثل حفظ منتج أو إرسال طلب. |",
+        "| حرج | تمنع الرحلة بالكامل أو تسبب فقدان بيانات أو فشل عملية الشراء. |"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-026",
+      "order": 26,
+      "title": "ملاحظات تجربة المستخدم",
+      "sourceTitle": "المرحلة الثالثة والعشرون: ملاحظات تجربة المستخدم",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "1.",
+        "2.",
+        "3.",
+        "1.",
+        "2.",
+        "3.",
+        "| المصطلح | أين ظهر؟ | لماذا غير واضح؟ | المقترح البديل |",
+        "|  |  |  |  |",
+        "|  |  |  |  |",
+        "|  |  |  |  |",
+        "| الزر أو الإجراء | الصفحة | المشكلة | الاقتراح |",
+        "|  |  |  |  |",
+        "|  |  |  |  |",
+        "|  |  |  |  |"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-027",
+      "order": 27,
+      "title": "تقييم شامل بالأرقام",
+      "sourceTitle": "المرحلة الرابعة والعشرون: تقييم شامل بالأرقام",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-001",
+          "order": 1,
+          "text": "قيّم كل بند من 1 إلى 10.",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-002",
+          "order": 2,
+          "text": "| البند | التقييم | ملاحظات |",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-003",
+          "order": 3,
+          "text": "| إنشاء حساب التاجر وOTP |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-004",
+          "order": 4,
+          "text": "| أونبوردنج التاجر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-005",
+          "order": 5,
+          "text": "| الدخول للوحة التاجر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-006",
+          "order": 6,
+          "text": "| دليل الجاهزية |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-007",
+          "order": 7,
+          "text": "| إعدادات المتجر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-008",
+          "order": 8,
+          "text": "| ملاءمة نوع النشاط |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-009",
+          "order": 9,
+          "text": "| رابط المتجر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-010",
+          "order": 10,
+          "text": "| الشعار والهوية |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-011",
+          "order": 11,
+          "text": "| الخريطة والعنوان |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-012",
+          "order": 12,
+          "text": "| ساعات العمل |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-013",
+          "order": 13,
+          "text": "| صفحات الثقة والسياسات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-014",
+          "order": 14,
+          "text": "| القالب والنشر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-015",
+          "order": 15,
+          "text": "| مناسبة القالب للمتجر النسائي |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-016",
+          "order": 16,
+          "text": "| التصنيفات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-017",
+          "order": 17,
+          "text": "| العلامات التجارية |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-018",
+          "order": 18,
+          "text": "| السمات والمتغيرات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-019",
+          "order": 19,
+          "text": "| إعداد الفلاتر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-020",
+          "order": 20,
+          "text": "| إضافة حقيبة بسيطة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-021",
+          "order": 21,
+          "text": "| إضافة بلوزة بخصم |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-022",
+          "order": 22,
+          "text": "| إضافة منتج مميز |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-023",
+          "order": 23,
+          "text": "| إضافة منتج نافد |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-024",
+          "order": 24,
+          "text": "| إضافة عباية بمتغيرات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-025",
+          "order": 25,
+          "text": "| إضافة فستان بمقاسات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-026",
+          "order": 26,
+          "text": "| إضافة حقيبة بمقاسات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-027",
+          "order": 27,
+          "text": "| طرق الدفع |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-028",
+          "order": 28,
+          "text": "| رفع الإيصال |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-029",
+          "order": 29,
+          "text": "| مناطق وطرق التوصيل/الشحن/الاستلام |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-030",
+          "order": 30,
+          "text": "| الفوترة والاشتراك |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-031",
+          "order": 31,
+          "text": "| تجربة المتجر العامة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-032",
+          "order": 32,
+          "text": "| البحث والفلاتر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-033",
+          "order": 33,
+          "text": "| السلة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-034",
+          "order": 34,
+          "text": "| checkout |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-035",
+          "order": 35,
+          "text": "| تتبع الطلب |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-036",
+          "order": 36,
+          "text": "| إدارة الطلب |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-037",
+          "order": 37,
+          "text": "| حالات الطلب |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-038",
+          "order": 38,
+          "text": "| الإشعارات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-039",
+          "order": 39,
+          "text": "| المراجعات والأسئلة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-040",
+          "order": 40,
+          "text": "| التصميم العام |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-041",
+          "order": 41,
+          "text": "| سهولة الاستخدام العامة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-042",
+          "order": 42,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-043",
+          "order": 43,
+          "text": "| التقييم العام للتجربة من 1 إلى 10 |  |",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-044",
+          "order": 44,
+          "text": "| هل تستطيع تجهيز متجر نسائي حقيقي بنفسك بعد هذه التجربة؟ | نعم / لا / ربما |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-045",
+          "order": 45,
+          "text": "| هل النظام مناسب لتاجرة غير تقنية؟ | نعم / لا / يحتاج تحسين |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-046",
+          "order": 46,
+          "text": "| هل المتجر النسائي جاهز للإطلاق التجريبي؟ | نعم / لا / نعم بعد تحسينات |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-027-Q-047",
+          "order": 47,
+          "text": "| هل تحتاج التجربة إلى شرح أو تدريب قبل الاستخدام؟ | نعم / لا |",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-028",
+      "order": 28,
+      "title": "أسئلة ختامية",
+      "sourceTitle": "المرحلة الخامسة والعشرون: أسئلة ختامية",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-002",
+          "order": 2,
+          "text": "| ما أكثر شيء أعجبك في التجربة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-003",
+          "order": 3,
+          "text": "| ما أكثر شيء أزعجك؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-004",
+          "order": 4,
+          "text": "| ما أول 3 تحسينات تقترحها؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-005",
+          "order": 5,
+          "text": "| ما أكثر خطوة أخذت وقتًا؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-006",
+          "order": 6,
+          "text": "| ما أكثر صفحة تحتاج إعادة تصميم؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-007",
+          "order": 7,
+          "text": "| هل الأونبوردنج ساعدك فعلًا؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-008",
+          "order": 8,
+          "text": "| هل دليل الجاهزية واضح ومفيد؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-009",
+          "order": 9,
+          "text": "| هل القالب يعكس طبيعة متجر نسائي؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-010",
+          "order": 10,
+          "text": "| هل الصور ووصف المنتج كافيان لبناء الثقة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-011",
+          "order": 11,
+          "text": "| هل متغيرات المقاس واللون والطول واضحة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-012",
+          "order": 12,
+          "text": "| هل سياسة الاستبدال مناسبة للملابس النسائية؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-013",
+          "order": 13,
+          "text": "| هل طرق الدفع مناسبة للسوق اليمني؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-014",
+          "order": 14,
+          "text": "| هل التوصيل/الشحن/الاستلام واضح ومناسب؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-015",
+          "order": 15,
+          "text": "| هل تجربة العميلة من الدخول حتى الطلب سهلة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-028-Q-016",
+          "order": 16,
+          "text": "| هل تنصح تاجرة أزياء نسائية بتجربة النظام الآن؟ |  |",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "1.",
+        "2.",
+        "3.",
+        "1.",
+        "2.",
+        "3.",
+        "1.",
+        "2.",
+        "3."
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-029",
+      "order": 29,
+      "title": "القرار النهائي",
+      "sourceTitle": "المرحلة السادسة والعشرون: القرار النهائي",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-029-CHK-001",
+          "order": 1,
+          "text": "[ ] النظام جاهز للإطلاق التجريبي لمتجر نسائي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-029-CHK-002",
+          "order": 2,
+          "text": "[ ] النظام جاهز لكن يحتاج تحسينات بسيطة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-029-CHK-003",
+          "order": 3,
+          "text": "[ ] النظام يحتاج تحسينات متوسطة قبل الإطلاق.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-029-CHK-004",
+          "order": 4,
+          "text": "[ ] النظام غير جاهز حاليًا لتاجرة متجر نسائي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "اختر نتيجة واحدة:",
+        "اكتب سبب قرارك بالتفصيل:"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-030",
+      "order": 30,
+      "title": "ملخص مدير الاختبار",
+      "sourceTitle": "المرحلة السابعة والعشرون: ملخص مدير الاختبار",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-001",
+          "order": 1,
+          "text": "[ ] اعتماد السيناريو بنجاح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-002",
+          "order": 2,
+          "text": "[ ] إعادة الاختبار بعد إصلاح المشاكل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-003",
+          "order": 3,
+          "text": "[ ] تحويل المشاكل إلى مهام تطوير.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-004",
+          "order": 4,
+          "text": "[ ] تأجيل اعتماد المتجر النسائي حتى تحسين القالب أو الرحلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-005",
+          "order": 5,
+          "text": "[ ] تاجر",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-006",
+          "order": 6,
+          "text": "[ ] عميل",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-007",
+          "order": 7,
+          "text": "[ ] خطأ تقني",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-008",
+          "order": 8,
+          "text": "[ ] مشكلة UX",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-009",
+          "order": 9,
+          "text": "[ ] نقص في البيانات",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-010",
+          "order": 10,
+          "text": "[ ] مشكلة ترجمة",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-011",
+          "order": 11,
+          "text": "[ ] مشكلة Responsive",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-012",
+          "order": 12,
+          "text": "[ ] مشكلة أداء",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-013",
+          "order": 13,
+          "text": "[ ] مشكلة منطق تجاري",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-014",
+          "order": 14,
+          "text": "[ ] أخرى",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-015",
+          "order": 15,
+          "text": "[ ] حرجة",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-016",
+          "order": 16,
+          "text": "[ ] عالية",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-017",
+          "order": 17,
+          "text": "[ ] متوسطة",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-030-CHK-018",
+          "order": 18,
+          "text": "[ ] منخفضة",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-001",
+          "order": 1,
+          "text": "قيّم من 1 إلى 5:",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-002",
+          "order": 2,
+          "text": "سهولة إنشاء الحساب:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-003",
+          "order": 3,
+          "text": "وضوح الأونبوردنج:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-004",
+          "order": 4,
+          "text": "سهولة إعداد المتجر:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-005",
+          "order": 5,
+          "text": "سهولة إضافة المنتجات:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-006",
+          "order": 6,
+          "text": "سهولة إعداد المنتجات المتغيرة:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-007",
+          "order": 7,
+          "text": "وضوح إعدادات الدفع:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-008",
+          "order": 8,
+          "text": "وضوح إعدادات التوصيل:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-009",
+          "order": 9,
+          "text": "وضوح القوالب والتخصيص:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-010",
+          "order": 10,
+          "text": "وضوح الفلاتر:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-011",
+          "order": 11,
+          "text": "سهولة إدارة الطلب:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-012",
+          "order": 12,
+          "text": "وضوح الإشعارات:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-013",
+          "order": 13,
+          "text": "سهولة فهم لوحة التحكم:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-014",
+          "order": 14,
+          "text": "ثقة المختبر بأن متجره أصبح جاهزًا للبيع:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-015",
+          "order": 15,
+          "text": "أكثر 3 أشياء مربكة:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-016",
+          "order": 16,
+          "text": "1.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-017",
+          "order": 17,
+          "text": "2.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-018",
+          "order": 18,
+          "text": "3.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-019",
+          "order": 19,
+          "text": "أكثر 3 أشياء ممتازة:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-020",
+          "order": 20,
+          "text": "1.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-021",
+          "order": 21,
+          "text": "2.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-022",
+          "order": 22,
+          "text": "3.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-023",
+          "order": 23,
+          "text": "أهم 5 تحسينات قبل الإطلاق:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-024",
+          "order": 24,
+          "text": "1.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-025",
+          "order": 25,
+          "text": "2.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-026",
+          "order": 26,
+          "text": "3.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-027",
+          "order": 27,
+          "text": "4.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-028",
+          "order": 28,
+          "text": "5.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-WOMEN-PH-030-Q-029",
+          "order": 29,
+          "text": "هل يعطي القالب المستخدم ثقة لمتجر نسائي أم لا؟ نعم / لا / إلى حد ما. سجل الملاحظة.",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "يعبأ هذا القسم من مدير المشروع بعد مراجعة نتائج المختبر.",
+        "| البند | النتيجة |",
+        "| هل اكتملت الرحلة؟ | نعم / لا |",
+        "| هل تم التسجيل والتحقق عبر OTP؟ | نعم / لا |",
+        "| هل تم إكمال الأونبوردنج؟ | نعم / لا |",
+        "| هل ظهر دليل الجاهزية؟ | نعم / لا |",
+        "| هل تم إعداد المتجر؟ | نعم / لا |",
+        "| هل كانت صفحات الثقة مناسبة؟ | نعم / لا |",
+        "| هل كان نوع النشاط مناسبًا؟ | نعم / لا |",
+        "| هل تم نشر قالب مناسب؟ | نعم / لا |",
+        "| هل تم إنشاء التصنيفات؟ | نعم / لا |",
+        "| هل تم إنشاء العلامات التجارية؟ | نعم / لا |",
+        "| هل تم إنشاء السمات؟ | نعم / لا |",
+        "| هل تم إعداد الفلاتر؟ | نعم / لا |",
+        "| هل تمت إضافة كل المنتجات الأساسية المطلوبة؟ | نعم / لا |",
+        "| هل تم إعداد الدفع؟ | نعم / لا |",
+        "| هل تم اختبار رفع الإيصال؟ | نعم / لا |",
+        "| هل تم إعداد التوصيل/الشحن/الاستلام؟ | نعم / لا |",
+        "| هل تم اختبار الفوترة والاشتراك؟ | نعم / لا / غير مفعلة |",
+        "| هل تم إرسال طلب تجريبي؟ | نعم / لا |",
+        "| هل ظهر الطلب في لوحة التاجر؟ | نعم / لا |",
+        "| هل تم تغيير حالة الطلب حسب المسار الصحيح؟ | نعم / لا |",
+        "| هل تم تتبع الطلب من طرف العميلة؟ | نعم / لا |",
+        "| هل ظهرت الإشعارات؟ | نعم / لا |",
+        "| عدد المشاكل الحرجة |  |",
+        "| عدد المشاكل العالية |  |",
+        "| عدد المشاكل المتوسطة |  |",
+        "| عدد المشاكل المنخفضة |  |",
+        "رقم المشكلة:",
+        "المرحلة:",
+        "الصفحة:",
+        "الدور:",
+        "نوع المشكلة:",
+        "درجة الخطورة:",
+        "الوصف:",
+        "الخطوات لإعادة المشكلة:",
+        "النتيجة الفعلية:",
+        "النتيجة المتوقعة:",
+        "رابط الصفحة:",
+        "الجهاز/المتصفح:",
+        "الصورة/الفيديو:",
+        "ملاحظات إضافية:"
+      ]
+    },
+    {
+      "phaseId": "MJ-WOMEN-PH-031",
+      "order": 31,
+      "title": "اختبار تجربة العميل داخل متجر التاجر",
+      "sourceTitle": "المرحلة الثامنة والعشرون: اختبار تجربة العميل داخل متجر التاجر",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-WOMEN-PH-031-INST-001",
+          "order": 1,
+          "text": "اختبار شامل لتجربة العميل (العميلة) داخل المتجر العام للتاجر، من فتح الرابط حتى إكمال الطلب والعودة إلى الحساب."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-001",
+          "order": 1,
+          "text": "[ ] فتح المتجر وعرض الهوية بشكل صحيح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-002",
+          "order": 2,
+          "text": "[ ] التصفح بين التصنيفات يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-003",
+          "order": 3,
+          "text": "[ ] فتح منتج بسيط وعرض بياناته.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-004",
+          "order": 4,
+          "text": "[ ] فتح منتج بمتغيرات واختيار متغيرات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-005",
+          "order": 5,
+          "text": "[ ] المنتج النافد يظهر بشكل واضح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-006",
+          "order": 6,
+          "text": "[ ] إضافة للسلة تعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-007",
+          "order": 7,
+          "text": "[ ] تعديل الكمية يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-008",
+          "order": 8,
+          "text": "[ ] الحذف من السلة يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-009",
+          "order": 9,
+          "text": "[ ] checkout واضح ومفهوم.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-010",
+          "order": 10,
+          "text": "[ ] إدخال بيانات العميل يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-011",
+          "order": 11,
+          "text": "[ ] اختيار التوصيل/الاستلام يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-012",
+          "order": 12,
+          "text": "[ ] اختيار الدفع يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-013",
+          "order": 13,
+          "text": "[ ] إرسال الطلب ونجاح العملية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-014",
+          "order": 14,
+          "text": "[ ] إنشاء حساب عميل (إن كان متاحًا).",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-015",
+          "order": 15,
+          "text": "[ ] إضافة عنوان (إن كان متاحًا).",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-016",
+          "order": 16,
+          "text": "[ ] تتبع الطلب (إن كان متاحًا).",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-017",
+          "order": 17,
+          "text": "[ ] العودة لحساب العميل وعرض الطلبات والعناوين والمفضلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-018",
+          "order": 18,
+          "text": "[ ] تم تسجيل أي خطوة مربكة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-019",
+          "order": 19,
+          "text": "[ ] إنشاء حساب تاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-020",
+          "order": 20,
+          "text": "[ ] التحقق بكود OTP من 6 أرقام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-021",
+          "order": 21,
+          "text": "[ ] إكمال أونبوردنج التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-022",
+          "order": 22,
+          "text": "[ ] الدخول إلى لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-023",
+          "order": 23,
+          "text": "[ ] مراجعة دليل الجاهزية إن ظهر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-024",
+          "order": 24,
+          "text": "[ ] تعديل المتجر المنشأ تلقائيًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-025",
+          "order": 25,
+          "text": "[ ] ضبط رابط المتجر بالصيغة المطلوبة وفحصه.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-026",
+          "order": 26,
+          "text": "[ ] اختيار `fashion` أو `abayas` إذا ظهر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-027",
+          "order": 27,
+          "text": "[ ] رفع الشعار.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-028",
+          "order": 28,
+          "text": "[ ] ضبط الدولة والمحافظة والعنوان.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-029",
+          "order": 29,
+          "text": "[ ] تحديد الموقع على الخريطة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-030",
+          "order": 30,
+          "text": "[ ] ضبط ساعات العمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-031",
+          "order": 31,
+          "text": "[ ] إضافة روابط التواصل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-032",
+          "order": 32,
+          "text": "[ ] إضافة سياسات الشحن والاسترجاع والخصوصية والشروط.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-033",
+          "order": 33,
+          "text": "[ ] إنشاء أو مراجعة صفحات الثقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-034",
+          "order": 34,
+          "text": "[ ] إنشاء صفحة دليل المقاسات إن كان متاحًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-035",
+          "order": 35,
+          "text": "[ ] اختيار ونشر قالب مناسب (Beauty Luxe أو General Starter).",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-036",
+          "order": 36,
+          "text": "[ ] إنشاء تصنيفات العبايات والفساتين والحقائب والإكسسوارات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-037",
+          "order": 37,
+          "text": "[ ] إنشاء Brands.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-038",
+          "order": 38,
+          "text": "[ ] إنشاء Attributes وقيمها.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-039",
+          "order": 39,
+          "text": "[ ] إعداد الفلاتر من لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-040",
+          "order": 40,
+          "text": "[ ] إضافة حقيبة بسيطة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-041",
+          "order": 41,
+          "text": "[ ] إضافة بلوزة عليها خصم.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-042",
+          "order": 42,
+          "text": "[ ] إضافة فستان مميز.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-043",
+          "order": 43,
+          "text": "[ ] إضافة منتج نافد.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-044",
+          "order": 44,
+          "text": "[ ] إضافة عباية بمتغيرات اللون والطول.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-045",
+          "order": 45,
+          "text": "[ ] إضافة فستان بمتغيرات المقاس واللون.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-046",
+          "order": 46,
+          "text": "[ ] إضافة حقيبة بمتغيرات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-047",
+          "order": 47,
+          "text": "[ ] فحص ظهور المنتجات في المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-048",
+          "order": 48,
+          "text": "[ ] فحص المتغيرات في صفحة المنتج.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-049",
+          "order": 49,
+          "text": "[ ] إعداد COD.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-050",
+          "order": 50,
+          "text": "[ ] اختبار كريمي/محفظة محلية إذا ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-051",
+          "order": 51,
+          "text": "[ ] إعداد حوالة صرافة عامة إذا ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-052",
+          "order": 52,
+          "text": "[ ] إعداد حوالة بنكية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-053",
+          "order": 53,
+          "text": "[ ] اختبار رفع إيصال الدفع حسب إعداد الطريقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-054",
+          "order": 54,
+          "text": "[ ] اختبار checkout قبل إعداد التوصيل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-055",
+          "order": 55,
+          "text": "[ ] إنشاء مناطق شحن.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-056",
+          "order": 56,
+          "text": "[ ] إنشاء طرق شحن/توصيل/استلام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-057",
+          "order": 57,
+          "text": "[ ] فحص رسوم الشحن في checkout.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-058",
+          "order": 58,
+          "text": "[ ] اختبار الفوترة والاشتراك.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-059",
+          "order": 59,
+          "text": "[ ] اختبار البحث والتصنيفات والفلاتر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-060",
+          "order": 60,
+          "text": "[ ] اختبار المفضلة بعد تسجيل عميلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-061",
+          "order": 61,
+          "text": "[ ] اختبار الأسئلة والمراجعات بعد تسجيل عميلة إن كانت متاحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-062",
+          "order": 62,
+          "text": "[ ] إضافة منتجات للسلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-063",
+          "order": 63,
+          "text": "[ ] تعديل كمية وحذف من السلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-064",
+          "order": 64,
+          "text": "[ ] تنفيذ طلب كعميلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-065",
+          "order": 65,
+          "text": "[ ] إدخال بيانات العميلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-066",
+          "order": 66,
+          "text": "[ ] اختيار الدفع والتوصيل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-067",
+          "order": 67,
+          "text": "[ ] إرسال الطلب وحفظ رقمه.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-068",
+          "order": 68,
+          "text": "[ ] العودة إلى لوحة التاجر ومراجعة الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-069",
+          "order": 69,
+          "text": "[ ] تتبع الطلب من صفحة التتبع بالبيانات المتاحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-070",
+          "order": 70,
+          "text": "[ ] مراجعة الطلب في لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-071",
+          "order": 71,
+          "text": "[ ] مراجعة بيانات الدفع والإيصال.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-072",
+          "order": 72,
+          "text": "[ ] تغيير حالة الطلب حسب الانتقالات المسموحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-073",
+          "order": 73,
+          "text": "[ ] فحص إشعار الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-074",
+          "order": 74,
+          "text": "[ ] فحص مركز الإشعارات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-075",
+          "order": 75,
+          "text": "[ ] تعبئة سجل المشاكل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-076",
+          "order": 76,
+          "text": "[ ] تعبئة التقييم النهائي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-077",
+          "order": 77,
+          "text": "[ ] اختبار تجربة العميل الشاملة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-078",
+          "order": 78,
+          "text": "[ ] تعبئة نموذج تسجيل المشكلة الموحد.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-WOMEN-PH-031-CHK-079",
+          "order": 79,
+          "text": "[ ] تعبئة تقييم تجربة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [
+        "افتح منتج بسيط (حقيبة يد كلاسيكية).",
+        "تحقق من ظهور: الاسم، السعر، الوصف، الصور، التصنيف، البراند.",
+        "افتح منتج بمتغيرات (عباية كريب عملية).",
+        "اختر لونًا وطولًا مختلفين.",
+        "تحقق من تغير السعر أو الصورة إن كان ذلك متوقعًا.",
+        "افتح منتج نفد من المخزون.",
+        "تحقق من ظهور رسالة \"نفد المخزون\" أو تعطيل زر الإضافة."
+      ],
+      "notes": [
+        "الملاحظات:",
+        "اللقطات/الأدلة:",
+        "افتح المتجر من الرابط العام.",
+        "تأكد من ظهور الشعار واسم المتجر بشكل صحيح.",
+        "تحقق من أن الصفحة الرئيسية تعرض المنتجات أو البانر بشكل مناسب لمتجر نسائي.",
+        "تصفح الصفحة الرئيسية.",
+        "افتح صفحة التصنيفات.",
+        "افتح تصنيف \"عبايات\".",
+        "افتح تصنيف \"فساتين\".",
+        "افتح تصنيف \"حقائب\".",
+        "تحقق من وجود الفلاتر (السعر، البراند، التصنيف، الخصائص).",
+        "أضف منتجًا بسيطًا للسلة.",
+        "أضف منتجًا بمتغيرات للسلة.",
+        "افتح السلة.",
+        "تحقق من ظهور المنتجات والمتغيرات المختارة.",
+        "عدّل كمية منتج.",
+        "احذف منتجًا من السلة.",
+        "أضف المنتج المحذوف مرة أخرى.",
+        "انتقل إلى صفحة إتمام الطلب.",
+        "أدخل بيانات العميل:",
+        "الاسم.",
+        "الهاتف.",
+        "البريد الإلكتروني.",
+        "المحافظة/المدينة.",
+        "المنطقة.",
+        "العنوان التفصيلي.",
+        "ملاحظات (اختياري).",
+        "اختر طريقة التوصيل أو الاستلام من المتجر.",
+        "تحقق من ظهور رسوم الشحن بشكل صحيح.",
+        "اختر طريقة الدفع.",
+        "أدخل رقم المرجع أو ارفع الإيصال إذا طُلب.",
+        "أرسل الطلب.",
+        "احفظ رقم الطلب.",
+        "إذا ظهرت ميزة إنشاء حساب عميل، أنشئ حسابًا جديدًا.",
+        "سجّل الدخول بالحساب الجديد.",
+        "أضف عنوانًا جديدًا من صفحة الحساب.",
+        "تحقق من حفظ العنوان.",
+        "افتح صفحة تتبع الطلب إن كانت متاحة للعميل.",
+        "أدخل رقم الطلب.",
+        "تحقق من ظهور حالة الطلب.",
+        "افتح صفحة حساب العميل.",
+        "تحقق من ظهور الطلبات السابقة.",
+        "افتح تفاصيل طلب.",
+        "تحقق من ظهور العناوين المحفوظة.",
+        "افتح المفضلة إن كانت متاحة.",
+        "تحقق من ظهور المنتجات المضافة للمفضلة.",
+        "سجل أي خطوة مربكة أو غير واضحة.",
+        "سجل أي صفحة لا تعمل بشكل صحيح.",
+        "سجل أي رسالة خطأ غير مفهومة.",
+        "هذه الوثيقة مخصصة لاختبار تجربة تاجر متجر نسائي كاملة على Kaleem Stores وفق ما هو موجود فعليًا في المشروع الحالي: تسجيل OTP، أونبوردنج التاجر، إعداد متجر منشأ تلقائيًا، دليل الجاهزية، صفحات الثقة، قوالب (Beauty Luxe أو General Starter أساسًا)، منتجات ومتغيرات، فلاتر، دفع يدوي حسب إعدادات المنصة، توصيل/شحن/استلام، فوترة واشتراك، رحلة عميلة شاملة، تتبع طلب مختصر، إدارة الطلبات، والإشعارات."
+      ]
+    }
+  ],
+  "scoring": {
+    "passWeight": 1,
+    "failWeight": 0,
+    "blockedWeight": 0,
+    "notApplicableExcluded": true,
+    "readinessBands": [
+      {
+        "min": 85,
+        "max": 100,
+        "label": "ready"
+      },
+      {
+        "min": 70,
+        "max": 84,
+        "label": "ready_with_fixes"
+      },
+      {
+        "min": 50,
+        "max": 69,
+        "label": "needs_improvement"
+      },
+      {
+        "min": 0,
+        "max": 49,
+        "label": "not_ready"
+      }
+    ]
+  },
+  "metadata": {
+    "createdFromMarkdown": true,
+    "convertedAt": "2026-05-17T00:00:00.000+03:00",
+    "checksum": "sha256:eb07124760e8498edf5bd1fe459b1718c3389020a776d9a0beb1f1e8260df0cf",
+    "conversionWarnings": [
+      "MJ-WOMEN-PH-023 لا يحتوي عناصر مصنفة كتعليمات أو checks أو أسئلة.",
+      "MJ-WOMEN-PH-025 لا يحتوي عناصر مصنفة كتعليمات أو checks أو أسئلة.",
+      "MJ-WOMEN-PH-026 لا يحتوي عناصر مصنفة كتعليمات أو checks أو أسئلة."
+    ]
+  }
+}

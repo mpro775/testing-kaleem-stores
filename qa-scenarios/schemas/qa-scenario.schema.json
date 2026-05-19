@@ -1,0 +1,345 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kaleem.local/schemas/qa-scenario.schema.json",
+  "title": "Kaleem Merchant QA Scenario",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "scenarioId",
+    "version",
+    "slug",
+    "codePrefix",
+    "title",
+    "description",
+    "language",
+    "direction",
+    "status",
+    "sourceFile",
+    "phases",
+    "scoring",
+    "metadata"
+  ],
+  "properties": {
+    "scenarioId": {
+      "type": "string",
+      "pattern": "^merchant-[a-z0-9-]+$"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "codePrefix": {
+      "type": "string",
+      "pattern": "^MJ-[A-Z]+$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "language": {
+      "const": "ar"
+    },
+    "direction": {
+      "const": "rtl"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "published",
+        "archived"
+      ]
+    },
+    "estimatedDurationMinutes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "sourceFile": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "preconditions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    },
+    "testData": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "phases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/phase"
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "required": [
+        "passWeight",
+        "failWeight",
+        "blockedWeight",
+        "notApplicableExcluded",
+        "readinessBands"
+      ],
+      "properties": {
+        "passWeight": {
+          "type": "number"
+        },
+        "failWeight": {
+          "type": "number"
+        },
+        "blockedWeight": {
+          "type": "number"
+        },
+        "notApplicableExcluded": {
+          "type": "boolean"
+        },
+        "readinessBands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "min",
+              "max",
+              "label"
+            ],
+            "properties": {
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "label": {
+                "enum": [
+                  "ready",
+                  "ready_with_fixes",
+                  "needs_improvement",
+                  "not_ready"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "createdFromMarkdown",
+        "convertedAt",
+        "checksum"
+      ],
+      "properties": {
+        "createdFromMarkdown": {
+          "type": "boolean"
+        },
+        "convertedAt": {
+          "type": "string"
+        },
+        "checksum": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "conversionWarnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "phase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phaseId",
+        "order",
+        "title",
+        "sourceTitle",
+        "instructions",
+        "checks",
+        "questions",
+        "testData",
+        "notes"
+      ],
+      "properties": {
+        "phaseId": {
+          "type": "string",
+          "pattern": "^[A-Z]+-[A-Z]+(-[A-Z]+)?-(PRE-CHK|PH)-[0-9]{3}"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "objective": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "instructions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/instruction"
+          }
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/check"
+          }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/question"
+          }
+        },
+        "testData": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "instruction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "instructionId",
+        "order",
+        "text"
+      ],
+      "properties": {
+        "instructionId": {
+          "type": "string"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkId",
+        "order",
+        "text",
+        "type",
+        "required",
+        "weight",
+        "expectedResult",
+        "allowAttachment",
+        "allowIssue"
+      ],
+      "properties": {
+        "checkId": {
+          "type": "string"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "status"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "weight": {
+          "type": "number"
+        },
+        "expectedResult": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "allowAttachment": {
+          "type": "boolean"
+        },
+        "allowIssue": {
+          "type": "boolean"
+        }
+      }
+    },
+    "question": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "questionId",
+        "order",
+        "text",
+        "type",
+        "required"
+      ],
+      "properties": {
+        "questionId": {
+          "type": "string"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "enum": [
+            "textarea",
+            "rating"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

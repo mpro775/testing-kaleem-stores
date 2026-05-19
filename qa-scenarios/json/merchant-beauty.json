@@ -1,0 +1,5886 @@
+{
+  "scenarioId": "merchant-beauty",
+  "version": "1.0.0",
+  "slug": "merchant-beauty",
+  "codePrefix": "MJ-BEAUTY",
+  "title": "وثيقة اختبار تجربة تاجر - سيناريو متجر عطور ومستحضرات تجميل مطابق لنظام Kaleem Stores",
+  "description": "**اسم الوثيقة:** اختبار رحلة تاجر عطور ومستحضرات تجميل على Kaleem Stores\n**نوع الاختبار:** اختبار رحلة كاملة End-to-End\n**السيناريو:** متجر عطور، بخور، عناية، ومستحضرات تجميل\n**القالب المستهدف:** Beauty Luxe أو أقرب قالب Beauty/General متاح\n**الإصدار:** 3.1 - نسخة مطابقة للنظام الحالي مع تحسينات شاملة\n**آخر تحديث:** 2026-05-17\n**الغرض:** تسليم هذه الوثيقة لمختبر ينفذ تجربة واقعية كتاجر ثم كعميل نهائي، مع اختبار ما يدعمه النظام فعليًا حاليًا: تسجيل OTP، أونبوردنج التاجر، إعداد المتجر، دليل الجاهزية، القوالب، المنتجات والمتغيرات، الدفع اليدوي حسب إعدادات المنصة، التوصيل/الشحن/الاستلام، checkout، تتبع الطلب المختصر، إدارة الطلبات، الإشعارات، والأسئلة والمراجعات عند توفرها.\n---\n## متطلبات قبل بدء الاختبار\n- [ ] لدي بريد إلكتروني جديد أو قابل للاستخدام للاختبار.\n- [ ] لدي رقم/اسم مختبر لاستخدامه في slug.\n- [ ] لدي صور منتجات وشعار وبانر مناسبة لمتجر عطور وتجميل.\n- [ ] أعرف رابط لوحة التاجر.\n- [ ] أعرف رابط المتجر بعد إنشائه.\n- [ ] بيئة الاختبار واضحة: staging أو production أو local.\n- [ ] لا أستخدم بيانات تاجر حقيقي.\n- [ ] سأوثق كل مشكلة بصورة أو فيديو قصير إن أمكن.\n---\n> **تنبيه مهم جدًا حول البريد الإلكتروني:**\n>\n> يجب استخدام **بريد إلكتروني حقيقي وفعّال** أثناء التسجيل، لأن النظام سيرسل **كود تحقق OTP من 6 أرقام** إلى البريد المسجل ولا يمكن إكمال التسجيل بدونه.\n>\n> إذا لم يصل كود OTP إلى صندوق الوارد خلال دقائق، يجب:\n> - مراجعة مجلد **الرسائل غير المرغوب فيها (Spam / Junk)**.\n> - مراجعة جميع الرسائل والمجلدات الأخرى في البريد.\n> - استخدام زر **إعادة إرسال الكود** الذي يظهر في صفحة التحقق.\n>\n> عدم استخدام بريد حقيقي سيمنع إكمال الاختبار بالكامل.\n---\n## 1. معلومات المختبر\n| الحقل | الإجابة |\n|---|---|\n| اسم المختبر |  |\n| تاريخ الاختبار |  |\n| وقت البداية |  |\n| وقت النهاية |  |\n| الجهاز المستخدم | كمبيوتر / لابتوب / جوال / تابلت |\n| نظام التشغيل | Windows / macOS / Android / iOS |\n| المتصفح | Chrome / Edge / Safari / Firefox |\n| هل استخدمت Kaleem Stores من قبل؟ | نعم / لا |\n| هل لديك خبرة سابقة في إدارة متجر إلكتروني؟ | نعم / لا |\n| هل لديك معرفة ببيع العطور أو مستحضرات التجميل؟ | نعم / لا |\n| مستوى الخبرة التقنية | ضعيف / متوسط / جيد / ممتاز |\n---\n## 2. وصف الشخصية التي يمثلها المختبر\nأنت تمثل تاجرًا أو تاجرة تملك متجرًا صغيرًا في اليمن متخصصًا في:\n- العطور الرجالية.\n- العطور النسائية.\n- البخور والعود.\n- الزيوت العطرية.\n- منتجات العناية الشخصية.\n- مستحضرات تجميل بسيطة مثل المرطبات، كريمات البشرة، وأحمر الشفاه.\n- منتجات بخصومات.\n- منتجات مميزة.\n- منتجات نفدت من المخزون.\n- منتجات بمتغيرات مثل الحجم، الرائحة، الدرجة، أو نوع البشرة.\nاختبر النظام كما لو أنك تاجر حقيقي غير تقني ولا تعرف النظام مسبقًا. لا تفترض مكان أي زر أو إعداد. إذا توقفت أو لم تفهم خطوة، سجل ذلك فورًا.\n---\n## 3. هدف الاختبار\nنريد التأكد من أن Kaleem Stores مناسب لمتجر عطور وتجميل حقيقي ضمن قدرات النظام الحالية، وليس فقط مناسبًا لمنتجات عامة.\nالأهداف الأساسية:\n1. إنشاء حساب تاجر والتحقق من البريد عبر OTP.\n2. إكمال مرحلة أونبوردنج التاجر بعد OTP.\n3. فهم أن النظام ينشئ متجرًا تلقائيًا ثم يطلب إكمال بيانات أساسية.\n4. مراجعة دليل الجاهزية Store Readiness بعد الدخول للوحة.\n5. ضبط الهوية البصرية، الرابط، العنوان، الخريطة، ساعات العمل، وروابط التواصل.\n6. إنشاء أو مراجعة صفحات الثقة والسياسات.\n7. اختيار قالب مناسب للجمال والعطور ونشره.\n8. إنشاء التصنيفات والعلامات التجارية والسمات المناسبة للعطور والتجميل.\n9. إضافة منتجات واقعية تشمل البخور، العطور، العناية، والمكياج.\n10. اختبار المتغيرات مثل الحجم والرائحة والدرجة ونوع البشرة.\n11. إعداد طرق الدفع اليدوية الموجودة فعليًا حسب إعدادات المنصة.\n12. اختبار رفع إيصال الدفع، مع الانتباه أن الإيصال قد يكون اختياريًا أو إجباريًا حسب إعداد طريقة الدفع من المنصة.\n13. إعداد التوصيل/الشحن/الاستلام.\n14. تنفيذ رحلة عميل كاملة: تصفح، بحث، فلترة، سلة، checkout، طلب، وتتبع.\n15. اختبار المفضلة والمراجعات والأسئلة فقط عند تسجيل عميل، لأنها تحتاج تسجيل دخول.\n16. مراجعة الطلب والدفع والإشعارات من لوحة التاجر.\n17. تغيير حالة الطلب حسب الانتقالات المسموحة.\n18. تسجيل المشاكل ونقاط التحسين قبل تسليم النتيجة للفريق.\n---\n## 4. قواعد الاختبار\n1. لا تطلب مساعدة إلا إذا توقفت بالكامل.\n2. سجل أي رسالة خطأ نصًا أو بصورة شاشة.\n3. لا تعتبر المرحلة ناجحة إلا",
+  "language": "ar",
+  "direction": "rtl",
+  "status": "draft",
+  "estimatedDurationMinutes": 180,
+  "sourceFile": "perfume_cosmetics_store_testing_scenario_kaleem_matched_v2_ready.md",
+  "tags": [
+    "merchant-journey",
+    "e2e",
+    "ux",
+    "manual-qa",
+    "beauty"
+  ],
+  "preconditions": [
+    {
+      "checkId": "MJ-BEAUTY-PRE-CHK-001",
+      "order": 1,
+      "text": "[ ] لدي بريد إلكتروني جديد أو قابل للاستخدام للاختبار.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-BEAUTY-PRE-CHK-002",
+      "order": 2,
+      "text": "[ ] لدي رقم/اسم مختبر لاستخدامه في slug.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-BEAUTY-PRE-CHK-003",
+      "order": 3,
+      "text": "[ ] لدي صور منتجات وشعار وبانر مناسبة لمتجر عطور وتجميل.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-BEAUTY-PRE-CHK-004",
+      "order": 4,
+      "text": "[ ] أعرف رابط لوحة التاجر.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-BEAUTY-PRE-CHK-005",
+      "order": 5,
+      "text": "[ ] أعرف رابط المتجر بعد إنشائه.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-BEAUTY-PRE-CHK-006",
+      "order": 6,
+      "text": "[ ] بيئة الاختبار واضحة: staging أو production أو local.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-BEAUTY-PRE-CHK-007",
+      "order": 7,
+      "text": "[ ] لا أستخدم بيانات تاجر حقيقي.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    },
+    {
+      "checkId": "MJ-BEAUTY-PRE-CHK-008",
+      "order": 8,
+      "text": "[ ] سأوثق كل مشكلة بصورة أو فيديو قصير إن أمكن.",
+      "type": "status",
+      "required": true,
+      "weight": 1,
+      "expectedResult": null,
+      "allowAttachment": true,
+      "allowIssue": true
+    }
+  ],
+  "testData": [
+    "| الحقل | القيمة المقترحة |",
+    "|---|---|",
+    "| اسم المتجر بالعربي | روز عود |",
+    "| اسم المتجر بالإنجليزي | Rose Oud |",
+    "| رابط المتجر المقترح | `rose-oud-[اسم المختبر]-0517` |",
+    "| نوع النشاط | beauty |",
+    "| الدولة | اليمن |",
+    "| المحافظة | أمانة العاصمة أو صنعاء |",
+    "| العنوان التفصيلي | شارع حدة، بجانب مركز تجميل تجريبي |",
+    "| رقم التواصل | +9677xxxxxxx |",
+    "| البريد | **استخدم بريدك الحقيقي** (سيصل كود OTP) |",
+    "| العملة الافتراضية | YER |",
+    "| المنطقة الزمنية | Asia/Aden |",
+    "| القالب المفضل | Beauty Luxe أو أقرب قالب متاح |",
+    "> ملاحظة اختبار مهمة: نوع النشاط `beauty` مدعوم في النظام الحالي، وقالب `Beauty Luxe` موجود ضمن القوالب الاحترافية إذا كانت بذور القوالب مفعلة في البيئة.",
+    "> **ملاحظة مهمة حول الرابط:** لا تستخدم slug موجود مسبقًا. إذا ظهر أن الرابط مستخدم، أضف رقمًا أو اسمك في النهاية. الصيغة الصحيحة: `rose-oud-[اسم المختبر]-0517`",
+    "روابط تواصل تجريبية:",
+    "| المنصة | القيمة |",
+    "|---|---|",
+    "| WhatsApp | https://wa.me/9677xxxxxxx |",
+    "| Instagram | https://instagram.com/roseoudyemen |",
+    "| Facebook | https://facebook.com/roseoudyemen |",
+    "| TikTok | https://tiktok.com/@roseoudyemen |",
+    "| Snapchat | https://snapchat.com/add/roseoudyemen |",
+    "| Telegram | https://t.me/roseoudyemen |",
+    "| YouTube | https://youtube.com/@roseoudyemen |",
+    "| Website | https://example.com |",
+    "---"
+  ],
+  "phases": [
+    {
+      "phaseId": "MJ-BEAUTY-PH-001",
+      "order": 1,
+      "title": "إنشاء حساب التاجر والتحقق عبر OTP",
+      "sourceTitle": "المرحلة الأولى: إنشاء حساب التاجر والتحقق عبر OTP",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-001",
+          "order": 1,
+          "text": "افتح رابط لوحة تحكم التاجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-002",
+          "order": 2,
+          "text": "اختر إنشاء حساب تاجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-003",
+          "order": 3,
+          "text": "أدخل البيانات:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-004",
+          "order": 4,
+          "text": "| الحقل | القيمة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-005",
+          "order": 5,
+          "text": "| الاسم الكامل | سارة روز |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-006",
+          "order": 6,
+          "text": "| البريد الإلكتروني | **بريدك الحقيقي** (سيصل كود OTP) |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-007",
+          "order": 7,
+          "text": "| رقم هاتف المالك | +9677xxxxxxx |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-008",
+          "order": 8,
+          "text": "| كلمة المرور | 8 أحرف أو أكثر |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-009",
+          "order": 9,
+          "text": "اضغط إرسال رمز التحقق."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-010",
+          "order": 10,
+          "text": "تأكد من ظهور رسالة تفيد بإرسال كود للبريد."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-011",
+          "order": 11,
+          "text": "أدخل كود OTP المكون من 6 أرقام."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-012",
+          "order": 12,
+          "text": "اختبر إعادة إرسال الكود إذا لم يصل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-013",
+          "order": 13,
+          "text": "أكمل التحقق."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-014",
+          "order": 14,
+          "text": "لاحظ الصفحة التي تظهر بعد OTP: هل دخلت إلى الأونبوردنج؟ أم إلى لوحة التاجر؟"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-001-INST-015",
+          "order": 15,
+          "text": "> ملاحظة مهمة: التسجيل المباشر بدون OTP غير مستخدم حاليًا. بعد التحقق ينشئ النظام متجرًا تلقائيًا باسم ورابط افتراضي، ثم يظهر للتاجر أونبوردنج إذا لم يكتمل سابقًا."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-001-CHK-001",
+          "order": 1,
+          "text": "[ ] صفحة التسجيل واضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-001-CHK-002",
+          "order": 2,
+          "text": "[ ] الحقول المطلوبة مفهومة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-001-CHK-003",
+          "order": 3,
+          "text": "[ ] النظام رفض كلمة مرور أقل من 8 أحرف.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-001-CHK-004",
+          "order": 4,
+          "text": "[ ] النظام رفض رقم هاتف غير صالح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-001-CHK-005",
+          "order": 5,
+          "text": "[ ] تم إرسال OTP.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-001-CHK-006",
+          "order": 6,
+          "text": "[ ] تم قبول كود من 6 أرقام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-001-CHK-007",
+          "order": 7,
+          "text": "[ ] زر إعادة الإرسال واضح ويعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-001-CHK-008",
+          "order": 8,
+          "text": "[ ] عرفت ماذا حدث بعد OTP.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-001-CHK-009",
+          "order": 9,
+          "text": "[ ] لم أحتج إلى شرح خارجي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-001-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-001-Q-002",
+          "order": 2,
+          "text": "| هل كان واضحًا أن التسجيل يتطلب كود بريد؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-001-Q-003",
+          "order": 3,
+          "text": "| هل رسالة إرسال الكود واضحة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-001-Q-004",
+          "order": 4,
+          "text": "| هل مدة صلاحية الكود أو إعادة الإرسال واضحة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-001-Q-005",
+          "order": 5,
+          "text": "| هل دخلت إلى الأونبوردنج بعد OTP؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-001-Q-006",
+          "order": 6,
+          "text": "| هل واجهت خطأ؟ اذكره. |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-001-Q-007",
+          "order": 7,
+          "text": "| ما تقييم سهولة التسجيل من 1 إلى 10؟ |  |",
+          "type": "rating",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-002",
+      "order": 2,
+      "title": "أونبوردنج التاجر بعد OTP",
+      "sourceTitle": "المرحلة الثانية: أونبوردنج التاجر بعد OTP",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-001",
+          "order": 1,
+          "text": "بعد OTP، إذا كان حساب التاجر جديدًا ولم يكتمل `onboardingCompleted`، يجب أن تظهر شاشة أونبوردنج قبل الدخول الكامل للوحة التحكم."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-002",
+          "order": 2,
+          "text": "الأونبوردنج الحالي يركز على بيانات أساسية مثل:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-003",
+          "order": 3,
+          "text": "هوية المتجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-004",
+          "order": 4,
+          "text": "نشاط العمل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-005",
+          "order": 5,
+          "text": "معلومات التواصل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-006",
+          "order": 6,
+          "text": "أكمل الخطوة الأولى الخاصة بهوية المتجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-007",
+          "order": 7,
+          "text": "أدخل أو عدل اسم المتجر:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-008",
+          "order": 8,
+          "text": "العربي: روز عود."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-009",
+          "order": 9,
+          "text": "الإنجليزي: Rose Oud."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-010",
+          "order": 10,
+          "text": "أدخل وصفًا مختصرًا مناسبًا، مثل: متجر عطور وبخور ومستحضرات عناية مختارة بعناية في اليمن."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-011",
+          "order": 11,
+          "text": "اختر نوع النشاط `beauty` إذا ظهر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-012",
+          "order": 12,
+          "text": "أكمل خطوة معلومات التواصل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-013",
+          "order": 13,
+          "text": "أدخل رقم الهاتف وروابط التواصل الأساسية."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-014",
+          "order": 14,
+          "text": "أكمل الأونبوردنج."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-015",
+          "order": 15,
+          "text": "تأكد أنك وصلت إلى لوحة التاجر بعد الانتهاء."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-002-INST-016",
+          "order": 16,
+          "text": "إذا لم تظهر شاشة أونبوردنج لحساب جديد، سجل ذلك كملاحظة."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-002-CHK-001",
+          "order": 1,
+          "text": "[ ] ظهرت شاشة أونبوردنج بعد OTP لحساب جديد.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-002-CHK-002",
+          "order": 2,
+          "text": "[ ] فهمت أنها مرحلة تهيئة أولية وليست لوحة التحكم الكاملة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-002-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت إدخال هوية المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-002-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت اختيار نوع النشاط beauty.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-002-CHK-005",
+          "order": 5,
+          "text": "[ ] استطعت إدخال بيانات التواصل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-002-CHK-006",
+          "order": 6,
+          "text": "[ ] بعد الإكمال دخلت إلى لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-002-CHK-007",
+          "order": 7,
+          "text": "[ ] لم تظهر شاشة الأونبوردنج مرة أخرى بعد اكتمالها.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-002-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-002-Q-002",
+          "order": 2,
+          "text": "| هل الأونبوردنج واضح لتاجر غير تقني؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-002-Q-003",
+          "order": 3,
+          "text": "| هل فهمت كم خطوة يجب إكمالها؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-002-Q-004",
+          "order": 4,
+          "text": "| هل خيار beauty واضح ومناسب؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-002-Q-005",
+          "order": 5,
+          "text": "| هل شعرت أنك دخلت إلى لوحة التحكم بعد إكماله؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-002-Q-006",
+          "order": 6,
+          "text": "| ما تقييم الأونبوردنج من 1 إلى 10؟ |  |",
+          "type": "rating",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-003",
+      "order": 3,
+      "title": "دليل الجاهزية Store Readiness",
+      "sourceTitle": "المرحلة الثالثة: دليل الجاهزية Store Readiness",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-001",
+          "order": 1,
+          "text": "بعد الدخول إلى لوحة التاجر، راجع دليل الجاهزية أو أي بطاقة إرشادية تظهر في الصفحة الرئيسية. الهدف هو التأكد أن النظام يوجه التاجر إلى الخطوات المهمة قبل فتح المتجر للعميل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-002",
+          "order": 2,
+          "text": "افتح الصفحة الرئيسية للوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-003",
+          "order": 3,
+          "text": "ابحث عن بطاقة أو صفحة الجاهزية/الإعداد."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-004",
+          "order": 4,
+          "text": "تحقق من ظهور خطوات مثل:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-005",
+          "order": 5,
+          "text": "إعداد بيانات المتجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-006",
+          "order": 6,
+          "text": "إضافة التصنيفات."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-007",
+          "order": 7,
+          "text": "إضافة المنتجات."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-008",
+          "order": 8,
+          "text": "إعداد الدفع."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-009",
+          "order": 9,
+          "text": "إعداد التوصيل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-010",
+          "order": 10,
+          "text": "إعداد السياسات أو صفحات الثقة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-011",
+          "order": 11,
+          "text": "اضغط على أي إجراء سريع إن ظهر، مثل تفعيل الدفع عند الاستلام أو إعداد توصيل سريع."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-012",
+          "order": 12,
+          "text": "اختبر هل يمكن تخطي خطوة اختيارية أو اعتبارها مكتملة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-003-INST-013",
+          "order": 13,
+          "text": "بعد إكمال بعض الخطوات، ارجع للجاهزية وتأكد أن التقدم تغير."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-003-CHK-001",
+          "order": 1,
+          "text": "[ ] ظهر دليل جاهزية أو إرشاد واضح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-003-CHK-002",
+          "order": 2,
+          "text": "[ ] فهمت الخطوات الناقصة لإطلاق المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-003-CHK-003",
+          "order": 3,
+          "text": "[ ] روابط الإجراءات تنقلك للمكان الصحيح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-003-CHK-004",
+          "order": 4,
+          "text": "[ ] التقدم يتحدث بعد إكمال الخطوات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-003-CHK-005",
+          "order": 5,
+          "text": "[ ] يمكن تمييز الخطوات الإلزامية من الاختيارية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-003-CHK-006",
+          "order": 6,
+          "text": "[ ] لا توجد خطوة تطلب ميزة غير موجودة في النظام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-003-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-003-Q-002",
+          "order": 2,
+          "text": "| هل دليل الجاهزية مفيد لتاجر عطور وتجميل؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-003-Q-003",
+          "order": 3,
+          "text": "| هل الخطوات مرتبة منطقيًا؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-003-Q-004",
+          "order": 4,
+          "text": "| هل يوجد إجراء سريع وفّر عليك وقتًا؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-003-Q-005",
+          "order": 5,
+          "text": "| ما خطوة ناقصة تقترح إضافتها؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-003-Q-006",
+          "order": 6,
+          "text": "| ما تقييم دليل الجاهزية من 1 إلى 10؟ |  |",
+          "type": "rating",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-004",
+      "order": 4,
+      "title": "إعدادات المتجر الأساسية",
+      "sourceTitle": "المرحلة الرابعة: إعدادات المتجر الأساسية",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-001",
+          "order": 1,
+          "text": "المتجر موجود تلقائيًا بعد التسجيل. المطلوب فتح إعدادات المتجر وتحديث بياناته لتناسب متجر عطور وتجميل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-002",
+          "order": 2,
+          "text": "افتح إعدادات المتجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-003",
+          "order": 3,
+          "text": "راجع البيانات التي أدخلتها في الأونبوردنج."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-004",
+          "order": 4,
+          "text": "حدث اسم المتجر:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-005",
+          "order": 5,
+          "text": "العربي: روز عود."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-006",
+          "order": 6,
+          "text": "الإنجليزي: Rose Oud."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-007",
+          "order": 7,
+          "text": "حدث رابط المتجر إلى `rose-oud-[اسم المختبر]-0517`."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-008",
+          "order": 8,
+          "text": "استخدم فحص توفر الرابط إن ظهر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-009",
+          "order": 9,
+          "text": "جرّب رابطًا غير صالح أو محجوزًا مثل `admin` أو `api` أو رابطًا بحروف كبيرة، وسجل الرسالة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-010",
+          "order": 10,
+          "text": "اختر نوع النشاط: `beauty`."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-011",
+          "order": 11,
+          "text": "اختر العملة الافتراضية: YER."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-012",
+          "order": 12,
+          "text": "اختر المنطقة الزمنية: Asia/Aden."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-013",
+          "order": 13,
+          "text": "ارفع شعارًا للمتجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-014",
+          "order": 14,
+          "text": "إن ظهر حقل الفافيكون، ارفع فافيكون أيضًا."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-015",
+          "order": 15,
+          "text": "أدخل رقم الهاتف."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-016",
+          "order": 16,
+          "text": "أدخل الدولة والمحافظة والعنوان التفصيلي."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-017",
+          "order": 17,
+          "text": "افتح الخريطة وحدد موقعًا في صنعاء أو أمانة العاصمة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-018",
+          "order": 18,
+          "text": "اضبط ساعات العمل. مثال:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-019",
+          "order": 19,
+          "text": "السبت إلى الخميس: 10:00 - 22:00"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-020",
+          "order": 20,
+          "text": "الجمعة: 16:00 - 22:00"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-021",
+          "order": 21,
+          "text": "أدخل روابط التواصل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-022",
+          "order": 22,
+          "text": "اكتب السياسات داخل إعدادات المتجر إن كانت موجودة:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-023",
+          "order": 23,
+          "text": "سياسة الشحن."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-024",
+          "order": 24,
+          "text": "سياسة الاسترجاع، مع توضيح أن العطور ومستحضرات التجميل لا تسترجع إذا فتحت أو استخدمت."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-025",
+          "order": 25,
+          "text": "سياسة الخصوصية."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-026",
+          "order": 26,
+          "text": "الشروط والأحكام."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-027",
+          "order": 27,
+          "text": "احفظ التغييرات."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-028",
+          "order": 28,
+          "text": "أعد فتح الإعدادات وتأكد أن البيانات بقيت محفوظة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-029",
+          "order": 29,
+          "text": "> **ملاحظة مهمة حول سياسة الاسترجاع والاستبدال:** منتجات العطور ومستحضرات التجميل لها طبيعة خاصة. يجب أن تختبر بوضوح:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-030",
+          "order": 30,
+          "text": "> - هل سياسة الاسترجاع توضح أن المنتجات المفتوحة أو المستخدمة لا تُسترجع؟"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-031",
+          "order": 31,
+          "text": "> - هل هناك سياسة استبدال للمنتجات التالفة أو الخاطئة؟"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-032",
+          "order": 32,
+          "text": "> - هل مدة الاسترجاع/الاستبدال واضحة؟"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-033",
+          "order": 33,
+          "text": "> - هل إجراءات الاسترجاع/الاستبدال مذكورة بشكل يحمي التاجر والعميل؟"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-004-INST-034",
+          "order": 34,
+          "text": "> - سجل أي غموض أو نقص في هذه السياسات."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-001",
+          "order": 1,
+          "text": "[ ] عرفت أن المتجر منشأ تلقائيًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت تعديل اسم المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت تعديل رابط المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-004",
+          "order": 4,
+          "text": "[ ] ظهر فحص توفر الرابط أو رسالة خطأ واضحة عند رابط غير صالح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-005",
+          "order": 5,
+          "text": "[ ] استطعت اختيار نوع النشاط beauty.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-006",
+          "order": 6,
+          "text": "[ ] استطعت رفع الشعار.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-007",
+          "order": 7,
+          "text": "[ ] استطعت إدخال العنوان والمحافظة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-008",
+          "order": 8,
+          "text": "[ ] استطعت تحديد الموقع من الخريطة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-009",
+          "order": 9,
+          "text": "[ ] استطعت ضبط ساعات العمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-010",
+          "order": 10,
+          "text": "[ ] استطعت إدخال روابط التواصل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-011",
+          "order": 11,
+          "text": "[ ] استطعت إدخال السياسات إن كانت ضمن إعدادات المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-004-CHK-012",
+          "order": 12,
+          "text": "[ ] ظهرت البيانات بعد الحفظ.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-004-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-004-Q-002",
+          "order": 2,
+          "text": "| هل كان واضحًا أين تكمل إعدادات المتجر؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-004-Q-003",
+          "order": 3,
+          "text": "| هل نوع النشاط beauty مناسب لهذا المتجر؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-004-Q-004",
+          "order": 4,
+          "text": "| هل رابط المتجر مفهوم؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-004-Q-005",
+          "order": 5,
+          "text": "| هل الخريطة سهلة الاستخدام؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-004-Q-006",
+          "order": 6,
+          "text": "| هل السياسات كافية لطبيعة العطور والتجميل؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-004-Q-007",
+          "order": 7,
+          "text": "| ما تقييم إعدادات المتجر من 1 إلى 10؟ |  |",
+          "type": "rating",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-005",
+      "order": 5,
+      "title": "صفحات الثقة والسياسات Store Pages",
+      "sourceTitle": "المرحلة الخامسة: صفحات الثقة والسياسات Store Pages",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-005-INST-001",
+          "order": 1,
+          "text": "النظام يحتوي على إدارة صفحات للمتجر حسب المتاح في لوحة التاجر. لا تكتفِ بسياسات إعدادات المتجر إذا كانت صفحة الصفحات متاحة. اختبر ظهور الصفحات العامة للعميل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-005-INST-002",
+          "order": 2,
+          "text": "افتح صفحة إدارة صفحات المتجر إن كانت متاحة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-005-INST-003",
+          "order": 3,
+          "text": "أنشئ أو راجع الصفحات الأساسية."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-005-INST-004",
+          "order": 4,
+          "text": "اكتب محتوى تجريبيًا واضحًا لكل صفحة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-005-INST-005",
+          "order": 5,
+          "text": "فعل الصفحة إن وجد خيار تفعيل/تعطيل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-005-INST-006",
+          "order": 6,
+          "text": "احفظ."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-005-INST-007",
+          "order": 7,
+          "text": "افتح المتجر العام وتأكد أن الصفحات تظهر في الروابط أو الفوتر أو المكان المناسب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-005-INST-008",
+          "order": 8,
+          "text": "تحقق أن الصفحة لا تظهر فارغة أو بنصوص افتراضية غير مناسبة."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-005-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت صفحة إدارة صفحات المتجر أو عرفت أنها غير ظاهرة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-005-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت إنشاء أو تعديل صفحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-005-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت نشر أو تفعيل الصفحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-005-CHK-004",
+          "order": 4,
+          "text": "[ ] ظهرت الصفحة في المتجر العام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-005-CHK-005",
+          "order": 5,
+          "text": "[ ] سياسة الاسترجاع مناسبة لطبيعة العطور والتجميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-005-CHK-006",
+          "order": 6,
+          "text": "[ ] سياسة الاستبدال واضحة ومفيدة للعميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-005-CHK-007",
+          "order": 7,
+          "text": "[ ] صفحة تواصل معنا تعرض معلومات مفيدة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-005-CHK-008",
+          "order": 8,
+          "text": "[ ] لم تظهر نصوص افتراضية بدائية للعميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "| الصفحة | الهدف |",
+        "| من نحن | تعريف روز عود وقصة المتجر |",
+        "| تواصل معنا | بيانات التواصل وساعات العمل |",
+        "| سياسة الشحن | مدة التوصيل ورسوم المناطق |",
+        "| سياسة الاسترجاع | شروط استرجاع العطور ومستحضرات التجميل غير المفتوحة |",
+        "| سياسة الاستبدال | شروط استبدال المنتجات التالفة أو الخاطئة |",
+        "| سياسة الخصوصية | توضيح استخدام بيانات العميل |",
+        "| الشروط والأحكام | شروط الشراء والاستخدام |",
+        "| الأسئلة الشائعة | أسئلة عن ثبات العطر، التغليف، الاسترجاع، والتوصيل |",
+        "| دليل اختيار العطر | صفحة اختيارية تساعد العميل على اختيار الرائحة المناسبة |"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-006",
+      "order": 6,
+      "title": "القالب وواجهة المتجر",
+      "sourceTitle": "المرحلة السادسة: القالب وواجهة المتجر",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-006-INST-001",
+          "order": 1,
+          "text": "افتح صفحة القوالب أو واجهة المتجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-006-INST-002",
+          "order": 2,
+          "text": "ابحث عن قالب Beauty Luxe."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-006-INST-003",
+          "order": 3,
+          "text": "إذا لم يكن متاحًا، اختر أقرب قالب مناسب للجمال أو قالب عام."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-006-INST-004",
+          "order": 4,
+          "text": "طبقه كمسودة أولًا إن توفر الخيار."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-006-INST-005",
+          "order": 5,
+          "text": "عدل إعدادات القالب المتاحة مثل الألوان والصور والنصوص."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-006-INST-006",
+          "order": 6,
+          "text": "افتح المعاينة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-006-INST-007",
+          "order": 7,
+          "text": "انشر القالب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-006-INST-008",
+          "order": 8,
+          "text": "افتح رابط المتجر العام وتأكد أن التصميم مناسب للعطور والتجميل."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-006-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت قالب Beauty Luxe أو بديلًا مناسبًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-006-CHK-002",
+          "order": 2,
+          "text": "[ ] عرفت الفرق بين المسودة والنشر إن كان موجودًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-006-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت معاينة القالب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-006-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت نشر القالب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-006-CHK-005",
+          "order": 5,
+          "text": "[ ] ظهر القالب في المتجر العام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-006-CHK-006",
+          "order": 6,
+          "text": "[ ] التصميم يعطي ثقة ويبرز الصور والمنتجات الجمالية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-006-CHK-007",
+          "order": 7,
+          "text": "[ ] العرض مناسب للجوال والكمبيوتر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-007",
+      "order": 7,
+      "title": "التصنيفات",
+      "sourceTitle": "المرحلة السابعة: التصنيفات",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-007-INST-001",
+          "order": 1,
+          "text": "| الاسم العربي | الاسم الإنجليزي | ملاحظات |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-007-INST-002",
+          "order": 2,
+          "text": "| عطور رجالية | Men Perfumes | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-007-INST-003",
+          "order": 3,
+          "text": "| عطور نسائية | Women Perfumes | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-007-INST-004",
+          "order": 4,
+          "text": "| بخور وعود | Bakhoor & Oud | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-007-INST-005",
+          "order": 5,
+          "text": "| زيوت عطرية | Fragrance Oils | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-007-INST-006",
+          "order": 6,
+          "text": "| عناية بالبشرة | Skincare | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-007-INST-007",
+          "order": 7,
+          "text": "| مكياج | Makeup | تصنيف رئيسي |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-007-INST-008",
+          "order": 8,
+          "text": "| عروض | Deals | تصنيف للعروض |"
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-007-CHK-001",
+          "order": 1,
+          "text": "[ ] استطعت إنشاء التصنيفات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-007-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت تعديل تصنيف بعد إنشائه.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-007-CHK-003",
+          "order": 3,
+          "text": "[ ] ظهرت التصنيفات في لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-007-CHK-004",
+          "order": 4,
+          "text": "[ ] ظهرت التصنيفات في المتجر العام أو صفحة المنتجات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-008",
+      "order": 8,
+      "title": "العلامات التجارية Brands",
+      "sourceTitle": "المرحلة الثامنة: العلامات التجارية Brands",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-008-INST-001",
+          "order": 1,
+          "text": "أنشئ علامات تجارية قبل إضافة المنتجات حتى يمكن ربط المنتجات بها."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-008-INST-002",
+          "order": 2,
+          "text": "| الاسم العربي | الاسم الإنجليزي | ملاحظات |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-008-INST-003",
+          "order": 3,
+          "text": "| روز عود | Rose Oud | براند المتجر |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-008-INST-004",
+          "order": 4,
+          "text": "| عبدالصمد القرشي | Abdul Samad Al Qurashi | عطور وعود |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-008-INST-005",
+          "order": 5,
+          "text": "| لوكس بيوتي | Luxe Beauty | مستحضرات تجميل |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-008-INST-006",
+          "order": 6,
+          "text": "| ناتشر كير | Nature Care | عناية بالبشرة |"
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-008-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت صفحة العلامات التجارية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-008-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت إنشاء Brand عربي/إنجليزي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-008-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت رفع صورة أو شعار للعلامة إن كان متاحًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-008-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت تفعيل العلامة وجعلها شائعة إن ظهر الخيار.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-008-CHK-005",
+          "order": 5,
+          "text": "[ ] ظهرت العلامات عند إضافة المنتج.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-009",
+      "order": 9,
+      "title": "السمات Attributes وقيمها",
+      "sourceTitle": "المرحلة التاسعة: السمات Attributes وقيمها",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-009-INST-001",
+          "order": 1,
+          "text": "أنشئ السمات المناسبة لطبيعة العطور والتجميل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-009-INST-002",
+          "order": 2,
+          "text": "| السمة | النوع | القيم المطلوبة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-009-INST-003",
+          "order": 3,
+          "text": "| الحجم | dropdown | 30ml، 50ml، 100ml |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-009-INST-004",
+          "order": 4,
+          "text": "| الرائحة | dropdown | ورد، عود، مسك، فانيلا |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-009-INST-005",
+          "order": 5,
+          "text": "| نوع البشرة | dropdown | جافة، دهنية، مختلطة، حساسة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-009-INST-006",
+          "order": 6,
+          "text": "| الدرجة | color | Nude #D8A48F، Rose #C76D7E، Red #B91C1C |"
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-009-CHK-001",
+          "order": 1,
+          "text": "[ ] استطعت إنشاء سمة dropdown.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-009-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت إنشاء سمة color.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-009-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت إدخال قيم ألوان مع HEX.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-009-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت تفعيل/تعطيل السمة أو القيمة إن كان متاحًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-009-CHK-005",
+          "order": 5,
+          "text": "[ ] ظهرت السمات داخل منشئ المتغيرات في المنتج.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-010",
+      "order": 10,
+      "title": "إعداد الفلاتر من لوحة التاجر",
+      "sourceTitle": "المرحلة التاسعة ونصف: إعداد الفلاتر من لوحة التاجر",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-001",
+          "order": 1,
+          "text": "بعد إنشاء السمات والتصنيفات والعلامات التجارية، يجب إعداد الفلاتر التي سيستخدمها العملاء في المتجر العام لتصفية المنتجات. هذه المرحلة ضرورية لمتجر عطور وتجميل حيث يبحث العملاء عن منتجات بمواصفات محددة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-002",
+          "order": 2,
+          "text": "افتح صفحة الفلاتر من لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-003",
+          "order": 3,
+          "text": "فعّل فلتر السعر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-004",
+          "order": 4,
+          "text": "فعّل فلتر البراندات."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-005",
+          "order": 5,
+          "text": "فعّل فلتر التصنيفات."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-006",
+          "order": 6,
+          "text": "فعّل فلتر الخصائص: نوع الرائحة، الحجم، البراند، الفئة، مناسب للنساء/الرجال/الجنسين إن كان ضمن الخصائص."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-007",
+          "order": 7,
+          "text": "تأكد أن الفلاتر تظهر في المتجر العام."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-008",
+          "order": 8,
+          "text": "تأكد أن قيم الفلاتر تأتي من بيانات المنتجات/الخصائص/البراندات الحقيقية."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-009",
+          "order": 9,
+          "text": "ألغِ تفعيل فلتر وتأكد من اختفائه من المتجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-010-INST-010",
+          "order": 10,
+          "text": "سجل أي تعقيد أو تكرار أو غموض."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-010-CHK-001",
+          "order": 1,
+          "text": "[ ] نجح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-010-CHK-002",
+          "order": 2,
+          "text": "[ ] فشل",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-010-CHK-003",
+          "order": 3,
+          "text": "[ ] غير واضح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "الملاحظات:",
+        "اللقطات/الأدلة:"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-011",
+      "order": 11,
+      "title": "إضافة المنتجات",
+      "sourceTitle": "المرحلة العاشرة: إضافة المنتجات",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-001",
+          "order": 1,
+          "text": "[ ] استطعت إنشاء منتج بخور بسيط.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-002",
+          "order": 2,
+          "text": "[ ] استطعت إنشاء عطر بخصم ظاهر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-003",
+          "order": 3,
+          "text": "[ ] ظهر سعر المقارنة مشطوبًا في المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت إنشاء منتج مميز.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-005",
+          "order": 5,
+          "text": "[ ] استطعت إنشاء منتج نفد من المخزون.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-006",
+          "order": 6,
+          "text": "[ ] ظهر المنتج النافد بشكل واضح للعميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-007",
+          "order": 7,
+          "text": "[ ] استطعت إنشاء عطر بمتغيرات الحجم والرائحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-008",
+          "order": 8,
+          "text": "[ ] استطعت إنشاء مكياج بمتغيرات درجة اللون.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-009",
+          "order": 9,
+          "text": "[ ] ظهرت المتغيرات في صفحة المنتج.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-010",
+          "order": 10,
+          "text": "[ ] لم أستطع طلب كمية أكبر من المخزون.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-011",
+          "order": 11,
+          "text": "[ ] الصور تبدو مناسبة ومهمة للثقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-012",
+          "order": 12,
+          "text": "[ ] أوصاف الروائح والمكونات ظهرت بوضوح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-011-CHK-013",
+          "order": 13,
+          "text": "[ ] المنتج الرقمي وBundle ظلا اختياريين ولم يوقفا الرحلة الأساسية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "لكل منتج أساسي، اختبر الحقول التالية عند توفرها:",
+        "اسم عربي وإنجليزي.",
+        "وصف عربي وإنجليزي.",
+        "صورة واحدة على الأقل لكل منتج أساسي.",
+        "تصنيف واحد أو أكثر.",
+        "Brand.",
+        "نوع المنتج: single للمنتجات الأساسية.",
+        "الحالة والظهور.",
+        "السعر.",
+        "سعر المقارنة `compareAtPrice` إذا كان هناك خصم ظاهر.",
+        "خصم مدمج `inlineDiscount` إذا كان متاحًا، بنسبة أو مبلغ ثابت مع تاريخ بداية ونهاية.",
+        "تكلفة المنتج `costPrice` إن ظهرت.",
+        "المخزون أو مخزون غير محدود.",
+        "حد المخزون المنخفض.",
+        "SKU و barcode.",
+        "وزن وأبعاد.",
+        "حد أدنى وأقصى للطلب.",
+        "وسوم Tags مثل: عطر، عود، ورد، نسائي، رجالي.",
+        "تسمية منتج Product Label مثل: جديد، الأكثر طلبًا، محدود، فاخر.",
+        "رابط YouTube لفيديو تعريفي إن وجد.",
+        "SEO title و SEO description.",
+        "منتجات مرتبطة.",
+        "أسئلة المنتج مفعلة إن ظهر الخيار.",
+        "الضرائب `isTaxable` و `taxRate` إن ظهرت.",
+        "الصور وترتيبها واقتصاصها إن توفر.",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | بخور عود ملكي |",
+        "| الاسم الإنجليزي | Royal Oud Bakhoor |",
+        "| التصنيف | بخور وعود |",
+        "| العلامة | روز عود |",
+        "| النوع | single |",
+        "| السعر | 18000 |",
+        "| المخزون | 30 |",
+        "| SKU | BKH-ROYAL-OUD |",
+        "| الحالة | ظاهر/منشور |",
+        "| تسمية المنتج | فاخر |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | عطر ورد شرقي |",
+        "| الاسم الإنجليزي | Oriental Rose Perfume |",
+        "| التصنيف | عطور نسائية |",
+        "| العلامة | Rose Oud |",
+        "| السعر | 26000 |",
+        "| سعر المقارنة | 32000 |",
+        "| خصم مدمج | 20% أو مبلغ ثابت إن كان متاحًا |",
+        "| تاريخ بداية ونهاية الخصم | أدخل تواريخ صالحة إن ظهر الخيار |",
+        "| المخزون | 25 |",
+        "| الوسوم | ورد، نسائي، شرقي |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | عطر مسك أبيض فاخر |",
+        "| الاسم الإنجليزي | Premium White Musk |",
+        "| التصنيف | عطور رجالية أو نسائية |",
+        "| العلامة | عبدالصمد القرشي |",
+        "| السعر | 45000 |",
+        "| مميز | نعم |",
+        "| المخزون | 8 |",
+        "| وزن وأبعاد | أدخل قيمًا تجريبية |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | زيت عود كمبودي |",
+        "| الاسم الإنجليزي | Cambodian Oud Oil |",
+        "| التصنيف | زيوت عطرية |",
+        "| العلامة | روز عود |",
+        "| السعر | 60000 |",
+        "| المخزون | 0 |",
+        "| حد المخزون المنخفض | 2 |",
+        "| تسمية المنتج | محدود |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | عطر روز عود الخاص |",
+        "| الاسم الإنجليزي | Rose Oud Signature Perfume |",
+        "| التصنيف | عطور نسائية |",
+        "| العلامة | Rose Oud |",
+        "| السمات | الحجم + الرائحة |",
+        "أنشئ المتغيرات التالية:",
+        "| الحجم | الرائحة | SKU | Barcode | السعر | سعر المقارنة | المخزون | حد منخفض |",
+        "| 30ml | ورد | ROP-ROSE-30 | 200000001 | 15000 | 18000 | 12 | 2 |",
+        "| 50ml | ورد | ROP-ROSE-50 | 200000002 | 22000 | 26000 | 10 | 2 |",
+        "| 100ml | عود | ROP-OUD-100 | 200000003 | 38000 | 45000 | 6 | 2 |",
+        "| 50ml | مسك | ROP-MUSK-50 | 200000004 | 23000 | 27000 | 8 | 2 |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | كريم ترطيب للبشرة الحساسة |",
+        "| الاسم الإنجليزي | Sensitive Skin Moisturizer |",
+        "| التصنيف | عناية بالبشرة |",
+        "| العلامة | Nature Care |",
+        "| السعر | 12000 |",
+        "| السمة المناسبة | نوع البشرة إذا كان المنتج بمتغيرات، أو اذكر نوع البشرة في الوصف إذا كان منتجًا بسيطًا |",
+        "| المخزون | 20 |",
+        "| أسئلة المنتج | مفعلة إن ظهر الخيار |",
+        "| الحقل | القيمة |",
+        "| الاسم العربي | أحمر شفاه روز |",
+        "| الاسم الإنجليزي | Rose Lipstick |",
+        "| التصنيف | مكياج |",
+        "| العلامة | Luxe Beauty |",
+        "| السمات | الدرجة |",
+        "المتغيرات:",
+        "| الدرجة | SKU | السعر | المخزون |",
+        "| Nude | LIP-NUDE | 7000 | 15 |",
+        "| Rose | LIP-ROSE | 7000 | 14 |",
+        "| Red | LIP-RED | 7500 | 10 |",
+        "اختبره فقط إذا كانت واجهة المنتج المجمع واضحة ولا تجعل فشله مانعًا لاعتماد السيناريو.",
+        "| الحقل | القيمة |",
+        "| الاسم | باقة هدية روز عود |"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-012",
+      "order": 12,
+      "title": "طرق الدفع المطابقة للنظام",
+      "sourceTitle": "المرحلة الحادية عشرة: طرق الدفع المطابقة للنظام",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-012-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت صفحة طرق الدفع.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-012-CHK-002",
+          "order": 2,
+          "text": "[ ] فهمت الفرق بين COD والمحفظة والحوالة البنكية والصرافة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-012-CHK-003",
+          "order": 3,
+          "text": "[ ] استطعت تفعيل/تعطيل طريقة دفع.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-012-CHK-004",
+          "order": 4,
+          "text": "[ ] استطعت إدخال بيانات الحساب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-012-CHK-005",
+          "order": 5,
+          "text": "[ ] استطعت إدخال تعليمات عربي/إنجليزي إن كانت متاحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-012-CHK-006",
+          "order": 6,
+          "text": "[ ] ظهرت الطريقة في checkout للعميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-012-CHK-007",
+          "order": 7,
+          "text": "[ ] ظهر حقل المرجع فقط عند الحاجة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-012-CHK-008",
+          "order": 8,
+          "text": "[ ] ظهر رفع الإيصال كاختياري أو إجباري حسب إعداد الطريقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-012-CHK-009",
+          "order": 9,
+          "text": "[ ] لا توجد صياغة توهم التاجر أنه يتحكم في requiresReceipt/requiresReference إذا لم تكن متاحة له.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-012-Q-001",
+          "order": 1,
+          "text": "هل المرجع ظهر؟",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-012-Q-002",
+          "order": 2,
+          "text": "هل الإيصال مطلوب؟",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-012-Q-003",
+          "order": 3,
+          "text": "هل قبل النظام الطلب بدون المرجع/الإيصال؟",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-012-Q-004",
+          "order": 4,
+          "text": "هل ظهرت بيانات الدفع للتاجر في تفاصيل الطلب؟",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "طرق الدفع في النظام الحالي تأتي من إعدادات المنصة، والتاجر غالبًا لا ينشئ نوع دفع جديد من الصفر، بل يفعّل ويعدّل بيانات الطرق المتاحة له.",
+        "مهم جدًا:",
+        "`alkuraimi` أو طرق المحافظ المحلية قد تظهر كنوع `wallet` وليس `exchange_transfer`.",
+        "`exchange_transfer` تعني حوالة صرافة عامة، وليست بالضرورة كريمي تحديدًا.",
+        "`custom_manual` نوع مدعوم تقنيًا، لكنه لا يكون متاحًا للتاجر إلا إذا أضافته المنصة مسبقًا.",
+        "حقول مثل \"يتطلب مرجع\" و \"يتطلب إيصال\" ليست بالضرورة قابلة للتعديل من لوحة التاجر، وقد تكون محددة من منصة الإدارة.",
+        "الإيصال قد يكون اختياريًا أو إجباريًا حسب إعداد طريقة الدفع في المنصة. لا تفترض أنه إجباري دائمًا.",
+        "فعّل طريقة دفع واحدة على الأقل.",
+        "عطّل جميع الطرق مؤقتًا إن أمكن، ثم افتح checkout وتحقق أن الرسالة واضحة.",
+        "اختبر طريقة تحتاج رقم مرجع إن ظهر حقل المرجع.",
+        "اختبر إرسال الطلب بدون مرجع إذا كان المرجع مطلوبًا.",
+        "اختبر رفع إيصال تجريبي.",
+        "اختبر إرسال الطلب بدون إيصال.",
+        "إذا كان النظام يقول إن الإيصال مطلوب لكنه يسمح بالإرسال بدونه، سجلها كمشكلة عالية.",
+        "إذا كان الإيصال اختياريًا وظهر ذلك بوضوح، اعتبره سلوكًا صحيحًا.",
+        "| النوع التقني | الاسم المقترح للعرض | ملاحظات الاختبار |",
+        "| cod | الدفع عند الاستلام | لا يحتاج مرجعًا أو إيصالًا غالبًا |",
+        "| wallet | محفظة / كريمي / جوالي / ون كاش | كريمي قد يظهر هنا كطريقة محلية |",
+        "| bank_transfer | حوالة بنكية | قد تتطلب مرجعًا وقد تسمح بإيصال |",
+        "| exchange_transfer | حوالة عبر صراف | صرافة عامة وليست كريمي بالضرورة |",
+        "| custom_manual | طريقة يدوية مخصصة | اختبرها فقط إذا كانت مضافة من المنصة |",
+        "فعّل طريقة الدفع عند الاستلام.",
+        "تأكد أنها تظهر للعميل.",
+        "نفذ طلبًا بها.",
+        "تحقق أن checkout لا يطلب إيصالًا أو رقم مرجع بلا داعي.",
+        "اختبر كريمي أو أي محفظة محلية ظاهرة كطريقة دفع من نوع `wallet`.",
+        "| الحقل | القيمة |",
+        "| اسم الحساب | Rose Oud |",
+        "| رقم الحساب أو المحفظة | 123456789 |",
+        "| رقم الهاتف | +9677xxxxxxx |",
+        "| التعليمات بالعربي | حول المبلغ ثم اكتب رقم العملية، وارفع الإيصال إذا توفر. |",
+        "| التعليمات بالإنجليزي | Transfer the amount, enter the reference number, and upload receipt if available. |",
+        "اختبر `exchange_transfer` إذا كانت متاحة.",
+        "| الحقل | القيمة |",
+        "| اسم الحساب | Rose Oud |",
+        "| رقم الحساب | 123456789 |",
+        "| رقم الهاتف | +9677xxxxxxx |",
+        "| التعليمات | حول المبلغ عبر الصرافة ثم أدخل رقم العملية. |",
+        "| الحقل | القيمة |",
+        "| اسم الحساب | Rose Oud |",
+        "| رقم الحساب | 000111222333 |",
+        "| IBAN | YE00TEST000111222333 |",
+        "| التعليمات | ارفع إيصال التحويل بعد الدفع إن كان مطلوبًا أو متاحًا. |",
+        "استخدم هذا القالب لتسجيل أي مشكلة تتعلق بالدفع:",
+        "```",
+        "مشكلة دفع:",
+        "طريقة الدفع:",
+        "الملاحظة:",
+        "الدليل:",
+        "```"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-013",
+      "order": 13,
+      "title": "التوصيل والشحن والاستلام",
+      "sourceTitle": "المرحلة الثانية عشرة: التوصيل والشحن والاستلام",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-001",
+          "order": 1,
+          "text": "| الاسم | المدينة/المحافظة | المنطقة | الرسوم الافتراضية | الحالة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-002",
+          "order": 2,
+          "text": "| صنعاء داخل المدينة | أمانة العاصمة | داخل المدينة | 1500 | فعالة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-003",
+          "order": 3,
+          "text": "| صنعاء أطراف | صنعاء | أطراف المدينة | 2500 | فعالة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-004",
+          "order": 4,
+          "text": "| عدن | عدن | داخل المدينة | 3500 | فعالة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-005",
+          "order": 5,
+          "text": "| النوع | اسم العرض | الحقول المهمة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-006",
+          "order": 6,
+          "text": "| flat_rate | توصيل ثابت داخل صنعاء | cost، minDeliveryDays، maxDeliveryDays |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-007",
+          "order": 7,
+          "text": "| by_weight | توصيل حسب الوزن | baseCost، costPerKg، minCost، maxCost |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-008",
+          "order": 8,
+          "text": "| by_item | توصيل حسب عدد القطع | baseCost، costPerItem |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-009",
+          "order": 9,
+          "text": "| free_shipping | شحن مجاني للطلبات الكبيرة | freeShippingConditionType، freeShippingMinOrderAmount |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-010",
+          "order": 10,
+          "text": "| store_pickup | استلام من المتجر | pickupCost، أيام التوصيل أو تعليمات الاستلام |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-011",
+          "order": 11,
+          "text": "| weight_tier | شرائح حسب الوزن | ranges |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-012",
+          "order": 12,
+          "text": "| order_value_tier | شرائح حسب قيمة الطلب | ranges |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-013",
+          "order": 13,
+          "text": "أنشئ مناطق التوصيل أعلاه."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-014",
+          "order": 14,
+          "text": "أنشئ طريقة توصيل ثابتة داخل صنعاء."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-015",
+          "order": 15,
+          "text": "أنشئ طريقة مجانية عند تجاوز مبلغ معين إن كانت متاحة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-016",
+          "order": 16,
+          "text": "أنشئ طريقة استلام من المتجر إن كانت متاحة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-017",
+          "order": 17,
+          "text": "أنشئ طريقة حسب الوزن أو الشرائح إن كانت متاحة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-018",
+          "order": 18,
+          "text": "افتح checkout واختبر تغير رسوم الشحن حسب المنطقة أو الطريقة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-019",
+          "order": 19,
+          "text": "نفذ طلبًا باستخدام التوصيل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-013-INST-020",
+          "order": 20,
+          "text": "نفذ طلبًا ثانيًا باستخدام الاستلام من المتجر إن كان متاحًا."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-001",
+          "order": 1,
+          "text": "[ ] هل يظهر خيار الاستلام من المتجر إذا فعله التاجر؟",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-002",
+          "order": 2,
+          "text": "[ ] عند اختيار الاستلام من المتجر: هل ما زال النظام يطلب عنوان توصيل؟ هل هذا منطقي أم مربك؟",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-003",
+          "order": 3,
+          "text": "[ ] هل تظهر بيانات عنوان المتجر أو تعليمات الاستلام؟",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-004",
+          "order": 4,
+          "text": "[ ] عند اختيار التوصيل: هل تظهر طرق التوصيل المناسبة؟ هل التكلفة واضحة؟",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-005",
+          "order": 5,
+          "text": "[ ] إذا لم ينشئ التاجر أي طريقة توصيل: هل checkout يتعطل؟ هل تظهر رسالة واضحة؟",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-006",
+          "order": 6,
+          "text": "[ ] استطعت إنشاء منطقة توصيل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-007",
+          "order": 7,
+          "text": "[ ] استطعت إنشاء أكثر من طريقة توصيل/شحن.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-008",
+          "order": 8,
+          "text": "[ ] فهمت معنى نوع كل طريقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-009",
+          "order": 9,
+          "text": "[ ] ظهرت طرق الشحن في checkout.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-010",
+          "order": 10,
+          "text": "[ ] تغيرت الرسوم حسب المنطقة أو الطريقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-011",
+          "order": 11,
+          "text": "[ ] ظهر خيار الاستلام من المتجر إن تم تفعيله.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-012",
+          "order": 12,
+          "text": "[ ] ظهر الشحن المجاني فقط عند تحقق الشرط.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-013-CHK-013",
+          "order": 13,
+          "text": "[ ] تجربة checkout بدون أي طريقة توصيل كانت واضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-013-Q-001",
+          "order": 1,
+          "text": "هل يمنع النظام إكمال الطلب؟",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-013-Q-002",
+          "order": 2,
+          "text": "هل تظهر رسالة واضحة للعميل؟",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-013-Q-003",
+          "order": 3,
+          "text": "هل الرسالة تشرح أن المتجر لم يفعّل التوصيل؟",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-013-Q-004",
+          "order": 4,
+          "text": "هل يستطيع العميل اختيار الاستلام من المتجر إذا كان مفعّلًا؟",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "قبل إنشاء مناطق أو طرق توصيل، افتح المتجر كعميل وحاول الوصول إلى checkout.",
+        "المطلوب تسجيل ما يحدث:"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-014",
+      "order": 14,
+      "title": "الفوترة والاشتراك",
+      "sourceTitle": "المرحلة الثانية عشرة ونصف: الفوترة والاشتراك",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-014-INST-001",
+          "order": 1,
+          "text": "اختبار صفحة الفوترة والاشتراك من لوحة التاجر للتأكد من وضوح معلومات الباقة والتجربة المجانية والفواتير."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-014-INST-002",
+          "order": 2,
+          "text": "افتح صفحة الفوترة والاشتراك من لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-014-INST-003",
+          "order": 3,
+          "text": "تأكد من ظهور الباقة الحالية."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-014-INST-004",
+          "order": 4,
+          "text": "تأكد من ظهور حالة التجربة المجانية إن كانت مفعلة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-014-INST-005",
+          "order": 5,
+          "text": "تأكد من أن العملة المعروضة هي الريال اليمني YER."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-014-INST-006",
+          "order": 6,
+          "text": "تأكد من وضوح تاريخ انتهاء التجربة أو تاريخ التجديد."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-014-INST-007",
+          "order": 7,
+          "text": "تأكد من ظهور الفواتير/الإيصالات إن كانت موجودة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-014-INST-008",
+          "order": 8,
+          "text": "تأكد أن الصفحة لا تربك التاجر ولا تطلب منه إجراء غير متاح."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-014-INST-009",
+          "order": 9,
+          "text": "إن وجد حقل كوبون اشتراك، يختبر فقط إذا وفّر الفريق كوبونًا مسبقًا."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-014-CHK-001",
+          "order": 1,
+          "text": "[ ] نجح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-014-CHK-002",
+          "order": 2,
+          "text": "[ ] فشل",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-014-CHK-003",
+          "order": 3,
+          "text": "[ ] غير واضح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "الملاحظات:",
+        "اللقطات/الأدلة:",
+        "> **ملاحظة:** إذا لم تكن الفوترة مفعلة في بيئة الاختبار، يسجل المختبر ذلك كملاحظة ولا يوقف اختبار رحلة المتجر."
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-015",
+      "order": 15,
+      "title": "تجربة العميل في المتجر",
+      "sourceTitle": "المرحلة الثالثة عشرة: تجربة العميل في المتجر",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-001",
+          "order": 1,
+          "text": "[ ] الصفحة الرئيسية مناسبة لمتجر عطور وتجميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-002",
+          "order": 2,
+          "text": "[ ] الصور بارزة وواضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-003",
+          "order": 3,
+          "text": "[ ] التصنيفات تعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-004",
+          "order": 4,
+          "text": "[ ] البحث يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-005",
+          "order": 5,
+          "text": "[ ] الفلاتر تعمل إن ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-006",
+          "order": 6,
+          "text": "[ ] صفحة المنتج تعرض الوصف والمكونات أو الملاحظات العطرية بوضوح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-007",
+          "order": 7,
+          "text": "[ ] المتغيرات واضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-008",
+          "order": 8,
+          "text": "[ ] المنتج النافد لا يسمح بالشراء أو يظهر بوضوح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-009",
+          "order": 9,
+          "text": "[ ] المفضلة تعمل عند تسجيل عميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-010",
+          "order": 10,
+          "text": "[ ] الأسئلة والمراجعات واضحة عند تسجيل عميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-015-CHK-011",
+          "order": 11,
+          "text": "[ ] إذا ظهرت نصوص إنجليزية داخل واجهة عربية، تم تسجيلها كمشكلة تعريب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-015-Q-001",
+          "order": 1,
+          "text": "أضف سؤالًا على منتج مثل: هل مناسب للبشرة الحساسة؟",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "هذه الاختبارات لا تنفذ كضيف إلا إذا سمحت الواجهة بذلك صراحة:",
+        "سجل دخول أو أنشئ حساب عميل.",
+        "أضف منتجًا للمفضلة.",
+        "أضف مراجعة إن كان متاحًا.",
+        "إذا طلب النظام تسجيل الدخول، تحقق أن الرسالة واضحة.",
+        "افتح رابط المتجر العام.",
+        "تأكد من ظهور الهوية البصرية والصور بشكل مناسب للعطور والجمال.",
+        "افتح صفحة المنتجات.",
+        "اختبر البحث عن: عود، ورد، كريم، أحمر شفاه.",
+        "اختبر التصنيفات.",
+        "اختبر الفلاتر حسب السمات إن ظهرت.",
+        "افتح صفحة عطر بمتغيرات.",
+        "اختبر تغيير الحجم والرائحة.",
+        "افتح صفحة أحمر الشفاه واختبر درجة اللون.",
+        "افتح المنتج النافد.",
+        "تحقق أن المنتج النافد لا يسمح بالشراء أو يظهر بشكل واضح."
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-016",
+      "order": 16,
+      "title": "اختبار تجربة العميل داخل متجر التاجر",
+      "sourceTitle": "المرحلة الثالثة عشرة ونصف: اختبار تجربة العميل داخل متجر التاجر",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-001",
+          "order": 1,
+          "text": "اختبار شامل لتجربة العميل من الدخول إلى المتجر حتى إتمام الطلب، بما في ذلك إنشاء حساب العميل وإدارة حسابه."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-002",
+          "order": 2,
+          "text": "افتح المتجر من رابط عام."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-003",
+          "order": 3,
+          "text": "تصفح الصفحة الرئيسية."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-004",
+          "order": 4,
+          "text": "تصفح التصنيفات."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-005",
+          "order": 5,
+          "text": "افتح منتج بسيط."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-006",
+          "order": 6,
+          "text": "افتح منتج متغير."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-007",
+          "order": 7,
+          "text": "اختر متغير."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-008",
+          "order": 8,
+          "text": "أضف للسلة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-009",
+          "order": 9,
+          "text": "عدّل الكمية."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-010",
+          "order": 10,
+          "text": "أكمل checkout."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-011",
+          "order": 11,
+          "text": "أنشئ حساب عميل أو سجّل دخول إذا كانت الميزة ظاهرة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-012",
+          "order": 12,
+          "text": "أضف عنوان عميل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-013",
+          "order": 13,
+          "text": "أتمم الطلب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-014",
+          "order": 14,
+          "text": "افتح صفحة تتبع الطلب إن كانت متاحة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-015",
+          "order": 15,
+          "text": "الرجوع لحساب العميل إن وجد: الطلبات، العناوين، المفضلة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-016-INST-016",
+          "order": 16,
+          "text": "سجل أي خطوة مربكة."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-016-CHK-001",
+          "order": 1,
+          "text": "[ ] نجح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-016-CHK-002",
+          "order": 2,
+          "text": "[ ] فشل",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-016-CHK-003",
+          "order": 3,
+          "text": "[ ] غير واضح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "الملاحظات:",
+        "اللقطات/الأدلة:"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-017",
+      "order": 17,
+      "title": "السلة وإكمال الطلب",
+      "sourceTitle": "المرحلة الرابعة عشرة: السلة وإكمال الطلب",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-001",
+          "order": 1,
+          "text": "أضف منتج بخور إلى السلة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-002",
+          "order": 2,
+          "text": "أضف عطرًا بمتغيرات إلى السلة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-003",
+          "order": 3,
+          "text": "أضف أحمر شفاه بدرجة معينة إلى السلة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-004",
+          "order": 4,
+          "text": "عدّل كمية منتج."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-005",
+          "order": 5,
+          "text": "احذف منتجًا من السلة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-006",
+          "order": 6,
+          "text": "انتقل إلى إتمام الطلب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-007",
+          "order": 7,
+          "text": "نفذ مرة كضيف إن كان checkout يدعم الضيف."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-008",
+          "order": 8,
+          "text": "نفذ مرة كعميل مسجل إن كان متاحًا."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-009",
+          "order": 9,
+          "text": "أدخل بيانات العميل:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-010",
+          "order": 10,
+          "text": "| الحقل | القيمة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-011",
+          "order": 11,
+          "text": "| الاسم | ليلى العميلة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-012",
+          "order": 12,
+          "text": "| الهاتف | +9677xxxxxxx |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-013",
+          "order": 13,
+          "text": "| البريد | beauty.customer@example.com |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-014",
+          "order": 14,
+          "text": "| المحافظة/المدينة | أمانة العاصمة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-015",
+          "order": 15,
+          "text": "| المنطقة | داخل المدينة |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-016",
+          "order": 16,
+          "text": "| العنوان | شارع حدة، جوار مركز تجريبي |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-017",
+          "order": 17,
+          "text": "| ملاحظات | الرجاء تغليف الطلب كهدية |"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-018",
+          "order": 18,
+          "text": "اختر منطقة التوصيل وطريقة التوصيل أو الاستلام."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-019",
+          "order": 19,
+          "text": "**حالة A (الافتراضية):** اترك حقل الكوبون فارغًا ولا تعتبر ذلك فشلًا."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-020",
+          "order": 20,
+          "text": "اختر طريقة دفع يدوية."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-021",
+          "order": 21,
+          "text": "أدخل رقم المرجع إذا ظهر وكان مطلوبًا."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-022",
+          "order": 22,
+          "text": "ارفع إيصالًا تجريبيًا إذا كان الحقل ظاهرًا."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-023",
+          "order": 23,
+          "text": "أرسل الطلب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-017-INST-024",
+          "order": 24,
+          "text": "احفظ رقم الطلب."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-001",
+          "order": 1,
+          "text": "[ ] السلة تحفظ المنتجات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-002",
+          "order": 2,
+          "text": "[ ] المتغيرات المختارة ظاهرة داخل السلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-003",
+          "order": 3,
+          "text": "[ ] تعديل الكمية يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-004",
+          "order": 4,
+          "text": "[ ] الحذف يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-005",
+          "order": 5,
+          "text": "[ ] checkout واضح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-006",
+          "order": 6,
+          "text": "[ ] ملاحظة التغليف أو ملاحظة العميل محفوظة إن ظهر الحقل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-007",
+          "order": 7,
+          "text": "[ ] رسوم التوصيل ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-008",
+          "order": 8,
+          "text": "[ ] الكوبون يعمل أو رسالة الخطأ واضحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-009",
+          "order": 9,
+          "text": "[ ] طريقة الدفع ظهرت بتعليماتها.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-010",
+          "order": 10,
+          "text": "[ ] رفع الإيصال يعمل إذا ظهر الحقل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-011",
+          "order": 11,
+          "text": "[ ] رقم المرجع محفوظ إذا ظهر الحقل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-017-CHK-012",
+          "order": 12,
+          "text": "[ ] تم إرسال الطلب وظهر رقم الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "هذه مرحلة اختيارية ولا تجعل الكوبون شرطًا لإكمال الطلب الأساسي.",
+        "أنشئ كوبون من لوحة التاجر إن كانت الصفحة متاحة.",
+        "الكود: TEST10، النوع: نسبة مئوية، الخصم: 10%، الحالة: فعال.",
+        "استخدم الكوبون في checkout.",
+        "تأكد من خصم المبلغ.",
+        "جرّب كوبون غير صحيح.",
+        "جرّب كوبون غير فعال إن أمكن.",
+        "سجل هل رسالة الخطأ واضحة.",
+        "لا تجعل الكوبون شرطًا لإكمال الطلب الأساسي."
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-018",
+      "order": 18,
+      "title": "العودة إلى لوحة التاجر بعد إنشاء الطلب",
+      "sourceTitle": "المرحلة الرابعة عشرة ونصف: العودة إلى لوحة التاجر بعد إنشاء الطلب",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-018-INST-001",
+          "order": 1,
+          "text": "بعد إنشاء الطلب من جانب العميل، يجب الرجوع إلى لوحة التاجر والتأكد من أن الطلب ظهر وأن البيانات والإحصائيات تحدّثت بشكل صحيح."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-018-INST-002",
+          "order": 2,
+          "text": "افتح الرئيسية/لوحة القيادة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-018-INST-003",
+          "order": 3,
+          "text": "تأكد من ظهور الطلب الجديد في آخر الطلبات أو الملخص."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-018-INST-004",
+          "order": 4,
+          "text": "تأكد من تحديث أي إحصائيات مرتبطة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-018-INST-005",
+          "order": 5,
+          "text": "تأكد من ظهور إشعار أو تنبيه للطلب الجديد."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-018-INST-006",
+          "order": 6,
+          "text": "راجع دليل الجاهزية: هل تغيرت النسبة بعد إعداد المنتجات؟ بعد إعداد الدفع؟ بعد إعداد التوصيل؟"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-018-INST-007",
+          "order": 7,
+          "text": "سجل أي اختلاف."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-018-CHK-001",
+          "order": 1,
+          "text": "[ ] نجح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-018-CHK-002",
+          "order": 2,
+          "text": "[ ] فشل",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-018-CHK-003",
+          "order": 3,
+          "text": "[ ] غير واضح",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "الملاحظات:",
+        "اللقطات/الأدلة:"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-019",
+      "order": 19,
+      "title": "تتبع الطلب من جانب العميل",
+      "sourceTitle": "المرحلة الخامسة عشرة: تتبع الطلب من جانب العميل",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-001",
+          "order": 1,
+          "text": "صفحة تتبع الطلب في النظام الحالي مختصرة. لا تتوقع منها عرض كل تفاصيل الطلب مثل صفحة لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-002",
+          "order": 2,
+          "text": "البيانات المتوقعة فعليًا:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-003",
+          "order": 3,
+          "text": "رقم الطلب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-004",
+          "order": 4,
+          "text": "حالة الطلب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-005",
+          "order": 5,
+          "text": "الإجمالي."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-006",
+          "order": 6,
+          "text": "العملة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-007",
+          "order": 7,
+          "text": "آخر تحديث."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-008",
+          "order": 8,
+          "text": "خط زمني أو مراحل الحالة إن ظهرت."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-009",
+          "order": 9,
+          "text": "> إذا لم تظهر المنتجات أو الدفع أو الشحن في صفحة التتبع، لا تعتبر ذلك فشلًا وظيفيًا مباشرًا. سجله كتوصية تحسين لتجربة العميل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-010",
+          "order": 10,
+          "text": "افتح صفحة تتبع الطلب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-011",
+          "order": 11,
+          "text": "أدخل رقم الطلب أو البيانات المطلوبة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-012",
+          "order": 12,
+          "text": "تأكد من ظهور حالة الطلب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-013",
+          "order": 13,
+          "text": "تأكد من ظهور الإجمالي والعملة إن وجدا."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-014",
+          "order": 14,
+          "text": "تأكد من ظهور آخر تحديث أو timeline إن وجد."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-015",
+          "order": 15,
+          "text": "بعد تغيير حالة الطلب من لوحة التاجر، أعد فتح صفحة التتبع وتأكد من تحديث الحالة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-019-INST-016",
+          "order": 16,
+          "text": "تحقق أن أسماء الحالات في صفحة التتبع مطابقة لحالات النظام الفعلية، وليست حالات قديمة مثل pending/processing/shipped/delivered."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-019-CHK-001",
+          "order": 1,
+          "text": "[ ] وجدت صفحة تتبع الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-019-CHK-002",
+          "order": 2,
+          "text": "[ ] عرفت ما البيانات المطلوبة للتتبع.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-019-CHK-003",
+          "order": 3,
+          "text": "[ ] ظهرت حالة الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-019-CHK-004",
+          "order": 4,
+          "text": "[ ] ظهر الإجمالي أو بيانات مختصرة مفيدة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-019-CHK-005",
+          "order": 5,
+          "text": "[ ] تغيرت الحالة بعد تحديث التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-019-CHK-006",
+          "order": 6,
+          "text": "[ ] حالات التتبع مطابقة لحالات النظام الفعلية أو تم تسجيل الفرق كمشكلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-019-CHK-007",
+          "order": 7,
+          "text": "[ ] نقص تفاصيل المنتجات/الدفع/الشحن سجل كتوصية، وليس كفشل أساسي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-020",
+      "order": 20,
+      "title": "مراجعة الطلب في لوحة التاجر",
+      "sourceTitle": "المرحلة السادسة عشرة: مراجعة الطلب في لوحة التاجر",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-001",
+          "order": 1,
+          "text": "ارجع إلى لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-002",
+          "order": 2,
+          "text": "افتح الطلبات."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-003",
+          "order": 3,
+          "text": "ابحث عن الطلب الجديد."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-004",
+          "order": 4,
+          "text": "افتح تفاصيل الطلب."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-005",
+          "order": 5,
+          "text": "تحقق من:"
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-006",
+          "order": 6,
+          "text": "بيانات العميل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-007",
+          "order": 7,
+          "text": "المنتجات والكميات والمتغيرات."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-008",
+          "order": 8,
+          "text": "subtotal."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-009",
+          "order": 9,
+          "text": "الخصم."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-010",
+          "order": 10,
+          "text": "رسوم التوصيل."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-011",
+          "order": 11,
+          "text": "الإجمالي."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-012",
+          "order": 12,
+          "text": "طريقة الدفع."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-013",
+          "order": 13,
+          "text": "رقم المرجع إن وجد."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-014",
+          "order": 14,
+          "text": "الإيصال المرفوع إن وجد."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-015",
+          "order": 15,
+          "text": "طريقة التوصيل أو الاستلام والمنطقة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-016",
+          "order": 16,
+          "text": "ملاحظات العميل، خصوصًا طلب التغليف كهدية."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-017",
+          "order": 17,
+          "text": "راجع حالة الدفع إن ظهرت صفحة أو قسم خاص بها."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-020-INST-018",
+          "order": 18,
+          "text": "جرّب قبول أو رفض الدفع إذا كانت حالة الدفع تحت المراجعة."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-020-CHK-001",
+          "order": 1,
+          "text": "[ ] الطلب ظهر في لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-020-CHK-002",
+          "order": 2,
+          "text": "[ ] بيانات العميل صحيحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-020-CHK-003",
+          "order": 3,
+          "text": "[ ] المنتجات والمتغيرات صحيحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-020-CHK-004",
+          "order": 4,
+          "text": "[ ] الإجمالي صحيح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-020-CHK-005",
+          "order": 5,
+          "text": "[ ] بيانات الدفع والإيصال ظاهرة عند توفرها.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-020-CHK-006",
+          "order": 6,
+          "text": "[ ] بيانات التوصيل ظاهرة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-020-CHK-007",
+          "order": 7,
+          "text": "[ ] ملاحظات العميل ظاهرة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-020-CHK-008",
+          "order": 8,
+          "text": "[ ] يمكن مراجعة حالة الدفع إن كانت الميزة ظاهرة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-021",
+      "order": 21,
+      "title": "تغيير حالة الطلب",
+      "sourceTitle": "المرحلة السابعة عشرة: تغيير حالة الطلب",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-021-INST-001",
+          "order": 1,
+          "text": "غيّر الطلب من `new` إلى `confirmed`."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-021-INST-002",
+          "order": 2,
+          "text": "أضف ملاحظة إن ظهر حقل الملاحظة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-021-INST-003",
+          "order": 3,
+          "text": "غيّره إلى `preparing`."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-021-INST-004",
+          "order": 4,
+          "text": "غيّره إلى `out_for_delivery`."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-021-INST-005",
+          "order": 5,
+          "text": "افتح صفحة تتبع الطلب وتأكد من ظهور الحالة."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-021-INST-006",
+          "order": 6,
+          "text": "غيّره إلى `completed`."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-021-INST-007",
+          "order": 7,
+          "text": "أنشئ طلبًا ثانيًا أو استخدم طلب اختبار آخر لتجربة الإلغاء."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-021-INST-008",
+          "order": 8,
+          "text": "جرّب انتقالًا غير مسموح مثل `new` إلى `completed` إن أمكن، وسجل هل تم منعه."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-021-CHK-001",
+          "order": 1,
+          "text": "[ ] الحالات المعروضة مطابقة للقائمة الفعلية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-021-CHK-002",
+          "order": 2,
+          "text": "[ ] لا توجد حالة \"قيد المراجعة\" كحالة طلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-021-CHK-003",
+          "order": 3,
+          "text": "[ ] الانتقالات غير المسموحة ممنوعة أو غير معروضة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-021-CHK-004",
+          "order": 4,
+          "text": "[ ] الملاحظات تحفظ إن وجدت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-021-CHK-005",
+          "order": 5,
+          "text": "[ ] حالة العميل في صفحة التتبع تتحدث.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "| الحالة التقنية | التسمية العربية |",
+        "| new | جديد |",
+        "| confirmed | مؤكد |",
+        "| preparing | قيد التجهيز |",
+        "| out_for_delivery | في الطريق |",
+        "| completed | مكتمل |",
+        "| cancelled | ملغي |",
+        "| returned | مسترجع |",
+        "| من | إلى |",
+        "| new | confirmed أو cancelled |",
+        "| confirmed | preparing أو cancelled |",
+        "| preparing | out_for_delivery أو cancelled |",
+        "| out_for_delivery | completed أو returned |",
+        "| completed | لا يوجد انتقال |",
+        "| cancelled | لا يوجد انتقال |",
+        "| returned | لا يوجد انتقال |"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-022",
+      "order": 22,
+      "title": "الإشعارات",
+      "sourceTitle": "المرحلة الثامنة عشرة: الإشعارات",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-022-CHK-001",
+          "order": 1,
+          "text": "[ ] ظهر إشعار عند إنشاء الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-022-CHK-002",
+          "order": 2,
+          "text": "[ ] ظهر الطلب في مركز الإشعارات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-022-CHK-003",
+          "order": 3,
+          "text": "[ ] تظهر آخر الإشعارات في الشريط العلوي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-022-CHK-004",
+          "order": 4,
+          "text": "[ ] زر المزيد ينقل إلى صفحة الإشعارات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-022-CHK-005",
+          "order": 5,
+          "text": "[ ] يمكن تمييز الإشعار كمقروء.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-022-CHK-006",
+          "order": 6,
+          "text": "[ ] تفضيلات الإشعارات واضحة إن ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-022-CHK-007",
+          "order": 7,
+          "text": "[ ] الإشعارات الفورية تعمل أو لا تعمل وسجلت النتيجة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-022-CHK-008",
+          "order": 8,
+          "text": "[ ] صوت الإشعار يعمل أو سجلت أنه لا يعمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "إشعار إنشاء طلب جديد.",
+        "إشعار مخزون منخفض عند وصول منتج إلى حد المخزون المنخفض.",
+        "إشعار نفاد المخزون عند وصول المخزون إلى 0.",
+        "مركز الإشعارات في لوحة التاجر.",
+        "قائمة الإشعارات في الشريط العلوي.",
+        "صوت الإشعار إن كان مفعّلًا في الواجهة.",
+        "زر المزيد من قائمة الإشعارات ونقله إلى صفحة الإشعارات.",
+        "تفضيلات الإشعارات إن كانت ظاهرة:",
+        "فورية.",
+        "ملخص يومي.",
+        "كتم.",
+        "التحديث الفوري إن وصل بدون تحديث الصفحة.",
+        "أحداث مهمة يجب تسجيلها إن ظهرت:",
+        "`order.created`",
+        "`inventory.low_stock`",
+        "`inventory.out_of_stock`"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-023",
+      "order": 23,
+      "title": "العملاء، المراجعات، والأسئلة",
+      "sourceTitle": "المرحلة التاسعة عشرة: العملاء، المراجعات، والأسئلة",
+      "objective": null,
+      "instructions": [
+        {
+          "instructionId": "MJ-BEAUTY-PH-023-INST-001",
+          "order": 1,
+          "text": "افتح صفحة العملاء في لوحة التاجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-023-INST-002",
+          "order": 2,
+          "text": "تأكد من ظهور العميل الذي نفذ الطلب إذا كان النظام يسجله."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-023-INST-003",
+          "order": 3,
+          "text": "افتح مراجعات العملاء."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-023-INST-004",
+          "order": 4,
+          "text": "راجع المراجعة التي أضفتها من المتجر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-023-INST-005",
+          "order": 5,
+          "text": "جرّب قبول/رفض المراجعة إن كان متاحًا."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-023-INST-006",
+          "order": 6,
+          "text": "افتح أسئلة العملاء."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-023-INST-007",
+          "order": 7,
+          "text": "أجب على سؤال منتج العناية أو العطر."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-023-INST-008",
+          "order": 8,
+          "text": "افتح المتجر وتأكد من ظهور الإجابة أو المراجعة حسب حالة الاعتماد."
+        },
+        {
+          "instructionId": "MJ-BEAUTY-PH-023-INST-009",
+          "order": 9,
+          "text": "سجل أي نصوص غير معربة أو غير مناسبة لسياق العطور والتجميل."
+        }
+      ],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-023-CHK-001",
+          "order": 1,
+          "text": "[ ] صفحة العملاء مفهومة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-023-CHK-002",
+          "order": 2,
+          "text": "[ ] المراجعات تظهر في لوحة التاجر إن أضيفت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-023-CHK-003",
+          "order": 3,
+          "text": "[ ] يمكن إدارة حالة المراجعة إن كانت الميزة متاحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-023-CHK-004",
+          "order": 4,
+          "text": "[ ] أسئلة المنتجات تظهر إن أضيفت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-023-CHK-005",
+          "order": 5,
+          "text": "[ ] إجابة التاجر تظهر للعميل حسب حالة الاعتماد.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-023-CHK-006",
+          "order": 6,
+          "text": "[ ] رسائل تسجيل الدخول واضحة للضيف.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "المراجعات والأسئلة والمفضلة غالبًا تحتاج تسجيل دخول عميل. إذا اختبرتها كضيف وطلب النظام تسجيل الدخول، لا تعتبر ذلك فشلًا. المطلوب هو أن تكون الرسالة واضحة."
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-024",
+      "order": 24,
+      "title": "اختبارات اختيارية حسب الوقت",
+      "sourceTitle": "المرحلة العشرون: اختبارات اختيارية حسب الوقت",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "نفذ هذه فقط إذا اكتملت الرحلة الأساسية:",
+        "| الميزة | المطلوب |",
+        "| الكوبونات | إنشاء كوبون وتجربته في checkout |",
+        "| صفحة دليل اختيار العطر | إنشاء صفحة تساعد العميل على اختيار الرائحة المناسبة |",
+        "| صفحة سياسة الاسترجاع التفصيلية | توضيح شروط العطور ومستحضرات التجميل غير المفتوحة |",
+        "| صفحة سياسة الاستبدال | توضيح شروط استبدال المنتجات التالفة أو الخاطئة |",
+        "| المخزون والمستودعات | تعديل مخزون منتج وملاحظة أثره في المتجر |",
+        "| العملات المتعددة | إضافة عملة وتبديل العملة في المتجر إن ظهر الخيار |",
+        "| التحليلات | مراجعة ظهور الطلب في التقارير |",
+        "| تذاكر الدعم | إنشاء تذكرة دعم من العميل أو التاجر إن متاح |",
+        "| باقة هدايا Bundle | إنشاء Bundle وشراءه |",
+        "| منتج رقمي | إنشاء دليل PDF وشراءه |",
+        "| CSV | تجربة الاستيراد/التصدير إن كان ظاهرًا |"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-025",
+      "order": 25,
+      "title": "اختبار الأخطاء والتحقق",
+      "sourceTitle": "المرحلة الحادية والعشرون: اختبار الأخطاء والتحقق",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-025-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-025-Q-002",
+          "order": 2,
+          "text": "| هل رسائل الخطأ واضحة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-025-Q-003",
+          "order": 3,
+          "text": "| هل عرفت كيف تصلح الخطأ؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-025-Q-004",
+          "order": 4,
+          "text": "| هل ظهر خطأ تقني غير مفهوم؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-025-Q-005",
+          "order": 5,
+          "text": "| ما أكثر رسالة خطأ تحتاج تحسين؟ |  |",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "| الحالة | النتيجة المتوقعة | النتيجة الفعلية |",
+        "| بريد غير صالح في التسجيل | رسالة خطأ واضحة |  |",
+        "| كلمة مرور أقل من 8 أحرف | رفض واضح |  |",
+        "| OTP أقل أو أكثر من 6 أرقام | رفض واضح |  |",
+        "| رابط متجر بحروف كبيرة أو رموز | رفض أو تحويل لصيغة صحيحة |  |",
+        "| رابط متجر محجوز مثل admin أو api | رفض واضح |  |",
+        "| منتج بدون اسم | رفض واضح |  |",
+        "| سعر سالب | رفض واضح |  |",
+        "| مخزون سالب | رفض واضح |  |",
+        "| لون HEX غير صالح لدرجة المكياج | رفض واضح |  |",
+        "| متغير بدون SKU إن كان مطلوبًا | رفض واضح أو رسالة مفهومة |  |",
+        "| طريقة دفع بدون بيانات حساب وهي مطلوبة | رفض واضح |  |",
+        "| كل طرق الدفع معطلة | checkout يعرض رسالة واضحة |  |",
+        "| لا توجد طريقة توصيل مفعلة | checkout يعرض رسالة واضحة |  |",
+        "| شحن بدون اسم | رفض واضح |  |",
+        "| طلب بدون هاتف | رفض واضح |  |",
+        "| رفع إيصال أكبر من 5MB | رفض واضح |  |",
+        "| إرسال طلب بدون مرجع لطريقة تتطلب مرجعًا | رفض واضح |  |",
+        "| إرسال طلب بدون إيصال لطريقة تتطلب إيصالًا | رفض واضح إذا كان الإيصال مطلوبًا فعلًا |  |",
+        "| انتقال حالة طلب غير مسموح | رفض واضح |  |"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-026",
+      "order": 26,
+      "title": "سجل المشاكل",
+      "sourceTitle": "المرحلة الثانية والعشرون: سجل المشاكل",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "| رقم | المرحلة | وصف المشكلة | خطوات إعادة الإنتاج | الخطورة | هل منعت الإكمال؟ | صورة/رابط | ملاحظات |",
+        "| 1 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 2 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 3 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 4 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 5 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 6 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 7 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 8 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 9 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| 10 |  |  |  | منخفض / متوسط / عالي / حرج | نعم / لا |  |  |",
+        "| المستوى | المعنى |",
+        "| منخفض | مشكلة بسيطة لا تمنع الاستخدام، مثل نص غير واضح أو ترتيب مربك. |",
+        "| متوسط | تسبب ارتباكًا أو تحتاج محاولة ثانية لكنها لا توقف الرحلة. |",
+        "| عالي | تمنع إكمال مرحلة مهمة مثل حفظ منتج أو إرسال طلب. |",
+        "| حرج | تمنع الرحلة بالكامل أو تسبب فقدان بيانات أو فشل عملية الشراء. |"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-027",
+      "order": 27,
+      "title": "ملاحظات تجربة المستخدم",
+      "sourceTitle": "المرحلة الثالثة والعشرون: ملاحظات تجربة المستخدم",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "1.",
+        "2.",
+        "3.",
+        "1.",
+        "2.",
+        "3.",
+        "| المصطلح | أين ظهر؟ | لماذا غير واضح؟ | المقترح البديل |",
+        "|  |  |  |  |",
+        "|  |  |  |  |",
+        "|  |  |  |  |",
+        "| الزر أو الإجراء | الصفحة | المشكلة | الاقتراح |",
+        "|  |  |  |  |",
+        "|  |  |  |  |",
+        "|  |  |  |  |"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-028",
+      "order": 28,
+      "title": "تقييم شامل بالأرقام",
+      "sourceTitle": "المرحلة الرابعة والعشرون: تقييم شامل بالأرقام",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-001",
+          "order": 1,
+          "text": "قيّم كل بند من 1 إلى 10.",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-002",
+          "order": 2,
+          "text": "| البند | التقييم | ملاحظات |",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-003",
+          "order": 3,
+          "text": "| إنشاء حساب التاجر وOTP |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-004",
+          "order": 4,
+          "text": "| أونبوردنج التاجر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-005",
+          "order": 5,
+          "text": "| الدخول للوحة التاجر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-006",
+          "order": 6,
+          "text": "| دليل الجاهزية |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-007",
+          "order": 7,
+          "text": "| إعدادات المتجر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-008",
+          "order": 8,
+          "text": "| رابط المتجر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-009",
+          "order": 9,
+          "text": "| الشعار والهوية |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-010",
+          "order": 10,
+          "text": "| الخريطة والعنوان |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-011",
+          "order": 11,
+          "text": "| ساعات العمل |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-012",
+          "order": 12,
+          "text": "| السياسات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-013",
+          "order": 13,
+          "text": "| صفحات الثقة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-014",
+          "order": 14,
+          "text": "| القالب والنشر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-015",
+          "order": 15,
+          "text": "| مناسبة القالب للعطور والتجميل |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-016",
+          "order": 16,
+          "text": "| التصنيفات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-017",
+          "order": 17,
+          "text": "| العلامات التجارية |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-018",
+          "order": 18,
+          "text": "| السمات والمتغيرات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-019",
+          "order": 19,
+          "text": "| إعداد الفلاتر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-020",
+          "order": 20,
+          "text": "| إضافة منتج بخور |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-021",
+          "order": 21,
+          "text": "| إضافة عطر بخصم |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-022",
+          "order": 22,
+          "text": "| إضافة منتج مميز |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-023",
+          "order": 23,
+          "text": "| إضافة منتج نافد |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-024",
+          "order": 24,
+          "text": "| إضافة عطر بمتغيرات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-025",
+          "order": 25,
+          "text": "| إضافة مكياج بدرجات لون |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-026",
+          "order": 26,
+          "text": "| طرق الدفع |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-027",
+          "order": 27,
+          "text": "| رفع الإيصال |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-028",
+          "order": 28,
+          "text": "| مناطق وطرق التوصيل |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-029",
+          "order": 29,
+          "text": "| الاستلام من المتجر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-030",
+          "order": 30,
+          "text": "| الفوترة والاشتراك |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-031",
+          "order": 31,
+          "text": "| تجربة المتجر العامة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-032",
+          "order": 32,
+          "text": "| البحث والفلاتر |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-033",
+          "order": 33,
+          "text": "| السلة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-034",
+          "order": 34,
+          "text": "| checkout |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-035",
+          "order": 35,
+          "text": "| تتبع الطلب |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-036",
+          "order": 36,
+          "text": "| إدارة الطلب |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-037",
+          "order": 37,
+          "text": "| حالات الطلب |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-038",
+          "order": 38,
+          "text": "| الإشعارات |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-039",
+          "order": 39,
+          "text": "| المراجعات والأسئلة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-040",
+          "order": 40,
+          "text": "| التصميم العام |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-041",
+          "order": 41,
+          "text": "| سهولة الاستخدام العامة |  |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-042",
+          "order": 42,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-043",
+          "order": 43,
+          "text": "| التقييم العام للتجربة من 1 إلى 10 |  |",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-044",
+          "order": 44,
+          "text": "| هل تستطيع تجهيز متجر عطور حقيقي بنفسك بعد هذه التجربة؟ | نعم / لا / ربما |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-045",
+          "order": 45,
+          "text": "| هل النظام مناسب لتاجر غير تقني؟ | نعم / لا / يحتاج تحسين |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-046",
+          "order": 46,
+          "text": "| هل متجر العطور والتجميل جاهز للإطلاق التجريبي؟ | نعم / لا / نعم بعد تحسينات |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-028-Q-047",
+          "order": 47,
+          "text": "| هل تحتاج التجربة إلى شرح أو تدريب قبل الاستخدام؟ | نعم / لا |",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": []
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-029",
+      "order": 29,
+      "title": "أسئلة ختامية",
+      "sourceTitle": "المرحلة الخامسة والعشرون: أسئلة ختامية",
+      "objective": null,
+      "instructions": [],
+      "checks": [],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-001",
+          "order": 1,
+          "text": "| السؤال | الإجابة |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-002",
+          "order": 2,
+          "text": "| ما أكثر شيء أعجبك في التجربة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-003",
+          "order": 3,
+          "text": "| ما أكثر شيء أزعجك؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-004",
+          "order": 4,
+          "text": "| ما أول 3 تحسينات تقترحها؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-005",
+          "order": 5,
+          "text": "| ما أكثر خطوة أخذت وقتًا؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-006",
+          "order": 6,
+          "text": "| ما أكثر صفحة تحتاج إعادة تصميم؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-007",
+          "order": 7,
+          "text": "| هل الأونبوردنج كان كافيًا لتبدأ؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-008",
+          "order": 8,
+          "text": "| هل دليل الجاهزية ساعدك؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-009",
+          "order": 9,
+          "text": "| هل القالب يعكس طبيعة العطور والجمال؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-010",
+          "order": 10,
+          "text": "| هل الصور ووصف المنتج كافيان لبناء الثقة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-011",
+          "order": 11,
+          "text": "| هل المتغيرات مثل الحجم والرائحة والدرجة واضحة؟ |  |",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-012",
+          "order": 12,
+          "text": "| هل سياسة الاسترجاع مناسبة لطبيعة منتجات التجميل؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-013",
+          "order": 13,
+          "text": "| هل سياسة الاستبدال واضحة ومفيدة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-014",
+          "order": 14,
+          "text": "| هل طرق الدفع مناسبة للسوق اليمني؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-015",
+          "order": 15,
+          "text": "| هل التوصيل والاستلام واضحان ومناسبان؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-016",
+          "order": 16,
+          "text": "| هل صفحة تتبع الطلب كافية للعميل؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-017",
+          "order": 17,
+          "text": "| هل تجربة العميل من الدخول حتى الطلب سهلة؟ |  |",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-029-Q-018",
+          "order": 18,
+          "text": "| هل تنصح تاجر عطور أو تجميل بتجربة النظام الآن؟ |  |",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "1.",
+        "2.",
+        "3.",
+        "1.",
+        "2.",
+        "3.",
+        "1.",
+        "2.",
+        "3."
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-030",
+      "order": 30,
+      "title": "القرار النهائي",
+      "sourceTitle": "المرحلة السادسة والعشرون: القرار النهائي",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-030-CHK-001",
+          "order": 1,
+          "text": "[ ] النظام جاهز للإطلاق التجريبي لمتجر عطور وتجميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-030-CHK-002",
+          "order": 2,
+          "text": "[ ] النظام جاهز لكن يحتاج تحسينات بسيطة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-030-CHK-003",
+          "order": 3,
+          "text": "[ ] النظام يحتاج تحسينات متوسطة قبل الإطلاق.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-030-CHK-004",
+          "order": 4,
+          "text": "[ ] النظام غير جاهز حاليًا لتاجر عطور وتجميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [],
+      "testData": [],
+      "notes": [
+        "اختر نتيجة واحدة:",
+        "اكتب سبب قرارك بالتفصيل:"
+      ]
+    },
+    {
+      "phaseId": "MJ-BEAUTY-PH-031",
+      "order": 31,
+      "title": "ملخص مدير الاختبار",
+      "sourceTitle": "المرحلة السابعة والعشرون: ملخص مدير الاختبار",
+      "objective": null,
+      "instructions": [],
+      "checks": [
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-001",
+          "order": 1,
+          "text": "[ ] اعتماد السيناريو بنجاح.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-002",
+          "order": 2,
+          "text": "[ ] إعادة الاختبار بعد إصلاح المشاكل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-003",
+          "order": 3,
+          "text": "[ ] تحويل المشاكل إلى مهام تطوير.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-004",
+          "order": 4,
+          "text": "[ ] تأجيل اعتماد متجر العطور والتجميل حتى تحسين القالب أو الرحلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-005",
+          "order": 5,
+          "text": "[ ] تاجر",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-006",
+          "order": 6,
+          "text": "[ ] عميل",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-007",
+          "order": 7,
+          "text": "[ ] خطأ تقني",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-008",
+          "order": 8,
+          "text": "[ ] مشكلة UX",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-009",
+          "order": 9,
+          "text": "[ ] نقص في البيانات",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-010",
+          "order": 10,
+          "text": "[ ] مشكلة ترجمة",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-011",
+          "order": 11,
+          "text": "[ ] مشكلة Responsive",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-012",
+          "order": 12,
+          "text": "[ ] مشكلة أداء",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-013",
+          "order": 13,
+          "text": "[ ] مشكلة منطق تجاري",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-014",
+          "order": 14,
+          "text": "[ ] أخرى",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-015",
+          "order": 15,
+          "text": "[ ] حرجة",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-016",
+          "order": 16,
+          "text": "[ ] عالية",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-017",
+          "order": 17,
+          "text": "[ ] متوسطة",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-018",
+          "order": 18,
+          "text": "[ ] منخفضة",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-019",
+          "order": 19,
+          "text": "[ ] إنشاء حساب تاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-020",
+          "order": 20,
+          "text": "[ ] التحقق بكود OTP من 6 أرقام.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-021",
+          "order": 21,
+          "text": "[ ] إكمال أونبوردنج التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-022",
+          "order": 22,
+          "text": "[ ] الدخول إلى لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-023",
+          "order": 23,
+          "text": "[ ] مراجعة دليل الجاهزية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-024",
+          "order": 24,
+          "text": "[ ] تعديل المتجر المنشأ تلقائيًا.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-025",
+          "order": 25,
+          "text": "[ ] ضبط رابط المتجر وفحصه.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-026",
+          "order": 26,
+          "text": "[ ] ضبط نوع النشاط beauty.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-027",
+          "order": 27,
+          "text": "[ ] رفع الشعار.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-028",
+          "order": 28,
+          "text": "[ ] ضبط الدولة والمحافظة والعنوان.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-029",
+          "order": 29,
+          "text": "[ ] تحديد الموقع على الخريطة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-030",
+          "order": 30,
+          "text": "[ ] ضبط ساعات العمل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-031",
+          "order": 31,
+          "text": "[ ] إضافة روابط التواصل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-032",
+          "order": 32,
+          "text": "[ ] إضافة سياسات الشحن والاسترجاع والاستبدال والخصوصية والشروط.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-033",
+          "order": 33,
+          "text": "[ ] إنشاء أو مراجعة صفحات الثقة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-034",
+          "order": 34,
+          "text": "[ ] اختيار ونشر قالب Beauty Luxe أو بديل مناسب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-035",
+          "order": 35,
+          "text": "[ ] إنشاء تصنيفات العطور والبخور والعناية والمكياج.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-036",
+          "order": 36,
+          "text": "[ ] إنشاء Brands.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-037",
+          "order": 37,
+          "text": "[ ] إنشاء Attributes وقيمها.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-038",
+          "order": 38,
+          "text": "[ ] إعداد الفلاتر من لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-039",
+          "order": 39,
+          "text": "[ ] إضافة منتج بخور بسيط.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-040",
+          "order": 40,
+          "text": "[ ] إضافة عطر عليه خصم.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-041",
+          "order": 41,
+          "text": "[ ] إضافة منتج مميز.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-042",
+          "order": 42,
+          "text": "[ ] إضافة منتج نافد.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-043",
+          "order": 43,
+          "text": "[ ] إضافة عطر بمتغيرات الحجم والرائحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-044",
+          "order": 44,
+          "text": "[ ] إضافة منتج عناية بالبشرة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-045",
+          "order": 45,
+          "text": "[ ] إضافة مكياج بدرجات لون.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-046",
+          "order": 46,
+          "text": "[ ] فحص ظهور المنتجات في المتجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-047",
+          "order": 47,
+          "text": "[ ] فحص المتغيرات في صفحة المنتج.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-048",
+          "order": 48,
+          "text": "[ ] إعداد COD.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-049",
+          "order": 49,
+          "text": "[ ] اختبار كريمي أو محفظة محلية إذا ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-050",
+          "order": 50,
+          "text": "[ ] إعداد حوالة صرافة عامة إذا ظهرت.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-051",
+          "order": 51,
+          "text": "[ ] إعداد حوالة بنكية.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-052",
+          "order": 52,
+          "text": "[ ] اختبار رفع إيصال الدفع.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-053",
+          "order": 53,
+          "text": "[ ] اختبار المرجع حسب طريقة الدفع.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-054",
+          "order": 54,
+          "text": "[ ] اختبار checkout بدون أي طريقة دفع أو توصيل مفعلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-055",
+          "order": 55,
+          "text": "[ ] إنشاء مناطق توصيل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-056",
+          "order": 56,
+          "text": "[ ] إنشاء طرق توصيل/شحن.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-057",
+          "order": 57,
+          "text": "[ ] تفعيل الاستلام من المتجر إن ظهر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-058",
+          "order": 58,
+          "text": "[ ] فحص رسوم التوصيل في checkout.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-059",
+          "order": 59,
+          "text": "[ ] اختبار البحث والتصنيفات والفلاتر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-060",
+          "order": 60,
+          "text": "[ ] اختبار المفضلة بعد تسجيل عميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-061",
+          "order": 61,
+          "text": "[ ] اختبار الأسئلة والمراجعات بعد تسجيل عميل إن كانت متاحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-062",
+          "order": 62,
+          "text": "[ ] إضافة منتجات للسلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-063",
+          "order": 63,
+          "text": "[ ] تعديل كمية وحذف من السلة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-064",
+          "order": 64,
+          "text": "[ ] تنفيذ طلب كعميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-065",
+          "order": 65,
+          "text": "[ ] إدخال بيانات العميل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-066",
+          "order": 66,
+          "text": "[ ] اختيار الدفع والتوصيل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-067",
+          "order": 67,
+          "text": "[ ] إرسال الطلب وحفظ رقمه.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-068",
+          "order": 68,
+          "text": "[ ] تتبع الطلب من صفحة التتبع.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-069",
+          "order": 69,
+          "text": "[ ] مراجعة الطلب في لوحة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-070",
+          "order": 70,
+          "text": "[ ] مراجعة بيانات الدفع والإيصال.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-071",
+          "order": 71,
+          "text": "[ ] تغيير حالة الطلب حسب الانتقالات المسموحة.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-072",
+          "order": 72,
+          "text": "[ ] فحص إشعار الطلب.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-073",
+          "order": 73,
+          "text": "[ ] فحص مركز الإشعارات.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-074",
+          "order": 74,
+          "text": "[ ] تعبئة سجل المشاكل.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-075",
+          "order": 75,
+          "text": "[ ] تعبئة التقييم النهائي.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-076",
+          "order": 76,
+          "text": "[ ] تعبئة نموذج تسجيل المشكلة الموحد.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        },
+        {
+          "checkId": "MJ-BEAUTY-PH-031-CHK-077",
+          "order": 77,
+          "text": "[ ] تعبئة تقييم تجربة التاجر.",
+          "type": "status",
+          "required": true,
+          "weight": 1,
+          "expectedResult": null,
+          "allowAttachment": true,
+          "allowIssue": true
+        }
+      ],
+      "questions": [
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-001",
+          "order": 1,
+          "text": "قيّم من 1 إلى 5:",
+          "type": "rating",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-002",
+          "order": 2,
+          "text": "سهولة إنشاء الحساب:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-003",
+          "order": 3,
+          "text": "وضوح الأونبوردنج:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-004",
+          "order": 4,
+          "text": "سهولة إعداد المتجر:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-005",
+          "order": 5,
+          "text": "سهولة إضافة المنتجات:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-006",
+          "order": 6,
+          "text": "سهولة إعداد المنتجات المتغيرة:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-007",
+          "order": 7,
+          "text": "وضوح إعدادات الدفع:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-008",
+          "order": 8,
+          "text": "وضوح إعدادات التوصيل:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-009",
+          "order": 9,
+          "text": "وضوح القوالب والتخصيص:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-010",
+          "order": 10,
+          "text": "وضوح الفلاتر:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-011",
+          "order": 11,
+          "text": "سهولة إدارة الطلب:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-012",
+          "order": 12,
+          "text": "وضوح الإشعارات:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-013",
+          "order": 13,
+          "text": "سهولة فهم لوحة التحكم:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-014",
+          "order": 14,
+          "text": "ثقة المختبر بأن متجره أصبح جاهزًا للبيع:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-015",
+          "order": 15,
+          "text": "أكثر 3 أشياء مربكة:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-016",
+          "order": 16,
+          "text": "1.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-017",
+          "order": 17,
+          "text": "2.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-018",
+          "order": 18,
+          "text": "3.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-019",
+          "order": 19,
+          "text": "أكثر 3 أشياء ممتازة:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-020",
+          "order": 20,
+          "text": "1.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-021",
+          "order": 21,
+          "text": "2.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-022",
+          "order": 22,
+          "text": "3.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-023",
+          "order": 23,
+          "text": "أهم 5 تحسينات قبل الإطلاق:",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-024",
+          "order": 24,
+          "text": "1.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-025",
+          "order": 25,
+          "text": "2.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-026",
+          "order": 26,
+          "text": "3.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-027",
+          "order": 27,
+          "text": "4.",
+          "type": "textarea",
+          "required": false
+        },
+        {
+          "questionId": "MJ-BEAUTY-PH-031-Q-028",
+          "order": 28,
+          "text": "5.",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "testData": [],
+      "notes": [
+        "يعبأ هذا القسم من مدير المشروع بعد مراجعة نتائج المختبر.",
+        "| البند | النتيجة |",
+        "| هل اكتملت الرحلة؟ | نعم / لا |",
+        "| هل تم التسجيل والتحقق عبر OTP؟ | نعم / لا |",
+        "| هل تم إكمال الأونبوردنج؟ | نعم / لا |",
+        "| هل تم إعداد المتجر؟ | نعم / لا |",
+        "| هل تم فحص دليل الجاهزية؟ | نعم / لا |",
+        "| هل تم إنشاء أو مراجعة صفحات الثقة؟ | نعم / لا |",
+        "| هل تم نشر قالب مناسب؟ | نعم / لا |",
+        "| هل تم إنشاء التصنيفات؟ | نعم / لا |",
+        "| هل تم إنشاء العلامات التجارية؟ | نعم / لا |",
+        "| هل تم إنشاء السمات؟ | نعم / لا |",
+        "| هل تم إعداد الفلاتر؟ | نعم / لا |",
+        "| هل تمت إضافة كل المنتجات الأساسية المطلوبة؟ | نعم / لا |",
+        "| هل تم إعداد الدفع؟ | نعم / لا |",
+        "| هل تم اختبار رفع الإيصال؟ | نعم / لا |",
+        "| هل تم إعداد التوصيل/الشحن/الاستلام؟ | نعم / لا |",
+        "| هل تم اختبار checkout بدون توصيل مفعّل؟ | نعم / لا |",
+        "| هل تم إرسال طلب تجريبي؟ | نعم / لا |",
+        "| هل ظهر الطلب في لوحة التاجر؟ | نعم / لا |",
+        "| هل تم تغيير حالة الطلب حسب المسار الصحيح؟ | نعم / لا |",
+        "| هل تم تتبع الطلب من طرف العميل؟ | نعم / لا |",
+        "| هل ظهرت الإشعارات؟ | نعم / لا |",
+        "| عدد المشاكل الحرجة |  |",
+        "| عدد المشاكل العالية |  |",
+        "| عدد المشاكل المتوسطة |  |",
+        "| عدد المشاكل المنخفضة |  |",
+        "رقم المشكلة:",
+        "المرحلة:",
+        "الصفحة:",
+        "الدور:",
+        "نوع المشكلة:",
+        "درجة الخطورة:",
+        "الوصف:",
+        "الخطوات لإعادة المشكلة:",
+        "النتيجة الفعلية:",
+        "النتيجة المتوقعة:",
+        "رابط الصفحة:",
+        "الجهاز/المتصفح:",
+        "الصورة/الفيديو:",
+        "ملاحظات إضافية:",
+        "هذه الوثيقة مخصصة لاختبار تجربة تاجر عطور ومستحضرات تجميل كاملة على Kaleem Stores وفق ما هو موجود فعليًا في المشروع الحالي: تسجيل OTP، أونبوردنج التاجر، إعداد متجر منشأ تلقائيًا، دليل الجاهزية، صفحات الثقة، قالب Beauty Luxe أو بديل مناسب، منتجات ومتغيرات، دفع يدوي حسب إعدادات المنصة مع مرجع/إيصال عند الحاجة، توصيل/شحن/استلام، رحلة عميل، تتبع طلب مختصر، إدارة الطلبات، الإشعارات، والمراجعات والأسئلة عند تسجيل العميل."
+      ]
+    }
+  ],
+  "scoring": {
+    "passWeight": 1,
+    "failWeight": 0,
+    "blockedWeight": 0,
+    "notApplicableExcluded": true,
+    "readinessBands": [
+      {
+        "min": 85,
+        "max": 100,
+        "label": "ready"
+      },
+      {
+        "min": 70,
+        "max": 84,
+        "label": "ready_with_fixes"
+      },
+      {
+        "min": 50,
+        "max": 69,
+        "label": "needs_improvement"
+      },
+      {
+        "min": 0,
+        "max": 49,
+        "label": "not_ready"
+      }
+    ]
+  },
+  "metadata": {
+    "createdFromMarkdown": true,
+    "convertedAt": "2026-05-17T00:00:00.000+03:00",
+    "checksum": "sha256:41ee43eab33217c540089a02732bb0f27e55248325ec6cb8569cb939705b3f9b",
+    "conversionWarnings": [
+      "MJ-BEAUTY-PH-024 لا يحتوي عناصر مصنفة كتعليمات أو checks أو أسئلة.",
+      "MJ-BEAUTY-PH-026 لا يحتوي عناصر مصنفة كتعليمات أو checks أو أسئلة.",
+      "MJ-BEAUTY-PH-027 لا يحتوي عناصر مصنفة كتعليمات أو checks أو أسئلة."
+    ]
+  }
+}
